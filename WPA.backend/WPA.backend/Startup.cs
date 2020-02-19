@@ -81,6 +81,9 @@ namespace WPA.backend
 
             // configure DI for application services
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IPlannerService, PlannerService>();
+            services.AddScoped<IGuestService, GuestService>();
+
             services.AddSwaggerDocument(document =>
             {
                 document.AddSecurity("JWT", Enumerable.Empty<string>(), new OpenApiSecurityScheme

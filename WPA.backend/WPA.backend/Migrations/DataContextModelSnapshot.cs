@@ -52,7 +52,7 @@ namespace WPA.backend.Migrations
 
                     b.Property<byte[]>("PasswordSalt");
 
-                    b.Property<int?>("PlannerId");
+                    b.Property<int>("PlannerId");
 
                     b.Property<string>("Username");
 
@@ -67,7 +67,8 @@ namespace WPA.backend.Migrations
                 {
                     b.HasOne("WPA.backend.Entities.Planner", "Planner")
                         .WithMany()
-                        .HasForeignKey("PlannerId");
+                        .HasForeignKey("PlannerId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

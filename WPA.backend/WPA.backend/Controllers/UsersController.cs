@@ -12,6 +12,8 @@ using WPA.backend.Services;
 using WPA.backend.Helpers;
 using WPA.backend.Models.Users;
 using WPA.backend.Entities;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace WPA.backend.Controllers
 {
@@ -36,41 +38,41 @@ namespace WPA.backend.Controllers
 
         [AllowAnonymous]
         [HttpPost("authenticate")]
-        public IActionResult Authenticate([FromBody]AuthenticateModel model)
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> Authenticate([FromBody]AuthenticateModel model)
         {
-            var user = _userService.Authenticate(model.Username, model.Password);
+            var user = await _userService.Authenticate(model.Email, model.Password);
 
             if (user == null)
                 return BadRequest(new { message = "Username or password is incorrect" });
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+            var tokenExpireTime = DateTime.UtcNow.AddDays(7);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, user.Id.ToString())
+                    new Claim(ClaimTypes.Name, user.Id.ToString()),
+                    new Claim(ClaimTypes.Email, user.Username),
+                    new Claim(ClaimTypes.GivenName, user.FirstName),
+                    new Claim(ClaimTypes.Surname, user.LastName)
                 }),
-                Expires = DateTime.UtcNow.AddDays(7),
+                Expires = tokenExpireTime,
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
 
-            // return basic user info and authentication token
-            return Ok(new
-            {
-                Id = user.Id,
-                Username = user.Username,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Token = tokenString
-            });
+            return Ok(tokenString);
         }
 
         [AllowAnonymous]
         [HttpPost("register")]
-        public IActionResult Register([FromBody]RegisterModel model)
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> Register([FromBody]RegisterModel model)
         {
             // map model to entity
             var user = _mapper.Map<User>(model);
@@ -78,7 +80,7 @@ namespace WPA.backend.Controllers
             try
             {
                 // create user
-                _userService.Create(user, model.Password);
+                await _userService.Create(user, model.Password);
                 return Ok();
             }
             catch (AppException ex)
@@ -88,23 +90,19 @@ namespace WPA.backend.Controllers
             }
         }
 
-        [HttpGet]
-        public IActionResult GetAll()
-        {
-            var users = _userService.GetAll();
-            var model = _mapper.Map<IList<UserModel>>(users);
-            return Ok(model);
-        }
-
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        [ProducesResponseType(typeof(UserModel), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> GetById(int id)
         {
-            var user = _userService.GetById(id);
+            var user = await _userService.GetById(id);
             var model = _mapper.Map<UserModel>(user);
             return Ok(model);
         }
 
         [HttpPut("{id}")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public IActionResult Update(int id, [FromBody]UpdateModel model)
         {
             // map model to entity and set id
@@ -125,6 +123,8 @@ namespace WPA.backend.Controllers
         }
 
         [HttpDelete("{id}")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public IActionResult Delete(int id)
         {
             _userService.Delete(id);

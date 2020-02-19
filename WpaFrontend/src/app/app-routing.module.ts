@@ -1,8 +1,22 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: '', redirectTo: 'planner', pathMatch: 'full' },
+  { 
+    path: 'planner', 
+    loadChildren: './modules/planner/planner.module#PlannerModule'
+  },
+  {
+    path: 'guests',
+    loadChildren: './modules/guests/guests.module#GuestsModule'
+  }
+  { 
+    path: 'auth', 
+    loadChildren: './modules/auth/auth.module#AuthModule'
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

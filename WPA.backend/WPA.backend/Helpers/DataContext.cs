@@ -14,5 +14,6 @@ namespace WPA.backend.Helpers
 
         public DbSet<User> Users { get; set; }
         public DbSet<Planner> Planners { get; set; }
+        public DbSet<Guest> Guests { get; set; }
     }
 }

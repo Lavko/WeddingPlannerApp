@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,6 +17,12 @@ namespace WPA.backend.Services
             _context = context;
         }
 
+        public async Task<Planner> GetPlanner(int plannerId)
+        {
+            var planner = await _context.Planners.FindAsync(plannerId);
+            return planner;
+        }
+
         public async Task<Planner> AddUserToPlanner(User user, int plannerId)
         {
             var planner = await _context.Planners.FindAsync(plannerId);
@@ -29,12 +36,11 @@ namespace WPA.backend.Services
             return planner;
         }
 
-        public async Task<Planner> CreatePlanner(User user)
+        public async Task<Planner> CreatePlanner()
         {
             var planner = new Planner();
+
             _context.Add(planner);
-            user.Planner = planner;
-            _context.Update(user);
             await _context.SaveChangesAsync();
             return planner;
         }

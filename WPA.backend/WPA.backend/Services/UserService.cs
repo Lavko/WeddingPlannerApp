@@ -1,6 +1,8 @@
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using WPA.backend.Entities;
 using WPA.backend.Helpers;
 
@@ -8,10 +10,9 @@ namespace WPA.backend.Services
 {
     public interface IUserService
     {
-        User Authenticate(string username, string password);
-        IEnumerable<User> GetAll();
-        User GetById(int id);
-        User Create(User user, string password);
+        Task<User> Authenticate(string username, string password);
+        Task<User> GetById(int id);
+        Task<User> Create(User user, string password);
         void Update(User user, string password = null);
         void Delete(int id);
     }
@@ -19,18 +20,20 @@ namespace WPA.backend.Services
     public class UserService : IUserService
     {
         private DataContext _context;
+        private IPlannerService _plannerService;
 
-        public UserService(DataContext context)
+        public UserService(DataContext context, IPlannerService plannerService)
         {
             _context = context;
+            _plannerService = plannerService;
         }
 
-        public User Authenticate(string username, string password)
+        public async Task<User> Authenticate(string username, string password)
         {
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
                 return null;
 
-            var user = _context.Users.SingleOrDefault(x => x.Username == username);
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
 
             // check if username exists
             if (user == null)
@@ -44,17 +47,12 @@ namespace WPA.backend.Services
             return user;
         }
 
-        public IEnumerable<User> GetAll()
+        public async Task<User> GetById(int id)
         {
-            return _context.Users;
+            return await _context.Users.FindAsync(id);
         }
 
-        public User GetById(int id)
-        {
-            return _context.Users.Find(id);
-        }
-
-        public User Create(User user, string password)
+        public async Task<User> Create(User user, string password)
         {
             // validation
             if (string.IsNullOrWhiteSpace(password))
@@ -69,9 +67,10 @@ namespace WPA.backend.Services
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
 
-            _context.Users.Add(user);
-            _context.SaveChanges();
+            user.Planner = await _plannerService.CreatePlanner();
 
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
             return user;
         }
 

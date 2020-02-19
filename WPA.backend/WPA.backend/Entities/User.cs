@@ -8,7 +8,7 @@ namespace WPA.backend.Entities
         public string Username { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
-
+        public int PlannerId { get; set; }
         public Planner Planner { get; set; }
     }
 }

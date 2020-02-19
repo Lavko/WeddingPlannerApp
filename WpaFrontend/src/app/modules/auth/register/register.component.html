@@ -1,0 +1,29 @@
+<div class="row login-page">
+  <div class="login-wrapper col-md-4 offset-md-8">
+    <div class="login-form">
+      <h3>Register</h3>
+
+      <form class="example-form" [formGroup]="form">
+        <div fxLayout="column">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="First name" formControlName="firstName" />
+          </mat-form-field>
+
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Last name" formControlName="lastName" />
+          </mat-form-field>
+
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Email" formControlName="email" />
+          </mat-form-field>
+
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Password" type="password" formControlName="password" />
+          </mat-form-field>
+        </div>
+
+        <button mat-raised-button color="primary" class="btn-block" (click)="onSubmit()">Register</button>
+      </form>
+    </div>
+  </div>
+</div>

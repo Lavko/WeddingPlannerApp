@@ -1,1 +1,77 @@
-<p>guests-list works!</p>
+<div class="page-header" fxLayoutAlign="space-between start">
+  <div class="mat-display-1 page-header-title">Lista gości</div>
+  <div class="page-header-action">
+    <button mat-raised-button color="primary" (click)="openDialog(emptyGuest)">Dodaj gościa</button>
+  </div>
+</div>
+
+<div class="page-body">
+  <div fxLayoutAlign="center none">
+    <table
+      mat-table
+      *ngIf="data; else loader"
+      [dataSource]="data | async"
+      class="example-table"
+      matSort
+      matSortActive="created"
+      matSortDisableClear
+      matSortDirection="desc"
+      fxFlex="100"
+    >
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Imię</th>
+        <td mat-cell *matCellDef="let row">{{ row.name }}</td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+
+      <ng-container matColumnDef="adnotation">
+        <th mat-header-cell *matHeaderCellDef>Uwagi</th>
+        <td mat-cell *matCellDef="let row">{{ row.adnotation }}</td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+
+      <ng-container matColumnDef="isTravelling">
+        <th mat-header-cell *matHeaderCellDef>Przyjezdny</th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox [(ngModel)]="row.isTravelling" [disabled]="true"> </mat-checkbox>
+        </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let row">
+          <strong>{{ row.status | guestStatus }}</strong>
+        </td>
+        <td mat-footer-cell *matFooterCellDef>{{ 'Łącznie:' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="side">
+        <th mat-header-cell *matHeaderCellDef>Strona</th>
+        <td mat-cell *matCellDef="let row">
+          <strong>{{ row.side | guestSide }}</strong>
+        </td>
+        <td mat-footer-cell *matFooterCellDef>{{ guestsCount }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let row">
+          <button mat-icon-button color="accent" (click)="editGuest(row)">
+            <mat-icon>create</mat-icon>
+          </button>
+          <button mat-icon-button color="accent" (click)="deleteGuest(row)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+        <td mat-footer-cell *matFooterCellDef></td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+    </table>
+
+    <ng-template #loader><mat-spinner></mat-spinner></ng-template>
+  </div>
+</div>

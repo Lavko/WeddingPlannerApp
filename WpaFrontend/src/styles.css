@@ -27,3 +27,19 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+.page-header {
+  padding: 2vw;
+}
+
+.page-header-title {
+  margin: 0;
+}
+
+.page-body {
+  padding: 0 2vw 2vw 2vw;
+}
+
+.mat-footer-row {
+  font-weight: 500;
+}

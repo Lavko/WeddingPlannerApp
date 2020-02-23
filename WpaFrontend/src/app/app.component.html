@@ -1,11 +1,16 @@
 <mat-toolbar color="primary" class="app-header">
   <div><a href="https://localhost:4200" target="_blank" class="navbar-logo">WeddingPlannerApp</a></div>
-  <a mat-button routerLink="planner" routerLinkActive="active">Planner</a>
-  <a mat-button routerLink="guests" routerLinkActive="active">Guests</a>
+  <a mat-flat-button color="primary" routerLink="planner" routerLinkActive="active" *ngIf="isLoggedIn()">Planner</a>
+  <a mat-flat-button color="primary" routerLink="guests" routerLinkActive="active" *ngIf="isLoggedIn()">Goście</a>
   <span class="spacer"></span>
   <span class="nav-tool-items">
-    <a mat-button routerLink="auth/login" routerLinkActive="active">Log in</a>
-    <a mat-button routerLink="auth/register" routerLinkActive="active">Register</a>
+    <a mat-flat-button color="primary" routerLink="auth/login" routerLinkActive="active" *ngIf="!isLoggedIn()"
+      >Logowanie</a
+    >
+    <a mat-flat-button color="primary" routerLink="auth/register" routerLinkActive="active" *ngIf="!isLoggedIn()"
+      >Rejestracja</a
+    >
+    <a mat-flat-button color="primary" (click)="logOut()" *ngIf="isLoggedIn()">Wyloguj</a>
   </span>
 </mat-toolbar>
 <router-outlet></router-outlet>

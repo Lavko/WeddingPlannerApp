@@ -57,7 +57,8 @@ namespace WPA.backend.Controllers
                     new Claim(ClaimTypes.Name, user.Id.ToString()),
                     new Claim(ClaimTypes.Email, user.Username),
                     new Claim(ClaimTypes.GivenName, user.FirstName),
-                    new Claim(ClaimTypes.Surname, user.LastName)
+                    new Claim(ClaimTypes.Surname, user.LastName),
+                    new Claim("PlannerId", user.PlannerId.ToString())
                 }),
                 Expires = tokenExpireTime,
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

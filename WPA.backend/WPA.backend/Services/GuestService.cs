@@ -29,6 +29,13 @@ namespace WPA.backend.Services
             return  guest.Id;
         }
 
+        public async Task<int> Update(Guest guest)
+        {
+            _context.Update(guest);
+            await _context.SaveChangesAsync();
+            return guest.Id;
+        }
+
         public void Delete(Guest guest)
         {
             _context.Remove(guest);

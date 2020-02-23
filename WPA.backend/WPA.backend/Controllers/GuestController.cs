@@ -45,7 +45,13 @@ namespace WPA.backend.Controllers
             {
                 return BadRequest();
             }
-            await _guestService.Create(guest);
+            if (guest.Id == 0)
+            {
+                await _guestService.Create(guest);
+            }else
+            {
+                await _guestService.Update(guest);
+            }
             return Ok();
         }
 

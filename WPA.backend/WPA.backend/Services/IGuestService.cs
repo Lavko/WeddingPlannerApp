@@ -10,6 +10,7 @@ namespace WPA.backend.Services
     {
         Task<IList<Guest>> GetAll(int plannerId);
         Task<int> Create(Guest guest);
+        Task<int> Update(Guest guest);
         void Delete(Guest guest);
     }
 }

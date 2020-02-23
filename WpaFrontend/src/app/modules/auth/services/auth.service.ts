@@ -8,9 +8,8 @@ import { Api } from '../../api/api';
   providedIn: 'root'
 })
 export class AuthService {
-  private tokenKey: string = 'token';
-  private tokenExpire: string = 'token-expire';
-  private userProfileKey: string = 'user-profile';
+  private tokenKey = 'token';
+  private tokenExpire = 'token-expire';
   private helper = new JwtHelperService();
   constructor(private usersService: Api.UsersClient, private toastrService: ToastrService, private router: Router) {}
 
@@ -18,7 +17,6 @@ export class AuthService {
     this.usersService.authenticate(model).subscribe(response => {
       if (response) {
         localStorage.setItem(this.tokenKey, response);
-        this.toastrService.success('Logged in.');
         this.router.navigate([route]);
       }
     });
@@ -32,5 +30,15 @@ export class AuthService {
       return true;
     }
     return false;
+  }
+
+  public getPlannerId(): string {
+    const tokenDetails = this.helper.decodeToken(this.getToken());
+    return tokenDetails.PlannerId;
+  }
+
+  public logOut(): void {
+    localStorage.removeItem(this.tokenKey);
+    this.router.navigate(['auth/login']);
   }
 }

@@ -16,10 +16,10 @@ namespace WPA.backend.Controllers
     [Route("[controller]")]
     public class GuestController : ControllerBase
     {
-        private IGuestService _guestService;
+        private IRestService<Guest> _guestService;
         private IUserService _userService;
 
-        public GuestController(IGuestService guestService, IUserService userService)
+        public GuestController(IRestService<Guest> guestService, IUserService userService)
         {
             _guestService = guestService;
             _userService = userService;

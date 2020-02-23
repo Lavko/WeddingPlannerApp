@@ -8,7 +8,7 @@ using WPA.backend.Helpers;
 
 namespace WPA.backend.Services
 {
-    public class GuestService : IGuestService
+    public class GuestService : IRestService<Guest>
     {
         private readonly DataContext _context;
 

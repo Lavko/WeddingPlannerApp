@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WPA.backend.Entities;
 using WPA.backend.Helpers;
+using WPA.backend.Models;
 
 namespace WPA.backend.Services
 {
@@ -17,9 +18,19 @@ namespace WPA.backend.Services
             _context = context;
         }
 
-        public async Task<Planner> GetPlanner(int plannerId)
+        public async Task<PlannerSummaryModel> GetPlanner(int plannerId)
         {
-            var planner = await _context.Planners.FindAsync(plannerId);
+            var planner = await _context.Planners.Where(p => p.Id == plannerId).Select(p => 
+            new PlannerSummaryModel{
+                CeremonyDate = p.CeremonyDate,
+                CeremonyPlace = p.CeremonyPlace,
+                WeddingDate = p.WeddingDate,
+                WeddingPlace = p.WeddingPlace,
+                GuestCount = p.Guests.Count(),
+                ConfirmedGuestCount = p.Guests.Where(g => g.Status == GuestStatus.Confirmed).Count(),
+                Budget = p.Funds.Sum(f => f.Amount),
+                Expenses = p.Expenses.Sum(e => e.Amount)
+            }).FirstOrDefaultAsync();
             return planner;
         }
 

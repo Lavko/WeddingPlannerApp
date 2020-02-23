@@ -17,6 +17,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using NSwag;
 using NSwag.Generation.Processors.Security;
+using WPA.backend.Entities;
 using WPA.backend.Helpers;
 using WPA.backend.Services;
 
@@ -82,7 +83,9 @@ namespace WPA.backend
             // configure DI for application services
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IPlannerService, PlannerService>();
-            services.AddScoped<IGuestService, GuestService>();
+            services.AddScoped<IRestService<Guest>, GuestService>();
+            services.AddScoped<IRestService<Fund>, FundService>();
+            services.AddScoped<IRestService<Expense>, ExpenseService>();
 
             services.AddSwaggerDocument(document =>
             {

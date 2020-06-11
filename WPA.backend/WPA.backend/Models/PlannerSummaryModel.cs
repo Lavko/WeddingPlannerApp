@@ -7,6 +7,7 @@ namespace WPA.backend.Models
 {
     public class PlannerSummaryModel
     {
+        public int PlannerId { get; set; }
         public DateTime WeddingDate { get; set; }
         public string WeddingPlace { get; set; }
         public DateTime CeremonyDate { get; set; }

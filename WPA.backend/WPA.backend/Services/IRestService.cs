@@ -6,11 +6,11 @@ using WPA.backend.Entities;
 
 namespace WPA.backend.Services
 {
-    public interface IRestService<T>
+    public interface IRestService<T, C, U>
     {
         Task<IList<T>> GetAll(int plannerId);
-        Task<int> Create(T item);
-        Task<int> Update(T item);
-        void Delete(T item);
+        Task<int> Create(C item);
+        Task<int> Update(U item);
+        Task Delete(int id);
     }
 }

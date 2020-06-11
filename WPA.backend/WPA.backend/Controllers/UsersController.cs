@@ -10,7 +10,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using WPA.backend.Services;
 using WPA.backend.Helpers;
-using WPA.backend.Models.Users;
+using WPA.backend.DTOs.Users;
 using WPA.backend.Entities;
 using System.Net;
 using System.Threading.Tasks;
@@ -40,7 +40,7 @@ namespace WPA.backend.Controllers
         [HttpPost("authenticate")]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> Authenticate([FromBody]AuthenticateModel model)
+        public async Task<IActionResult> Authenticate([FromBody]LoginUserDto model)
         {
             var user = await _userService.Authenticate(model.Email, model.Password);
 
@@ -54,10 +54,9 @@ namespace WPA.backend.Controllers
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, user.Id.ToString()),
-                    new Claim(ClaimTypes.Email, user.Username),
-                    new Claim(ClaimTypes.GivenName, user.FirstName),
-                    new Claim(ClaimTypes.Surname, user.LastName),
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim(ClaimTypes.Name, user.FirstName),
                     new Claim("PlannerId", user.PlannerId.ToString())
                 }),
                 Expires = tokenExpireTime,
@@ -73,7 +72,7 @@ namespace WPA.backend.Controllers
         [HttpPost("register")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> Register([FromBody]RegisterModel model)
+        public async Task<IActionResult> Register([FromBody]RegisterUserDto model)
         {
             // map model to entity
             var user = _mapper.Map<User>(model);
@@ -92,19 +91,19 @@ namespace WPA.backend.Controllers
         }
 
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(UserModel), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(GetUserDto), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetById(int id)
         {
             var user = await _userService.GetById(id);
-            var model = _mapper.Map<UserModel>(user);
+            var model = _mapper.Map<GetUserDto>(user);
             return Ok(model);
         }
 
         [HttpPut("{id}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public IActionResult Update(int id, [FromBody]UpdateModel model)
+        public IActionResult Update(int id, [FromBody]UpdateUserDto model)
         {
             // map model to entity and set id
             var user = _mapper.Map<User>(model);

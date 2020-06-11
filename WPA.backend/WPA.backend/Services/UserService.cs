@@ -28,12 +28,12 @@ namespace WPA.backend.Services
             _plannerService = plannerService;
         }
 
-        public async Task<User> Authenticate(string username, string password)
+        public async Task<User> Authenticate(string email, string password)
         {
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
                 return null;
 
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == username);
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
 
             // check if username exists
             if (user == null)
@@ -58,8 +58,8 @@ namespace WPA.backend.Services
             if (string.IsNullOrWhiteSpace(password))
                 throw new AppException("Password is required");
 
-            if (_context.Users.Any(x => x.Username == user.Username))
-                throw new AppException("Username \"" + user.Username + "\" is already taken");
+            if (_context.Users.Any(x => x.Email == user.Email))
+                throw new AppException("Email \"" + user.Email + "\" is already registered");
 
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(password, out passwordHash, out passwordSalt);
@@ -82,21 +82,18 @@ namespace WPA.backend.Services
                 throw new AppException("User not found");
 
             // update username if it has changed
-            if (!string.IsNullOrWhiteSpace(userParam.Username) && userParam.Username != user.Username)
+            if (!string.IsNullOrWhiteSpace(userParam.Email) && userParam.Email != user.Email)
             {
                 // throw error if the new username is already taken
-                if (_context.Users.Any(x => x.Username == userParam.Username))
-                    throw new AppException("Username " + userParam.Username + " is already taken");
+                if (_context.Users.Any(x => x.Email == userParam.Email))
+                    throw new AppException("Email " + userParam.Email + " is already registered.");
 
-                user.Username = userParam.Username;
+                user.Email = userParam.Email;
             }
 
             // update user properties if provided
             if (!string.IsNullOrWhiteSpace(userParam.FirstName))
                 user.FirstName = userParam.FirstName;
-
-            if (!string.IsNullOrWhiteSpace(userParam.LastName))
-                user.LastName = userParam.LastName;
 
             // update password if provided
             if (!string.IsNullOrWhiteSpace(password))

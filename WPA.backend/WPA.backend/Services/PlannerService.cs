@@ -22,6 +22,7 @@ namespace WPA.backend.Services
         {
             var planner = await _context.Planners.Where(p => p.Id == plannerId).Select(p => 
             new PlannerSummaryModel{
+                PlannerId = p.Id,
                 CeremonyDate = p.CeremonyDate,
                 CeremonyPlace = p.CeremonyPlace,
                 WeddingDate = p.WeddingDate,

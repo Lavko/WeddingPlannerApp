@@ -1,6 +1,6 @@
 using AutoMapper;
 using WPA.backend.Entities;
-using WPA.backend.Models.Users;
+using WPA.backend.DTOs.Users;
 
 namespace WPA.backend.Helpers
 {
@@ -8,9 +8,9 @@ namespace WPA.backend.Helpers
     {
         public AutoMapperProfile()
         {
-            CreateMap<User, UserModel>();
-            CreateMap<RegisterModel, User>();
-            CreateMap<UpdateModel, User>();
+            CreateMap<User, GetUserDto>();
+            CreateMap<RegisterUserDto, User>();
+            CreateMap<UpdateUserDto, User>();
         }
     }
 }

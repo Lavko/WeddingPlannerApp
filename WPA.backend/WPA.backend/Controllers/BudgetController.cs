@@ -6,6 +6,8 @@ using System.Linq;
 using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using WPA.backend.DTOs.Expenses;
+using WPA.backend.DTOs.Funds;
 using WPA.backend.Entities;
 using WPA.backend.Models;
 using WPA.backend.Services;
@@ -17,11 +19,11 @@ namespace WPA.backend.Controllers
     [Route("[controller]")]
     public class BudgetController : ControllerBase
     {
-        private IRestService<Expense> _expenseService;
-        private IRestService<Fund> _fundService;
+        private IRestService<ExpenseDto, CreateExpenseDto, UpdateExpenseDto> _expenseService;
+        private IRestService<FundDto, CreateFundDto, UpdateFundDto> _fundService;
         private IUserService _userService;
 
-        public BudgetController(IRestService<Expense> expenseService, IRestService<Fund> fundService, IUserService userService)
+        public BudgetController(IRestService<ExpenseDto, CreateExpenseDto, UpdateExpenseDto> expenseService, IRestService<FundDto, CreateFundDto, UpdateFundDto> fundService, IUserService userService)
         {
             _expenseService = expenseService;
             _fundService = fundService;
@@ -29,11 +31,11 @@ namespace WPA.backend.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(IList<BudgetModel>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(BudgetModel), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetSummary()
         {
-            var user = await _userService.GetById(int.Parse(User.FindFirstValue(ClaimTypes.Name)));
+            var user = await _userService.GetById(int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)));
             var budget = new BudgetModel
             {
                 Funds = await _fundService.GetAll(user.PlannerId),
@@ -45,70 +47,82 @@ namespace WPA.backend.Controllers
         [HttpPost("fund")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> Post([FromBody] Fund fund)
+        public async Task<IActionResult> CreateFund([FromBody] CreateFundDto createFundDto)
         {
-            var user = await _userService.GetById(int.Parse(User.FindFirstValue(ClaimTypes.Name)));
-            if (fund.PlannerId != user.PlannerId)
+            var user = await _userService.GetById(int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)));
+            if (createFundDto.PlannerId != user.PlannerId)
             {
                 return BadRequest();
             }
-            if (fund.Id == 0)
+
+            await _fundService.Create(createFundDto);
+
+            return Ok();
+        }
+
+        [HttpPut("fund")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> UpdateFund([FromBody] UpdateFundDto updateFundDto)
+        {
+            var user = await _userService.GetById(int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)));
+            if (updateFundDto.PlannerId != user.PlannerId)
             {
-                await _fundService.Create(fund);
+                return BadRequest();
             }
-            else
-            {
-                await _fundService.Update(fund);
-            }
+
+            await _fundService.Update(updateFundDto);
+
             return Ok();
         }
 
         [HttpPost("expense")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> Post([FromBody] Expense expense)
+        public async Task<IActionResult> CreateExpense([FromBody] CreateExpenseDto createExpenseDto)
         {
-            var user = await _userService.GetById(int.Parse(User.FindFirstValue(ClaimTypes.Name)));
-            if (expense.PlannerId != user.PlannerId)
+            var user = await _userService.GetById(int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)));
+            if (createExpenseDto.PlannerId != user.PlannerId)
             {
                 return BadRequest();
             }
-            if (expense.Id == 0)
+
+            await _expenseService.Create(createExpenseDto);
+
+            return Ok();
+        }
+        [HttpPut("expense")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> UpdateExpense([FromBody] UpdateExpenseDto updateExpenseDto)
+        {
+            var user = await _userService.GetById(int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)));
+            if (updateExpenseDto.PlannerId != user.PlannerId)
             {
-                await _expenseService.Create(expense);
+                return BadRequest();
             }
-            else
-            {
-                await _expenseService.Update(expense);
-            }
+
+            await _expenseService.Update(updateExpenseDto);
+
             return Ok();
         }
 
-        [HttpDelete("fund")]
+
+        [HttpDelete("fund/{id}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> Delete([FromBody] Fund fund)
+        public async Task<IActionResult> DeleteFund(int id)
         {
-            var user = await _userService.GetById(int.Parse(User.FindFirstValue(ClaimTypes.Name)));
-            if (fund.PlannerId != user.PlannerId)
-            {
-                return BadRequest();
-            }
-            _fundService.Delete(fund);
+            await _fundService.Delete(id);
             return Ok();
         }
 
-        [HttpDelete("expense")]
+        [HttpDelete("expense/{id}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> Delete([FromBody] Expense expense)
+        public async Task<IActionResult> DeleteExpense(int id)
         {
-            var user = await _userService.GetById(int.Parse(User.FindFirstValue(ClaimTypes.Name)));
-            if (expense.PlannerId != user.PlannerId)
-            {
-                return BadRequest();
-            }
-            _expenseService.Delete(expense);
+            await _expenseService.Delete(id);
             return Ok();
         }
     }

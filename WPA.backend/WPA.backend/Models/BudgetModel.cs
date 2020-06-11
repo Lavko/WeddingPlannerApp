@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WPA.backend.DTOs.Expenses;
+using WPA.backend.DTOs.Funds;
 using WPA.backend.Entities;
 
 namespace WPA.backend.Models
 {
     public class BudgetModel
     {
-        public IList<Fund> Funds { get; set; }
-        public IList<Expense> Expenses { get; set; }
+        public IList<FundDto> Funds { get; set; }
+        public IList<ExpenseDto> Expenses { get; set; }
     }
 }

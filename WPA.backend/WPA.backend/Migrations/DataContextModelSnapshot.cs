@@ -39,9 +39,13 @@ namespace WPA.backend.Migrations
 
                     b.Property<string>("Provider");
 
+                    b.Property<int?>("ServiceProviderId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("PlannerId");
+
+                    b.HasIndex("ServiceProviderId");
 
                     b.ToTable("Expenses");
                 });
@@ -109,23 +113,59 @@ namespace WPA.backend.Migrations
                     b.ToTable("Planners");
                 });
 
+            modelBuilder.Entity("WPA.backend.Entities.ServiceProvider", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address");
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.Property<int>("ServiceTypeId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ServiceTypeId");
+
+                    b.ToTable("ServiceProviders");
+                });
+
+            modelBuilder.Entity("WPA.backend.Entities.ServiceType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Order");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ServiceType");
+                });
+
             modelBuilder.Entity("WPA.backend.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("FirstName");
+                    b.Property<string>("Email");
 
-                    b.Property<string>("LastName");
+                    b.Property<string>("FirstName");
 
                     b.Property<byte[]>("PasswordHash");
 
                     b.Property<byte[]>("PasswordSalt");
 
                     b.Property<int>("PlannerId");
-
-                    b.Property<string>("Username");
 
                     b.HasKey("Id");
 
@@ -140,6 +180,10 @@ namespace WPA.backend.Migrations
                         .WithMany("Expenses")
                         .HasForeignKey("PlannerId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("WPA.backend.Entities.ServiceProvider", "ServiceProvider")
+                        .WithMany()
+                        .HasForeignKey("ServiceProviderId");
                 });
 
             modelBuilder.Entity("WPA.backend.Entities.Fund", b =>
@@ -155,6 +199,14 @@ namespace WPA.backend.Migrations
                     b.HasOne("WPA.backend.Entities.Planner")
                         .WithMany("Guests")
                         .HasForeignKey("PlannerId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("WPA.backend.Entities.ServiceProvider", b =>
+                {
+                    b.HasOne("WPA.backend.Entities.ServiceType", "ServiceType")
+                        .WithMany()
+                        .HasForeignKey("ServiceTypeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

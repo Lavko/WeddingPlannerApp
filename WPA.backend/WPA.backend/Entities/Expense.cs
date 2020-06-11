@@ -9,6 +9,8 @@ namespace WPA.backend.Entities
     {
         public int Id { get; set; }
         public int PlannerId { get; set; }
+        public int? ServiceProviderId { get; set; }
+        public ServiceProvider? ServiceProvider { get; set; }
         public string Name { get; set; }
         public double Amount { get; set; }
         public string Adnotation { get; set; }

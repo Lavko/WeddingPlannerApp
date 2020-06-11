@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -60,12 +61,13 @@ namespace WPA.backend
                     OnTokenValidated = context =>
                     {
                         var userService = context.HttpContext.RequestServices.GetRequiredService<IUserService>();
-                        var userId = int.Parse(context.Principal.Identity.Name);
-                        var user = userService.GetById(userId);
-                        if (user == null)
+                        var nameIdentifier = context.Principal.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                        if(!int.TryParse(nameIdentifier, out int userId) || userService.GetById(userId).Result == null)
                         {
                             context.Fail("Unauthorized");
                         }
+
                         return Task.CompletedTask;
                     }
                 };
@@ -80,12 +82,7 @@ namespace WPA.backend
                 };
             });
 
-            // configure DI for application services
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IPlannerService, PlannerService>();
-            services.AddScoped<IRestService<Guest>, GuestService>();
-            services.AddScoped<IRestService<Fund>, FundService>();
-            services.AddScoped<IRestService<Expense>, ExpenseService>();
+            services.RegisterServices();
 
             services.AddSwaggerDocument(document =>
             {

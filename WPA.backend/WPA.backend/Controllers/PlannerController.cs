@@ -31,7 +31,7 @@ namespace WPA.backend.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> Get()
         {
-            var user = await _userService.GetById(int.Parse(User.FindFirstValue(ClaimTypes.Name)));
+            var user = await _userService.GetById(int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)));
             var planner = await _plannerService.GetPlanner(user.PlannerId);
             return Ok(planner);
         }

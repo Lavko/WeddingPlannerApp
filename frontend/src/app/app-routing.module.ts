@@ -23,6 +23,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     loadChildren: './service-providers/service-providers.module#ServiceProvidersModule',
   },
+  {
+    path: 'budget',
+    canActivate: [AuthGuard],
+    loadChildren: './budget/budget.module#BudgetModule',
+  },
 ];
 
 @NgModule({

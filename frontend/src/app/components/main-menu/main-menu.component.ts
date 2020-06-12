@@ -12,6 +12,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
   public isOpened: boolean;
   public menuItems = [
     { icon: 'people_alt', label: 'Goście', route: 'guests' },
+    { icon: 'account_balance', label: 'Finanse', route: 'budget' },
     { icon: 'style', label: 'Wizytówki', route: 'serviceProviders' },
   ];
   private mobileQueryListener: () => void;

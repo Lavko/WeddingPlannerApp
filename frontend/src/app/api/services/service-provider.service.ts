@@ -7,7 +7,7 @@ import { StrictHttpResponse as __StrictHttpResponse } from '../strict-http-respo
 import { Observable as __Observable } from 'rxjs';
 import { map as __map, filter as __filter } from 'rxjs/operators';
 
-import { ServiceProvider } from '../models/service-provider';
+import { ServiceProviderDto } from '../models/service-provider-dto';
 import { CreateServiceProviderDto } from '../models/create-service-provider-dto';
 import { UpdateServiceProviderDto } from '../models/update-service-provider-dto';
 @Injectable({
@@ -25,7 +25,7 @@ class ServiceProviderService extends __BaseService {
   ) {
     super(config, http);
   }
-  ServiceProviderGetAllResponse(): __Observable<__StrictHttpResponse<Array<ServiceProvider>>> {
+  ServiceProviderGetAllResponse(): __Observable<__StrictHttpResponse<Array<ServiceProviderDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -42,12 +42,12 @@ class ServiceProviderService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<Array<ServiceProvider>>;
+        return _r as __StrictHttpResponse<Array<ServiceProviderDto>>;
       })
     );
-  }  ServiceProviderGetAll(): __Observable<Array<ServiceProvider>> {
+  }  ServiceProviderGetAll(): __Observable<Array<ServiceProviderDto>> {
     return this.ServiceProviderGetAllResponse().pipe(
-      __map(_r => _r.body as Array<ServiceProvider>)
+      __map(_r => _r.body as Array<ServiceProviderDto>)
     );
   }
 

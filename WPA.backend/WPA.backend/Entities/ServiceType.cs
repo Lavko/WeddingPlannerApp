@@ -5,10 +5,19 @@ using System.Threading.Tasks;
 
 namespace WPA.backend.Entities
 {
-    public class ServiceType
+    public enum ServiceType
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Order { get; set; }
+        Unknown,
+        WEDDING_HALL,
+        CHURCH,
+        CIVIL_STATE_OFFICE,
+        CONFECTIONER,
+        ALCOHOL,
+        DECORATIONS,
+        MUSIC,
+        FOOD,
+        CAR,
+        ENTERTAINMENT,
+        ADVISOR
     }
 }

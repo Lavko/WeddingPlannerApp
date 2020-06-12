@@ -1,0 +1,28 @@
+<form [formGroup]="form">
+  <div fxLayout="column" fxLayoutAlign="start stretch">
+    <mat-form-field>
+      <mat-label>Nazwa</mat-label>
+      <input matInput placeholder="Weselex sp. z o.o." formControlName="name" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Rodzaj usługi</mat-label>
+      <mat-select formControlName="serviceType">
+        <mat-option *ngFor="let option of serviceTypeOptions" [value]="option.value">
+          {{ option.label }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Nr telefonu</mat-label>
+      <input matInput formControlName="phoneNumber" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Adres</mat-label>
+      <textarea matInput formControlName="address"></textarea>
+    </mat-form-field>
+  </div>
+</form>

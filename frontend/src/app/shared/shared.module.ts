@@ -10,16 +10,20 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { AuthGuard } from './../auth/guards/auth-guard';
 import { TokenInterceptor } from './../auth/interceptors/token.interceptor';
 import { GuestSidePipe } from './pipes/guest-side.pipe';
 import { GuestStatusPipe } from './pipes/guest-status.pipe';
+import { ServiceTypePipe } from './pipes/service-type.pipe';
 
 @NgModule({
-  declarations: [GuestStatusPipe, GuestSidePipe],
+  declarations: [GuestStatusPipe, GuestSidePipe, ServiceTypePipe],
   imports: [
     FormsModule,
     ReactiveFormsModule,
@@ -36,6 +40,9 @@ import { GuestStatusPipe } from './pipes/guest-status.pipe';
     MatSelectModule,
     MatDialogModule,
     MatSortModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
   ],
   exports: [
     FormsModule,
@@ -55,6 +62,10 @@ import { GuestStatusPipe } from './pipes/guest-status.pipe';
     MatSelectModule,
     MatDialogModule,
     MatSortModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    ServiceTypePipe,
   ],
   providers: [
     {

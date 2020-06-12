@@ -27,7 +27,7 @@ export class EditGuestDialogComponent implements OnInit {
     this.registerFormControls();
   }
 
-  public retrieveGuest(): UpdateGuestDto {
+  public retrieve(): UpdateGuestDto {
     return {
       id: this.data.id,
       plannerId: +this.authService.getPlannerId(),
@@ -37,6 +37,10 @@ export class EditGuestDialogComponent implements OnInit {
       status: this.form.get('status').value,
       side: this.form.get('side').value,
     };
+  }
+
+  public remove(): string {
+    return 'remove';
   }
 
   private registerFormControls(): void {

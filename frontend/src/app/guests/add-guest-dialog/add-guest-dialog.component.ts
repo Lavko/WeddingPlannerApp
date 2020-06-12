@@ -12,15 +12,6 @@ import { AuthService } from './../../auth/services/auth.service';
 export class AddGuestDialogComponent implements OnInit {
   public form: FormGroup;
 
-  public emptyGuest = {
-    name: '',
-    adnotation: '',
-    isTravelling: false,
-    status: 0,
-    side: 0,
-    plannerId: this.authService.getPlannerId(),
-  };
-
   constructor(
     public dialogRef: MatDialogRef<AddGuestDialogComponent>,
     private authService: AuthService,
@@ -31,9 +22,9 @@ export class AddGuestDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  public retrieveGuest(): CreateGuestDto {
+  public retrieve(): CreateGuestDto {
     return {
-      plannerId: +this.emptyGuest.plannerId,
+      plannerId: +this.authService.getPlannerId(),
       name: this.form.get('name').value,
       adnotation: this.form.get('adnotation').value,
       isTravelling: this.form.get('isTravelling').value,

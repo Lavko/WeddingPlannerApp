@@ -26,7 +26,7 @@ namespace WPA.backend.Controllers
         }
 
         [HttpGet("all")]
-        [ProducesResponseType(typeof(IList<ServiceProvider>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(IList<ServiceProviderDto>), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetAll()
         {

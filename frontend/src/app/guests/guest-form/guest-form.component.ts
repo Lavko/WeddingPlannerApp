@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { CreateGuestDto, UpdateGuestDto } from 'src/app/api/models';
 
 @Component({
   selector: 'app-guest-form',
@@ -9,7 +8,6 @@ import { CreateGuestDto, UpdateGuestDto } from 'src/app/api/models';
 })
 export class GuestFormComponent implements OnInit {
   @Input() public form!: FormGroup;
-  @Input() public guestDto: CreateGuestDto | UpdateGuestDto;
   public guestStatusOptions = [
     { value: 1, label: 'Poinformowany' },
     { value: 2, label: 'Zaproszony' },

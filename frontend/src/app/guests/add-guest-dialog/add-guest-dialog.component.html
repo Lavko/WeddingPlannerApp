@@ -1,8 +1,8 @@
 <h1 mat-dialog-title>Nowy gość</h1>
 <div mat-dialog-content>
-  <app-guest-form [guestDto]="emptyGuest" [form]="form"></app-guest-form>
+  <app-guest-form [form]="form"></app-guest-form>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onCancelClick()">Anuluj</button>
-  <button mat-button [mat-dialog-close]="retrieveGuest()" cdkFocusInitial>Ok</button>
+  <button mat-button [mat-dialog-close]="retrieve()" cdkFocusInitial>Ok</button>
 </div>

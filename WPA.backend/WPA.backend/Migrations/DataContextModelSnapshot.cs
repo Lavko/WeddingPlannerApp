@@ -127,28 +127,13 @@ namespace WPA.backend.Migrations
 
                     b.Property<string>("PhoneNumber");
 
+                    b.Property<int>("ServiceType");
+
                     b.Property<int>("ServiceTypeId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ServiceTypeId");
-
                     b.ToTable("ServiceProviders");
-                });
-
-            modelBuilder.Entity("WPA.backend.Entities.ServiceType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("Order");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ServiceType");
                 });
 
             modelBuilder.Entity("WPA.backend.Entities.User", b =>
@@ -199,14 +184,6 @@ namespace WPA.backend.Migrations
                     b.HasOne("WPA.backend.Entities.Planner")
                         .WithMany("Guests")
                         .HasForeignKey("PlannerId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("WPA.backend.Entities.ServiceProvider", b =>
-                {
-                    b.HasOne("WPA.backend.Entities.ServiceType", "ServiceType")
-                        .WithMany()
-                        .HasForeignKey("ServiceTypeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

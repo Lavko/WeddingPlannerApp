@@ -17,6 +17,7 @@ export { Planner } from './models/planner';
 export { Guest } from './models/guest';
 export { Expense } from './models/expense';
 export { Fund } from './models/fund';
+export { ServiceProviderDto } from './models/service-provider-dto';
 export { CreateServiceProviderDto } from './models/create-service-provider-dto';
 export { UpdateServiceProviderDto } from './models/update-service-provider-dto';
 export { LoginUserDto } from './models/login-user-dto';

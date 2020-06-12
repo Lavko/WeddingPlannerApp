@@ -18,6 +18,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     loadChildren: './guests/guests.module#GuestsModule',
   },
+  {
+    path: 'serviceProviders',
+    canActivate: [AuthGuard],
+    loadChildren: './service-providers/service-providers.module#ServiceProvidersModule',
+  },
 ];
 
 @NgModule({

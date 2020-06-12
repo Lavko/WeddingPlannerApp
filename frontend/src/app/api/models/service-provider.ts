@@ -6,6 +6,6 @@ export interface ServiceProvider {
   id: number;
   name?: string;
   phoneNumber?: string;
-  serviceType?: ServiceType;
+  serviceType: ServiceType;
   serviceTypeId: number;
 }

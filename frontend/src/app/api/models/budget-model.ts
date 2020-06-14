@@ -1,7 +1,7 @@
 /* tslint:disable */
 import { ExpenseDto } from './expense-dto';
-import { FundDto } from './fund-dto';
+import { IncomeDto } from './income-dto';
 export interface BudgetModel {
   expenses?: Array<ExpenseDto>;
-  funds?: Array<FundDto>;
+  incomes?: Array<IncomeDto>;
 }

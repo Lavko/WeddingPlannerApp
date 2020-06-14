@@ -14,6 +14,6 @@ namespace WPA.backend.Entities
         public string CeremonyPlace { get; set; }
         public virtual IList<Guest> Guests { get; set; }
         public virtual IList<Expense> Expenses { get; set; }
-        public virtual IList<Fund> Funds { get; set; }
+        public virtual IList<Income> Incomes { get; set; }
     }
 }

@@ -50,12 +50,14 @@ export class ServiceProvidersListPageComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      this.serviceProviderService
-        .ServiceProviderPost(result)
-        .pipe(untilDestroyed(this))
-        .subscribe(() => {
-          this.retrieveData();
-        });
+      if (result) {
+        this.serviceProviderService
+          .ServiceProviderPost(result)
+          .pipe(untilDestroyed(this))
+          .subscribe(() => {
+            this.retrieveData();
+          });
+      }
     });
   }
 
@@ -66,20 +68,22 @@ export class ServiceProvidersListPageComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      if (result === 'remove') {
-        this.serviceProviderService
-          .ServiceProviderDelete(provider.id)
-          .pipe(untilDestroyed(this))
-          .subscribe(() => {
-            this.retrieveData();
-          });
-      } else {
-        this.serviceProviderService
-          .ServiceProviderPut(result)
-          .pipe(untilDestroyed(this))
-          .subscribe(() => {
-            this.retrieveData();
-          });
+      if (result) {
+        if (result === 'remove') {
+          this.serviceProviderService
+            .ServiceProviderDelete(provider.id)
+            .pipe(untilDestroyed(this))
+            .subscribe(() => {
+              this.retrieveData();
+            });
+        } else {
+          this.serviceProviderService
+            .ServiceProviderPut(result)
+            .pipe(untilDestroyed(this))
+            .subscribe(() => {
+              this.retrieveData();
+            });
+        }
       }
     });
   }

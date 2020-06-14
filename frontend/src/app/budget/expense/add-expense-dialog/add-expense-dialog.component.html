@@ -1,1 +1,8 @@
-<p>add-expense-dialog works!</p>
+<h1 mat-dialog-title>Nowy wydatek</h1>
+<div mat-dialog-content>
+  <app-expense-form [form]="form" [serviceProviderOptions]="serviceProvidersOptions"></app-expense-form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancelClick()">Anuluj</button>
+  <button mat-button [mat-dialog-close]="retrieve()" cdkFocusInitial>Ok</button>
+</div>

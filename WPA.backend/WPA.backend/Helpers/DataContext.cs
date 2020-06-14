@@ -16,7 +16,7 @@ namespace WPA.backend.Helpers
         public DbSet<Planner> Planners { get; set; }
         public DbSet<Guest> Guests { get; set; }
         public DbSet<Expense> Expenses { get; set; }
-        public DbSet<Fund> Funds { get; set; }
+        public DbSet<Income> Incomes { get; set; }
         public DbSet<ServiceProvider> ServiceProviders { get; set; }
     }
 }

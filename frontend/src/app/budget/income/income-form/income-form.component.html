@@ -1,1 +1,12 @@
-<p>income-form works!</p>
+<form [formGroup]="form">
+  <div fxLayout="column" fxLayoutAlign="start stretch">
+    <mat-form-field>
+      <mat-label>Źródło</mat-label>
+      <input matInput placeholder="Oszczędności" formControlName="source" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Kwota</mat-label>
+      <input type="number" matInput formControlName="amount" />
+    </mat-form-field>
+  </div>
+</form>

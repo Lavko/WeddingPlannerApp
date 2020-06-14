@@ -14,7 +14,7 @@ namespace WPA.backend.Services
             services.AddScoped<IPlannerService, PlannerService>();
             services.AddTransient<IRestService<GuestDto, CreateGuestDto, UpdateGuestDto>, GuestService>();
             services.AddTransient<IRestService<ExpenseDto, CreateExpenseDto, UpdateExpenseDto>, ExpenseService>();
-            services.AddTransient<IRestService<FundDto, CreateFundDto, UpdateFundDto>, FundService>();
+            services.AddTransient<IRestService<IncomeDto, CreateIncomeDto, UpdateIncomeDto>, IncomeService>();
             services.AddTransient<IRestService<ServiceProviderDto, CreateServiceProviderDto, UpdateServiceProviderDto>, ServiceProviderService>();
         }
     }

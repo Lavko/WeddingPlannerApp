@@ -14,7 +14,6 @@ namespace WPA.backend.Entities
         public string Name { get; set; }
         public double Amount { get; set; }
         public string Adnotation { get; set; }
-        public string Provider { get; set; }
         public double Deposit { get; set; }
         public ExpenseStatus ExpenseStatus { get; set; }
     }

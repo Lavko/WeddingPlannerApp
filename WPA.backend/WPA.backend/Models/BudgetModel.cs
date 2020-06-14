@@ -10,7 +10,7 @@ namespace WPA.backend.Models
 {
     public class BudgetModel
     {
-        public IList<FundDto> Funds { get; set; }
+        public IList<IncomeDto> Incomes { get; set; }
         public IList<ExpenseDto> Expenses { get; set; }
     }
 }

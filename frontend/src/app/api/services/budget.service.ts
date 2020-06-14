@@ -8,8 +8,8 @@ import { Observable as __Observable } from 'rxjs';
 import { map as __map, filter as __filter } from 'rxjs/operators';
 
 import { BudgetModel } from '../models/budget-model';
-import { CreateFundDto } from '../models/create-fund-dto';
-import { UpdateFundDto } from '../models/update-fund-dto';
+import { CreateIncomeDto } from '../models/create-income-dto';
+import { UpdateIncomeDto } from '../models/update-income-dto';
 import { CreateExpenseDto } from '../models/create-expense-dto';
 import { UpdateExpenseDto } from '../models/update-expense-dto';
 @Injectable({
@@ -17,11 +17,11 @@ import { UpdateExpenseDto } from '../models/update-expense-dto';
 })
 class BudgetService extends __BaseService {
   static readonly BudgetGetSummaryPath = '/Budget';
-  static readonly BudgetCreateFundPath = '/Budget/fund';
-  static readonly BudgetUpdateFundPath = '/Budget/fund';
+  static readonly BudgetCreateIncomePath = '/Budget/income';
+  static readonly BudgetUpdateIncomePath = '/Budget/income';
   static readonly BudgetCreateExpensePath = '/Budget/expense';
   static readonly BudgetUpdateExpensePath = '/Budget/expense';
-  static readonly BudgetDeleteFundPath = '/Budget/fund/{id}';
+  static readonly BudgetDeleteIncomePath = '/Budget/income/{id}';
   static readonly BudgetDeleteExpensePath = '/Budget/expense/{id}';
 
   constructor(
@@ -57,16 +57,16 @@ class BudgetService extends __BaseService {
   }
 
   /**
-   * @param createFundDto undefined
+   * @param createIncomeDto undefined
    */
-  BudgetCreateFundResponse(createFundDto: CreateFundDto): __Observable<__StrictHttpResponse<null>> {
+  BudgetCreateIncomeResponse(createIncomeDto: CreateIncomeDto): __Observable<__StrictHttpResponse<null>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
-    __body = createFundDto;
+    __body = createIncomeDto;
     let req = new HttpRequest<any>(
       'POST',
-      this.rootUrl + `/Budget/fund`,
+      this.rootUrl + `/Budget/income`,
       __body,
       {
         headers: __headers,
@@ -82,25 +82,25 @@ class BudgetService extends __BaseService {
     );
   }
   /**
-   * @param createFundDto undefined
+   * @param createIncomeDto undefined
    */
-  BudgetCreateFund(createFundDto: CreateFundDto): __Observable<null> {
-    return this.BudgetCreateFundResponse(createFundDto).pipe(
+  BudgetCreateIncome(createIncomeDto: CreateIncomeDto): __Observable<null> {
+    return this.BudgetCreateIncomeResponse(createIncomeDto).pipe(
       __map(_r => _r.body as null)
     );
   }
 
   /**
-   * @param updateFundDto undefined
+   * @param updateIncomeDto undefined
    */
-  BudgetUpdateFundResponse(updateFundDto: UpdateFundDto): __Observable<__StrictHttpResponse<null>> {
+  BudgetUpdateIncomeResponse(updateIncomeDto: UpdateIncomeDto): __Observable<__StrictHttpResponse<null>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
-    __body = updateFundDto;
+    __body = updateIncomeDto;
     let req = new HttpRequest<any>(
       'PUT',
-      this.rootUrl + `/Budget/fund`,
+      this.rootUrl + `/Budget/income`,
       __body,
       {
         headers: __headers,
@@ -116,10 +116,10 @@ class BudgetService extends __BaseService {
     );
   }
   /**
-   * @param updateFundDto undefined
+   * @param updateIncomeDto undefined
    */
-  BudgetUpdateFund(updateFundDto: UpdateFundDto): __Observable<null> {
-    return this.BudgetUpdateFundResponse(updateFundDto).pipe(
+  BudgetUpdateIncome(updateIncomeDto: UpdateIncomeDto): __Observable<null> {
+    return this.BudgetUpdateIncomeResponse(updateIncomeDto).pipe(
       __map(_r => _r.body as null)
     );
   }
@@ -195,14 +195,14 @@ class BudgetService extends __BaseService {
   /**
    * @param id undefined
    */
-  BudgetDeleteFundResponse(id: number): __Observable<__StrictHttpResponse<null>> {
+  BudgetDeleteIncomeResponse(id: number): __Observable<__StrictHttpResponse<null>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
 
     let req = new HttpRequest<any>(
       'DELETE',
-      this.rootUrl + `/Budget/fund/${encodeURIComponent(id)}`,
+      this.rootUrl + `/Budget/income/${encodeURIComponent(id)}`,
       __body,
       {
         headers: __headers,
@@ -220,8 +220,8 @@ class BudgetService extends __BaseService {
   /**
    * @param id undefined
    */
-  BudgetDeleteFund(id: number): __Observable<null> {
-    return this.BudgetDeleteFundResponse(id).pipe(
+  BudgetDeleteIncome(id: number): __Observable<null> {
+    return this.BudgetDeleteIncomeResponse(id).pipe(
       __map(_r => _r.body as null)
     );
   }

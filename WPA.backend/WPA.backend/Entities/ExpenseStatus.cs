@@ -10,7 +10,7 @@ namespace WPA.backend.Entities
         Unknown = 0,
         Estimated,
         Signed,
-        ToBePaid,
+        Prepaid,
         Paid
     }
 }

@@ -8,6 +8,5 @@ export interface UpdateExpenseDto {
   id: number;
   name: string;
   plannerId: number;
-  provider: string;
   serviceProviderId?: number;
 }

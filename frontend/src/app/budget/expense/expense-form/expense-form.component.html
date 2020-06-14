@@ -1,1 +1,36 @@
-<p>expense-form works!</p>
+<form [formGroup]="form">
+  <div fxLayout="column" fxLayoutAlign="start stretch">
+    <mat-form-field>
+      <mat-label>Nazwa usługi</mat-label>
+      <input matInput placeholder="Transport gości pod salę" formControlName="name" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Usługodawca</mat-label>
+      <mat-select formControlName="serviceProviderId">
+        <mat-option *ngFor="let option of serviceProviderOptions" [value]="option.value">
+          {{ option.label }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Kwota</mat-label>
+      <input type="number" matInput formControlName="amount" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Zaliczka</mat-label>
+      <input type="number" matInput formControlName="deposit" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Status wydatku</mat-label>
+      <mat-select formControlName="expenseStatus">
+        <mat-option *ngFor="let option of expenseStatusOptions" [value]="option.value">
+          {{ option.label }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Uwagi</mat-label>
+      <textarea matInput formControlName="adnotation"></textarea>
+    </mat-form-field>
+  </div>
+</form>

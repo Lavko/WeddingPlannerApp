@@ -1,5 +1,5 @@
 /* tslint:disable */
-export interface Fund {
+export interface Income {
   amount: number;
   id: number;
   plannerId: number;

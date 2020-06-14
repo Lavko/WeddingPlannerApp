@@ -12,6 +12,7 @@ import { AddIncomeDialogComponent } from './income/add-income-dialog/add-income-
 import { EditIncomeDialogComponent } from './income/edit-income-dialog/edit-income-dialog.component';
 import { IncomeFormComponent } from './income/income-form/income-form.component';
 import { IncomeListComponent } from './income/income-list/income-list.component';
+import { BudgetSummaryPanelComponent } from './budget-summary-panel/budget-summary-panel.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { IncomeListComponent } from './income/income-list/income-list.component'
     EditIncomeDialogComponent,
     IncomeListComponent,
     ExpenseListComponent,
+    BudgetSummaryPanelComponent,
   ],
   imports: [CommonModule, SharedModule, BudgetRoutingModule],
   entryComponents: [

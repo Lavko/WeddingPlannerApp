@@ -1,5 +1,5 @@
 /* tslint:disable */
-export interface CreateFundDto {
+export interface CreateIncomeDto {
   amount: number;
   plannerId: number;
   source: string;

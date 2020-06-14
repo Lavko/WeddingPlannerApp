@@ -1,1 +1,9 @@
-<p>edit-income-dialog works!</p>
+<h1 mat-dialog-title>Edycja przychodu</h1>
+<div mat-dialog-content>
+  <app-income-form [form]="form"></app-income-form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancelClick()">Anuluj</button>
+  <button mat-button [mat-dialog-close]="retrieve()" cdkFocusInitial>Ok</button>
+  <button mat-button [mat-dialog-close]="remove()">Usuń</button>
+</div>

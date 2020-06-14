@@ -1,20 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WPA.backend.DTOs.Funds
+namespace WPA.backend.Entities
 {
-    public class CreateFundDto
+    public class Income
     {
-        [Required]
+        public int Id { get; set; }
         public int PlannerId { get; set; }
-
-        [Required]
         public string Source { get; set; }
-
-        [Required]
         public double Amount { get; set; }
     }
 }

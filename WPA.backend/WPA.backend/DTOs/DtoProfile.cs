@@ -15,9 +15,9 @@ namespace WPA.backend.DTOs
             CreateMap<UpdateGuestDto, Guest>().ReverseMap();
             CreateMap<GuestDto, Guest>().ReverseMap();
 
-            CreateMap<CreateFundDto, Fund>().ReverseMap();
-            CreateMap<UpdateFundDto, Fund>().ReverseMap();
-            CreateMap<FundDto, Fund>().ReverseMap();
+            CreateMap<CreateIncomeDto, Income>().ReverseMap();
+            CreateMap<UpdateIncomeDto, Income>().ReverseMap();
+            CreateMap<IncomeDto, Income>().ReverseMap();
 
             CreateMap<ExpenseDto, Expense>().ReverseMap();
             CreateMap<CreateExpenseDto, Expense>().ReverseMap();

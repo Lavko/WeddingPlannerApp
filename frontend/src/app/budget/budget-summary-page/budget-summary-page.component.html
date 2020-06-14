@@ -3,8 +3,23 @@
     <div>
       <h2>Finanse</h2>
     </div>
+    <ng-container *ngIf="budget | async as budgetSummary">
+      <div fxLayout="row" class="budget-panel">
+        <app-budget-summary-panel fxFlex="100%"></app-budget-summary-panel>
+      </div>
 
-    <app-income-list></app-income-list>
-    <app-expense-list></app-expense-list>
+      <div fxLayout="row" fxLayoutAlign="space-between">
+        <app-income-list
+          [incomes]="budgetSummary.incomes"
+          (listChanged)="retrieveBudget()"
+          fxFlex="49%"
+        ></app-income-list>
+        <app-expense-list
+          [expenses]="budgetSummary.expenses"
+          (listChanged)="retrieveBudget()"
+          fxFlex="49%"
+        ></app-expense-list>
+      </div>
+    </ng-container>
   </div>
 </div>

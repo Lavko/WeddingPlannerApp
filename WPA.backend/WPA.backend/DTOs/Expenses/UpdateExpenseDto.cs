@@ -26,9 +26,6 @@ namespace WPA.backend.DTOs.Expenses
         public string Adnotation { get; set; }
 
         [Required]
-        public string Provider { get; set; }
-
-        [Required]
         public double Deposit { get; set; }
 
         [Required]

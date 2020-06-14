@@ -20,13 +20,13 @@ namespace WPA.backend.Controllers
     public class BudgetController : ControllerBase
     {
         private IRestService<ExpenseDto, CreateExpenseDto, UpdateExpenseDto> _expenseService;
-        private IRestService<FundDto, CreateFundDto, UpdateFundDto> _fundService;
+        private IRestService<IncomeDto, CreateIncomeDto, UpdateIncomeDto> _incomeService;
         private IUserService _userService;
 
-        public BudgetController(IRestService<ExpenseDto, CreateExpenseDto, UpdateExpenseDto> expenseService, IRestService<FundDto, CreateFundDto, UpdateFundDto> fundService, IUserService userService)
+        public BudgetController(IRestService<ExpenseDto, CreateExpenseDto, UpdateExpenseDto> expenseService, IRestService<IncomeDto, CreateIncomeDto, UpdateIncomeDto> incomeService, IUserService userService)
         {
             _expenseService = expenseService;
-            _fundService = fundService;
+            _incomeService = incomeService;
             _userService = userService;
         }
 
@@ -38,40 +38,40 @@ namespace WPA.backend.Controllers
             var user = await _userService.GetById(int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)));
             var budget = new BudgetModel
             {
-                Funds = await _fundService.GetAll(user.PlannerId),
+                Incomes = await _incomeService.GetAll(user.PlannerId),
                 Expenses = await _expenseService.GetAll(user.PlannerId)
             };
             return Ok(budget);
         }
 
-        [HttpPost("fund")]
+        [HttpPost("income")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> CreateFund([FromBody] CreateFundDto createFundDto)
+        public async Task<IActionResult> CreateIncome([FromBody] CreateIncomeDto createIncomeDto)
         {
             var user = await _userService.GetById(int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)));
-            if (createFundDto.PlannerId != user.PlannerId)
+            if (createIncomeDto.PlannerId != user.PlannerId)
             {
                 return BadRequest();
             }
 
-            await _fundService.Create(createFundDto);
+            await _incomeService.Create(createIncomeDto);
 
             return Ok();
         }
 
-        [HttpPut("fund")]
+        [HttpPut("income")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> UpdateFund([FromBody] UpdateFundDto updateFundDto)
+        public async Task<IActionResult> UpdateIncome([FromBody] UpdateIncomeDto updateIncomeDto)
         {
             var user = await _userService.GetById(int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)));
-            if (updateFundDto.PlannerId != user.PlannerId)
+            if (updateIncomeDto.PlannerId != user.PlannerId)
             {
                 return BadRequest();
             }
 
-            await _fundService.Update(updateFundDto);
+            await _incomeService.Update(updateIncomeDto);
 
             return Ok();
         }
@@ -108,12 +108,12 @@ namespace WPA.backend.Controllers
         }
 
 
-        [HttpDelete("fund/{id}")]
+        [HttpDelete("income/{id}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> DeleteFund(int id)
+        public async Task<IActionResult> DeleteIncome(int id)
         {
-            await _fundService.Delete(id);
+            await _incomeService.Delete(id);
             return Ok();
         }
 

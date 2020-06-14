@@ -7,6 +7,5 @@ export interface CreateExpenseDto {
   expenseStatus: ExpenseStatus;
   name: string;
   plannerId: number;
-  provider: string;
   serviceProviderId?: number;
 }

@@ -29,7 +29,7 @@ namespace WPA.backend.Services
                 WeddingPlace = p.WeddingPlace,
                 GuestCount = p.Guests.Count(),
                 ConfirmedGuestCount = p.Guests.Where(g => g.Status == GuestStatus.Confirmed).Count(),
-                Budget = p.Funds.Sum(f => f.Amount),
+                Budget = p.Incomes.Sum(f => f.Amount),
                 Expenses = p.Expenses.Sum(e => e.Amount)
             }).FirstOrDefaultAsync();
             return planner;

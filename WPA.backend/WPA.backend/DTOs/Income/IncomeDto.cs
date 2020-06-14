@@ -6,13 +6,10 @@ using System.Threading.Tasks;
 
 namespace WPA.backend.DTOs.Funds
 {
-    public class UpdateFundDto
+    public class IncomeDto
     {
         [Required]
         public int Id { get; set; }
-
-        [Required]
-        public int PlannerId { get; set; }
 
         [Required]
         public string Source { get; set; }

@@ -46,12 +46,14 @@ export class GuestsListPageComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      this.guestService
-        .GuestPost({ plannerId: this.authService.getPlannerId(), createGuestDto: result })
-        .pipe(untilDestroyed(this))
-        .subscribe(() => {
-          this.retrieveData();
-        });
+      if (result) {
+        this.guestService
+          .GuestPost({ plannerId: this.authService.getPlannerId(), createGuestDto: result })
+          .pipe(untilDestroyed(this))
+          .subscribe(() => {
+            this.retrieveData();
+          });
+      }
     });
   }
 
@@ -62,20 +64,22 @@ export class GuestsListPageComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      if (result === 'remove') {
-        this.guestService
-          .GuestDelete({ plannerId: this.authService.getPlannerId(), id: guest.id })
-          .pipe(untilDestroyed(this))
-          .subscribe(() => {
-            this.retrieveData();
-          });
-      } else {
-        this.guestService
-          .GuestPut({ plannerId: this.authService.getPlannerId(), updateGuestDto: result })
-          .pipe(untilDestroyed(this))
-          .subscribe(() => {
-            this.retrieveData();
-          });
+      if (result) {
+        if (result === 'remove') {
+          this.guestService
+            .GuestDelete({ plannerId: this.authService.getPlannerId(), id: guest.id })
+            .pipe(untilDestroyed(this))
+            .subscribe(() => {
+              this.retrieveData();
+            });
+        } else {
+          this.guestService
+            .GuestPut({ plannerId: this.authService.getPlannerId(), updateGuestDto: result })
+            .pipe(untilDestroyed(this))
+            .subscribe(() => {
+              this.retrieveData();
+            });
+        }
       }
     });
   }

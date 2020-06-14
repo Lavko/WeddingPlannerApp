@@ -1,3 +1,57 @@
 <mat-card>
-  <h3>Podsumowanie</h3>
+  <mat-card-header>
+    <mat-card-title>Podsumowanie</mat-card-title>
+  </mat-card-header>
+  <mat-card-content fxLayout="row" fxLayoutAlign="space-between">
+    <mat-card fxFlex="24%">
+      <h4>Aktualny bilans:</h4>
+      <div fxLayout="row" fxLayoutAlign="space-between">
+        <div>Budżet:</div>
+        <div>{{ allIncomes | currency: '':'' }}</div>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="space-between">
+        <div>Wydatki:</div>
+        <div>{{ allExpenses | currency: '':'' }}</div>
+      </div>
+      <hr />
+      <div fxLayout="row" fxLayoutAlign="space-between">
+        <div>Wynik:</div>
+        <div>
+          <b>{{ balance | currency: '':'' }}</b>
+        </div>
+      </div>
+    </mat-card>
+    <mat-card fxFlex="24%">
+      <h4>Przychody:</h4>
+      <div fxLayout="row" fxLayoutAlign="space-between">
+        <div>Planowany budżet:</div>
+        <div>{{ 10000 | currency: '':'' }}</div>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="space-between">
+        <div>Rzeczywisty budżet:</div>
+        <div>
+          <b>{{ allIncomes | currency: '':'' }}</b>
+        </div>
+      </div>
+    </mat-card>
+    <mat-card fxFlex="24%">
+      <h4>Wydatki</h4>
+      <div fxLayout="row" fxLayoutAlign="space-between">
+        <div>Planowane:</div>
+        <div>{{ estimated | currency: '':'' }}</div>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="space-between">
+        <div>Potwierdzone:</div>
+        <div>{{ signed | currency: '':'' }}</div>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="space-between">
+        <div>Zaliczkowane:</div>
+        <div>{{ prepaid | currency: '':'' }}</div>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="space-between">
+        <div>Opłacone:</div>
+        <div>{{ paid | currency: '':'' }}</div>
+      </div>
+    </mat-card>
+  </mat-card-content>
 </mat-card>

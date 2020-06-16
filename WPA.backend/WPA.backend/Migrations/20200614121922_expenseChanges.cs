@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace WPA.backend.Migrations
+namespace WPA.backend.Migrations 
 {
     public partial class expenseChanges : Migration
     {

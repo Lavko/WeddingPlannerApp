@@ -28,6 +28,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     loadChildren: './budget/budget.module#BudgetModule',
   },
+  {
+    path: 'events',
+    canActivate: [AuthGuard],
+    loadChildren: './events/events.module#EventsModule',
+  },
 ];
 
 @NgModule({

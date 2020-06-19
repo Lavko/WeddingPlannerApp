@@ -1,18 +1,34 @@
-import { NgModule } from "@angular/core";
-import { Routes } from "@angular/router";
-import { NativeScriptRouterModule } from "nativescript-angular/router";
+import { NgModule } from '@angular/core';
+import { Routes } from '@angular/router';
+import { NativeScriptRouterModule } from 'nativescript-angular/router';
 
 const routes: Routes = [
-    { path: "", redirectTo: "/home", pathMatch: "full" },
-    { path: "home", loadChildren: () => import("~/app/home/home.module").then((m) => m.HomeModule) },
-    { path: "browse", loadChildren: () => import("~/app/browse/browse.module").then((m) => m.BrowseModule) },
-    { path: "search", loadChildren: () => import("~/app/search/search.module").then((m) => m.SearchModule) },
-    { path: "featured", loadChildren: () => import("~/app/featured/featured.module").then((m) => m.FeaturedModule) },
-    { path: "settings", loadChildren: () => import("~/app/settings/settings.module").then((m) => m.SettingsModule) }
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  {
+    path: 'home',
+    loadChildren: () => import('~/app/home/home.module').then((m) => m.HomeModule),
+  },
+  {
+    path: 'events',
+    loadChildren: () => import('~/app/events/events.module').then((m) => m.EventsModule),
+  },
+  {
+    path: 'guests',
+    loadChildren: () => import('~/app/guests/guests.module').then((m) => m.GuestsModule),
+  },
+  {
+    path: 'budget',
+    loadChildren: () => import('~/app/budget/budget.module').then((m) => m.BudgetModule),
+  },
+  {
+    path: 'service-providers',
+    loadChildren: () =>
+      import('~/app/service-providers/service-providers.module').then((m) => m.ServiceProvidersModule),
+  },
 ];
 
 @NgModule({
-    imports: [NativeScriptRouterModule.forRoot(routes)],
-    exports: [NativeScriptRouterModule]
+  imports: [NativeScriptRouterModule.forRoot(routes)],
+  exports: [NativeScriptRouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -13,6 +13,7 @@ export class LoginPageComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
+    console.log('bla');
     this.form = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', Validators.required),

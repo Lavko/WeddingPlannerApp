@@ -12,6 +12,7 @@
       [fixedInViewport]="true"
       [opened]="isOpened"
       fixedTopGap="56"
+      *ngIf="isLoggedIn() | async"
     >
       <mat-nav-list>
         <a mat-list-item [routerLink]="item.route" *ngFor="let item of menuItems"

@@ -1,41 +1,45 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { ToastrService } from 'ngx-toastr';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { LoginUserDto } from 'src/app/api/models';
-import { UsersService } from 'src/app/api/services';
+import { loginAction } from 'src/app/store/actions/auth.actions';
+import { AppState } from 'src/app/store/state/app.state';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private tokenKey = 'token';
-  private tokenExpire = 'token-expire';
-  private helper = new JwtHelperService();
-  constructor(private usersService: UsersService, private toastrService: ToastrService, private router: Router) {}
+  constructor(private router: Router, private store: Store<AppState>) {}
 
   public logIn(model: LoginUserDto, route: string) {
-    this.usersService.UsersAuthenticate(model).subscribe((response) => {
-      if (response) {
-        localStorage.setItem(this.tokenKey, response);
-        this.router.navigate([route]);
-      }
+    this.store.dispatch(loginAction(model));
+  }
+
+  public getToken(): Observable<string> {
+    this.store.select((store) => console.log(store));
+    return this.store.select((store) => {
+      console.log(store);
+      return store.auth.token;
     });
   }
-  public getToken(): string {
-    return localStorage.getItem(this.tokenKey);
+
+  public isLoggedIn(): Observable<boolean> {
+    return this.getToken().pipe(
+      map((token) => {
+        if (token) {
+          return true;
+        } else {
+          return false;
+        }
+      })
+    );
   }
 
-  public isLoggedIn(): boolean {
-    if (this.getToken()) {
-      return true;
-    }
-    return false;
-  }
-
-  public getPlannerId(): string {
-    const tokenDetails = this.helper.decodeToken(this.getToken());
-    return tokenDetails.PlannerId;
+  public getPlannerId(): Observable<number> {
+    return this.store.select((store) => store.auth.plannerId);
   }
 
   public logOut(): void {

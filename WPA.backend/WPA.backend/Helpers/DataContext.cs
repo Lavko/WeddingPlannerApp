@@ -9,7 +9,6 @@ namespace WPA.backend.Helpers
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
-            Database.Migrate();
         }
 
         public DbSet<User> Users { get; set; }

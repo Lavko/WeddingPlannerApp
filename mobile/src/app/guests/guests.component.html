@@ -4,8 +4,13 @@
   </ActionItem>
   <Label text="Goście"></Label>
 </ActionBar>
-
-<GridLayout class="page__content">
-  <Label class="page__content-icon fas" text="&#xf005;"></Label>
-  <Label class="page__content-placeholder" text="<!-- Page content goes here -->"></Label>
-</GridLayout>
+dsadasdasd
+<ScrollView>
+  <StackLayout>
+    <ListView height="150" items="{{ guests | async }}">
+      <ng-template let-guest="item" let-i="index" let-odd="odd" let-even="even">
+        {{ guest.name }}
+      </ng-template>
+    </ListView>
+  </StackLayout>
+</ScrollView>

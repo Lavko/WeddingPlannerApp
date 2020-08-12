@@ -23,5 +23,6 @@
     >
     </TextField>
     <Button text="Zaloguj się" class="-primary" (tap)="onSubmit()"></Button>
+    <Button text="Rejestracja" [nsRouterLink]="['/auth/register']" pageTransition="slide" clearHistory="true"></Button>
   </StackLayout>
 </Page>

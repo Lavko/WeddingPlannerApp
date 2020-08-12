@@ -13,7 +13,7 @@
   "repository": "<fill-your-repository-here>",
   "scripts": {
     "lint": "tslint \"src/**/*.ts\"",
-    "swagger_generate": "node_modules/.bin/ng-swagger-gen -i http://localhost:58041/swagger/v1/swagger.json -o src/app/api"
+    "swagger_generate": "node_modules/.bin/ng-swagger-gen -i http://192.168.31.116:63447/swagger/v1/swagger.json -o src/app/api"
   },
   "dependencies": {
     "@angular/animations": "~8.2.0",

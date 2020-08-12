@@ -1,1 +1,16 @@
-<Button text="register-page works!" class="btn btn-primary"></Button>
+<Page xmlns="http://schemas.nativescript.org/tns.xsd">
+  <StackLayout margin="16">
+    <Label text="E-mail" textWrap="true"></Label>
+    <TextField [(ngModel)]="email" secure="false" keyboardType="email" returnKeyType="next" autocorrect="false">
+    </TextField>
+
+    <Label text="Imię" textWrap="true"></Label>
+    <TextField [(ngModel)]="firstName" secure="false" returnKeyType="next" autocorrect="false"> </TextField>
+
+    <Label text="Hasło" style="padding-top: 40px;"></Label>
+    <TextField [(ngModel)]="password" secure="true" returnKeyType="done" autocorrect="false" maxLength="10">
+    </TextField>
+    <Button text="Zarejestruj się" class="-primary" (tap)="onSubmit()"></Button>
+    <Button text="Zaloguj się" [nsRouterLink]="['/auth']" pageTransition="slide" clearHistory="true"></Button>
+  </StackLayout>
+</Page>

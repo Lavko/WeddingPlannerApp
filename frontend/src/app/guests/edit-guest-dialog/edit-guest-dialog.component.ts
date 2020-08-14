@@ -1,8 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { UpdateGuestDto } from 'src/app/api/models';
-import { AuthService } from './../../auth/services/auth.service';
+import { Store } from '@ngrx/store';
+import { GuestDto } from 'src/app/api/models';
+import { deleteGuestAction, saveEditedGuestAction } from 'src/app/store/actions/guests.actions';
+import { AppState } from 'src/app/store/state/app.state';
 
 @Component({
   selector: 'app-edit-guest-dialog',
@@ -14,9 +16,9 @@ export class EditGuestDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<EditGuestDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: UpdateGuestDto,
-    private authService: AuthService,
-    private fb: FormBuilder
+    @Inject(MAT_DIALOG_DATA) public data: GuestDto,
+    private fb: FormBuilder,
+    private store: Store<AppState>
   ) {}
 
   public onCancelClick(): void {
@@ -27,20 +29,24 @@ export class EditGuestDialogComponent implements OnInit {
     this.registerFormControls();
   }
 
-  public retrieve(): UpdateGuestDto {
-    return {
+  public onSaveClick(): void {
+    const guestDto = {
       id: this.data.id,
-      plannerId: +this.authService.getPlannerId(),
+      plannerId: this.data.plannerId,
       name: this.form.get('name').value,
       adnotation: this.form.get('adnotation').value,
       isTravelling: this.form.get('isTravelling').value,
       status: this.form.get('status').value,
       side: this.form.get('side').value,
     };
+
+    this.store.dispatch(saveEditedGuestAction({ guest: guestDto }));
+    this.dialogRef.close();
   }
 
-  public remove(): string {
-    return 'remove';
+  public onRemoveClick(): void {
+    this.store.dispatch(deleteGuestAction({ guestId: this.data.id }));
+    this.dialogRef.close();
   }
 
   private registerFormControls(): void {

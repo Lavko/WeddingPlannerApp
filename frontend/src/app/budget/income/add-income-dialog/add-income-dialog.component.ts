@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { CreateIncomeDto } from './../../../api/models/create-income-dto';
-import { AuthService } from './../../../auth/services/auth.service';
+import { Store } from '@ngrx/store';
+import { saveNewIncomeAction } from 'src/app/store/actions/budget.actions';
+import { AppState } from 'src/app/store/state/app.state';
+import { userSelectors } from 'src/app/store/state/user.state';
 
 @Component({
   selector: 'app-add-income-dialog',
@@ -11,23 +13,27 @@ import { AuthService } from './../../../auth/services/auth.service';
 })
 export class AddIncomeDialogComponent implements OnInit {
   public form: FormGroup;
+  public plannerId$ = userSelectors.getPlannerId(this.store);
 
   constructor(
     public dialogRef: MatDialogRef<AddIncomeDialogComponent>,
-    private authService: AuthService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private store: Store<AppState>
   ) {}
 
   public onCancelClick(): void {
     this.dialogRef.close();
   }
 
-  public retrieve(): CreateIncomeDto {
-    return {
-      plannerId: +this.authService.getPlannerId(),
+  public onAddClick(plannerId: number): void {
+    const incomeDto = {
+      plannerId,
       source: this.form.get('source').value,
       amount: this.form.get('amount').value,
     };
+
+    this.store.dispatch(saveNewIncomeAction({ incomeDto }));
+    this.dialogRef.close();
   }
 
   private registerFormControls(): void {

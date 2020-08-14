@@ -39,10 +39,10 @@ namespace WPA.backend.Controllers
         [HttpPost("planner/{plannerId}/guests")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> Post([FromBody] CreateGuestDto createGuestDto)
+        public async Task<IActionResult> Post([FromBody] CreateGuestDto  createGuestDto, int plannerId)
         {
             var user = await _userService.GetById(int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)));
-
+            createGuestDto.PlannerId = plannerId;
             await _guestService.Create(createGuestDto);
 
             return Ok();

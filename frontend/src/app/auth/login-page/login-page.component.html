@@ -1,5 +1,5 @@
 <div id="login-card-wrapper" fxLayout fxLayout.xs="column" fxFill fxLayoutAlign="center center">
-  <mat-card fxFlex.lg="30%" fxFlex.md="50%" fxFlex.sm="70%" fxFlex.xs="100%">
+  <mat-card fxFlex.lg="30%" fxFlex.md="50%" fxFlex.sm="70%" fxFlex.xs="100%" *ngIf="!(isLoggedIn() | async)">
     <mat-card-header class="text-center">
       <div fxLayout fxFill fxLayoutAlign="center center">
         <div mat-card-avatar><mat-icon aria-hidden="false" aria-label="Example home icon">login</mat-icon></div>
@@ -27,5 +27,8 @@
       <button mat-button [disabled]="!form.valid" (click)="onSubmit()">Zaloguj się</button>
       <button mat-button routerLink="/auth/register">Zarejestruj się</button>
     </mat-card-actions>
+  </mat-card>
+  <mat-card>
+    <mat-card-content *ngIf="isLoggedIn() | async">Jesteś już zalogowany!</mat-card-content>
   </mat-card>
 </div>

@@ -1,10 +1,14 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { untilDestroyed } from 'ngx-take-until-destroy';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { ExpenseDto } from 'src/app/api/models';
-import { BudgetService } from 'src/app/api/services';
+import { BudgetModel } from 'src/app/api/models/budget-model';
+import { AppState } from 'src/app/store/state/app.state';
+import { budgetSelectors } from 'src/app/store/state/budget.state';
 import { AddExpenseDialogComponent } from './../add-expense-dialog/add-expense-dialog.component';
 import { EditExpenseDialogComponent } from './../edit-expense-dialog/edit-expense-dialog.component';
 
@@ -14,18 +18,25 @@ import { EditExpenseDialogComponent } from './../edit-expense-dialog/edit-expens
   styleUrls: ['./expense-list.component.scss'],
 })
 export class ExpenseListComponent implements OnInit, OnDestroy {
-  @Input() public expenses: ExpenseDto[];
-  @Output() public listChanged = new EventEmitter<boolean>();
+  public budget$: Observable<BudgetModel>;
+  public totalAmount: number;
 
   public displayedColumns: string[] = ['name', 'amount'];
   public dataSource: MatTableDataSource<ExpenseDto>;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private budgetService: BudgetService, public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, private store: Store<AppState>) {}
 
   public ngOnInit(): void {
-    this.dataSource = new MatTableDataSource(this.expenses);
+    this.budget$ = budgetSelectors.getBudgetSummary(this.store).pipe(
+      tap((budget) => {
+        if (budget) {
+          this.dataSource = new MatTableDataSource(budget.expenses);
+          this.totalAmount = this.getTotalAmount(budget.expenses);
+        }
+      })
+    );
   }
 
   public applyFilter(event: Event) {
@@ -37,17 +48,6 @@ export class ExpenseListComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(AddExpenseDialogComponent, {
       width: '650px',
     });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.budgetService
-          .BudgetCreateExpense(result)
-          .pipe(untilDestroyed(this))
-          .subscribe(() => {
-            this.listChanged.emit(true);
-          });
-      }
-    });
   }
 
   public openEditDialog(income: ExpenseDto): void {
@@ -55,30 +55,10 @@ export class ExpenseListComponent implements OnInit, OnDestroy {
       width: '650px',
       data: income,
     });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        if (result === 'remove') {
-          this.budgetService
-            .BudgetDeleteExpense(income.id)
-            .pipe(untilDestroyed(this))
-            .subscribe(() => {
-              this.listChanged.emit(true);
-            });
-        } else {
-          this.budgetService
-            .BudgetUpdateExpense(result)
-            .pipe(untilDestroyed(this))
-            .subscribe(() => {
-              this.listChanged.emit(true);
-            });
-        }
-      }
-    });
   }
 
-  public getTotalAmount(): number {
-    return this.expenses.map((t) => t.amount).reduce((acc, value) => acc + value, 0);
+  public getTotalAmount(expenses: ExpenseDto[]): number {
+    return expenses.map((t) => t.amount).reduce((acc, value) => acc + value, 0);
   }
 
   public ngOnDestroy(): void {}

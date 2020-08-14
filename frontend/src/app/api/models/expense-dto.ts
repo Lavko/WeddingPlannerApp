@@ -8,6 +8,7 @@ export interface ExpenseDto {
   expenseStatus: ExpenseStatus;
   id: number;
   name: string;
+  plannerId: number;
   provider: string;
   serviceProvider?: ServiceProvider;
 }

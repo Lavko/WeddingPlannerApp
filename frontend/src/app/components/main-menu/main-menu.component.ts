@@ -1,5 +1,6 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
@@ -31,7 +32,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
 
   ngOnInit() {}
 
-  public isLoggedIn(): boolean {
+  public isLoggedIn(): Observable<boolean> {
     return this.authService.isLoggedIn();
   }
 }

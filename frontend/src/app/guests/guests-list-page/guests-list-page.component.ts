@@ -2,10 +2,11 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { untilDestroyed } from 'ngx-take-until-destroy';
+import { Store } from '@ngrx/store';
 import { GuestDto } from 'src/app/api/models';
-import { GuestService } from 'src/app/api/services';
-import { AuthService } from 'src/app/auth/services/auth.service';
+import { getGuestsAction } from 'src/app/store/actions/guests.actions';
+import { AppState } from 'src/app/store/state/app.state';
+import { guestsSelectors } from 'src/app/store/state/guests.state';
 import { AddGuestDialogComponent } from './../add-guest-dialog/add-guest-dialog.component';
 import { EditGuestDialogComponent } from './../edit-guest-dialog/edit-guest-dialog.component';
 
@@ -20,16 +21,15 @@ export class GuestsListPageComponent implements OnInit, OnDestroy {
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  constructor(private guestService: GuestService, private authService: AuthService, public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, private store: Store<AppState>) {}
 
   public ngOnInit(): void {
+    this.store.dispatch(getGuestsAction());
     this.retrieveData();
   }
 
   private retrieveData(): void {
-    const plannerId = this.authService.getPlannerId();
-
-    this.guestService.GuestGetAll(+plannerId).subscribe((guests) => {
+    guestsSelectors.getGuests(this.store).subscribe((guests) => {
       this.dataSource = new MatTableDataSource(guests);
       this.dataSource.sort = this.sort;
     });
@@ -44,43 +44,12 @@ export class GuestsListPageComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(AddGuestDialogComponent, {
       width: '650px',
     });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.guestService
-          .GuestPost({ plannerId: this.authService.getPlannerId(), createGuestDto: result })
-          .pipe(untilDestroyed(this))
-          .subscribe(() => {
-            this.retrieveData();
-          });
-      }
-    });
   }
 
   public openEditDialog(guest: GuestDto): void {
     const dialogRef = this.dialog.open(EditGuestDialogComponent, {
       width: '650px',
       data: guest,
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        if (result === 'remove') {
-          this.guestService
-            .GuestDelete({ plannerId: this.authService.getPlannerId(), id: guest.id })
-            .pipe(untilDestroyed(this))
-            .subscribe(() => {
-              this.retrieveData();
-            });
-        } else {
-          this.guestService
-            .GuestPut({ plannerId: this.authService.getPlannerId(), updateGuestDto: result })
-            .pipe(untilDestroyed(this))
-            .subscribe(() => {
-              this.retrieveData();
-            });
-        }
-      }
     });
   }
 

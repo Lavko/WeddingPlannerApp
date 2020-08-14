@@ -5,8 +5,10 @@ import { AuthGuard } from './auth/guards/auth-guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/guests',
+    canActivate: [AuthGuard],
+    redirectTo: 'guests',
     pathMatch: 'full',
+    // loadChildren: '/home-page/home-page.module#HomePageModule',
   },
 
   {

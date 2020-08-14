@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { CreateGuestDto } from 'src/app/api/models';
-import { AuthService } from './../../auth/services/auth.service';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { saveNewGuestAction } from 'src/app/store/actions/guests.actions';
+import { AppState } from 'src/app/store/state/app.state';
+import { userSelectors } from 'src/app/store/state/user.state';
 
 @Component({
   selector: 'app-add-guest-dialog',
@@ -11,26 +14,29 @@ import { AuthService } from './../../auth/services/auth.service';
 })
 export class AddGuestDialogComponent implements OnInit {
   public form: FormGroup;
+  public plannerId$: Observable<number>;
 
   constructor(
     public dialogRef: MatDialogRef<AddGuestDialogComponent>,
-    private authService: AuthService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private store: Store<AppState>
   ) {}
 
   public onCancelClick(): void {
     this.dialogRef.close();
   }
 
-  public retrieve(): CreateGuestDto {
-    return {
-      plannerId: +this.authService.getPlannerId(),
+  public onAddClick(plannerId: number): void {
+    const guestDto = {
+      plannerId,
       name: this.form.get('name').value,
       adnotation: this.form.get('adnotation').value,
       isTravelling: this.form.get('isTravelling').value,
       status: this.form.get('status').value,
       side: this.form.get('side').value,
     };
+    this.store.dispatch(saveNewGuestAction({ guest: guestDto }));
+    this.dialogRef.close();
   }
 
   private registerFormControls(): void {
@@ -44,6 +50,7 @@ export class AddGuestDialogComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.plannerId$ = userSelectors.getPlannerId(this.store);
     this.registerFormControls();
   }
 }

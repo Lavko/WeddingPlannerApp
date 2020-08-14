@@ -1,12 +1,13 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { ExpenseDto } from 'src/app/api/models';
-import { ServiceProviderService } from 'src/app/api/services';
-import { AuthService } from 'src/app/auth/services/auth.service';
-import { ExpenseStatus } from './../../../api/models/expense-status';
-import { UpdateExpenseDto } from './../../../api/models/update-expense-dto';
+import { ExpenseStatus } from 'src/app/api/models/expense-status';
+import { deleteExpenseAction, saveEditedExpenseAction } from 'src/app/store/actions/budget.actions';
+import { AppState } from 'src/app/store/state/app.state';
+import { serviceProvidersSelectors } from 'src/app/store/state/serviceProviders.state';
 
 @Component({
   selector: 'app-edit-expense-dialog',
@@ -20,9 +21,8 @@ export class EditExpenseDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<EditExpenseDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ExpenseDto,
-    private authService: AuthService,
     private fb: FormBuilder,
-    private serviceProviderService: ServiceProviderService
+    private store: Store<AppState>
   ) {}
 
   public onCancelClick(): void {
@@ -34,10 +34,10 @@ export class EditExpenseDialogComponent implements OnInit {
     this.registerFormControls();
   }
 
-  public retrieve(): UpdateExpenseDto {
-    return {
+  public onSaveClick(): void {
+    const expenseDto = {
       id: this.data.id,
-      plannerId: +this.authService.getPlannerId(),
+      plannerId: this.data.plannerId,
       name: this.getControlValue('name'),
       amount: +this.getControlValue('amount'),
       adnotation: this.getControlValue('adnotation'),
@@ -46,6 +46,9 @@ export class EditExpenseDialogComponent implements OnInit {
       serviceProviderId:
         +this.getControlValue('serviceProviderId') > 0 ? +this.getControlValue('serviceProviderId') : null,
     };
+
+    this.store.dispatch(saveEditedExpenseAction({ expenseDto }));
+    this.dialogRef.close();
   }
 
   private getControlValue(controlName: string): string {
@@ -55,8 +58,9 @@ export class EditExpenseDialogComponent implements OnInit {
     return '';
   }
 
-  public remove(): string {
-    return 'remove';
+  public onRemoveClick(): void {
+    this.store.dispatch(deleteExpenseAction({ expenseId: this.data.id }));
+    this.dialogRef.close();
   }
 
   private registerFormControls(): void {
@@ -71,8 +75,8 @@ export class EditExpenseDialogComponent implements OnInit {
   }
 
   private retrieveServiceProviders(): void {
-    this.serviceProviderService
-      .ServiceProviderGetAll()
+    serviceProvidersSelectors
+      .getServiceProviders(this.store)
       .pipe(
         map((serviceProviders) => {
           const mapped = serviceProviders.map((sp) => {

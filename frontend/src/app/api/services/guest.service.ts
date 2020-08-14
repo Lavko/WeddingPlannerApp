@@ -196,7 +196,7 @@ module GuestService {
    * Parameters for GuestPost
    */
   export interface GuestPostParams {
-    plannerId: string;
+    plannerId: number;
     createGuestDto: CreateGuestDto;
   }
 

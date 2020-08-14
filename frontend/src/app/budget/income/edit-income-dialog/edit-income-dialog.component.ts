@@ -1,8 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { UpdateIncomeDto } from './../../../api/models/update-income-dto';
-import { AuthService } from './../../../auth/services/auth.service';
+import { Store } from '@ngrx/store';
+import { IncomeDto } from 'src/app/api/models/income-dto';
+import { deleteIncomeAction, saveEditedIncomeAction } from 'src/app/store/actions/budget.actions';
+import { AppState } from 'src/app/store/state/app.state';
 
 @Component({
   selector: 'app-edit-income-dialog',
@@ -14,9 +16,9 @@ export class EditIncomeDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<EditIncomeDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: UpdateIncomeDto,
-    private authService: AuthService,
-    private fb: FormBuilder
+    @Inject(MAT_DIALOG_DATA) public data: IncomeDto,
+    private fb: FormBuilder,
+    private store: Store<AppState>
   ) {}
 
   public onCancelClick(): void {
@@ -27,17 +29,21 @@ export class EditIncomeDialogComponent implements OnInit {
     this.registerFormControls();
   }
 
-  public retrieve(): UpdateIncomeDto {
-    return {
+  public onSaveClick(): void {
+    const incomeDto = {
       id: this.data.id,
-      plannerId: +this.authService.getPlannerId(),
+      plannerId: this.data.plannerId,
       source: this.form.get('source').value,
       amount: this.form.get('amount').value,
     };
+
+    this.store.dispatch(saveEditedIncomeAction({ incomeDto }));
+    this.dialogRef.close();
   }
 
-  public remove(): string {
-    return 'remove';
+  public onRemoveClick(): void {
+    this.store.dispatch(deleteIncomeAction({ incomeId: this.data.id }));
+    this.dialogRef.close();
   }
 
   private registerFormControls(): void {

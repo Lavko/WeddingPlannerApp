@@ -9,5 +9,7 @@ export const registerAction = createAction(
   '[Register Page] Register',
   props<{ firstName: string; email: string; password: string }>()
 );
+export const registerSuccessAction = createAction('[Register Page] Register success');
+export const registerFailureAction = createAction('[Register Page] Register failure', props<{ error: any }>());
 
 export const logoutAction = createAction('[Logout Page] Logout');

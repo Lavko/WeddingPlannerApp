@@ -8,10 +8,8 @@ export const initialGuestState: GuestState = {
 
 export const guestsReducer = createReducer(
   initialGuestState,
-  on(GuestsActions.getGuestsAction, (state) => ({ ...state })),
   on(GuestsActions.getGuestsSuccessAction, (state, props) => ({
     ...state,
     guests: props.guests,
-  })),
-  on(GuestsActions.getGuestsFailureAction, (state) => ({ ...state }))
+  }))
 );

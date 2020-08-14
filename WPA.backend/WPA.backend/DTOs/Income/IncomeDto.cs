@@ -16,5 +16,8 @@ namespace WPA.backend.DTOs.Funds
 
         [Required]
         public double Amount { get; set; }
+
+        [Required]
+        public int PlannerId { get; set; }
     }
 }

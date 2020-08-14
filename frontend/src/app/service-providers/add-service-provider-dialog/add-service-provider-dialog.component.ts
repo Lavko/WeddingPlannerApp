@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { CreateServiceProviderDto } from './../../api/models/create-service-provider-dto';
-import { AuthService } from './../../auth/services/auth.service';
+import { Store } from '@ngrx/store';
+import { saveNewServiceProviderAction } from 'src/app/store/actions/serviceProviders.actions';
+import { AppState } from 'src/app/store/state/app.state';
 
 @Component({
   selector: 'app-add-service-provider-dialog',
@@ -14,22 +15,25 @@ export class AddServiceProviderDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<AddServiceProviderDialogComponent>,
-    private authService: AuthService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private store: Store<AppState>
   ) {}
 
   public onCancelClick(): void {
     this.dialogRef.close();
   }
 
-  public retrieve(): CreateServiceProviderDto {
-    return {
+  public onAddClick(): void {
+    const serviceProviderDto = {
       name: this.form.get('name').value,
       serviceType: this.form.get('serviceType').value,
       phoneNumber: this.form.get('phoneNumber').value,
       email: this.form.get('email').value,
       address: this.form.get('address').value,
     };
+
+    this.store.dispatch(saveNewServiceProviderAction({ serviceProvider: serviceProviderDto }));
+    this.dialogRef.close();
   }
 
   private registerFormControls(): void {

@@ -5,7 +5,6 @@ namespace WPA.backend.DTOs.Guests
 {
     public class CreateGuestDto
     {
-        [Required]
         public int PlannerId { get; set; }
 
         [Required]

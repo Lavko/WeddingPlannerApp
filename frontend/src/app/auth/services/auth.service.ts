@@ -6,12 +6,13 @@ import { map } from 'rxjs/operators';
 import { LoginUserDto } from 'src/app/api/models';
 import { loginAction } from 'src/app/store/actions/auth.actions';
 import { AppState } from 'src/app/store/state/app.state';
+import { logoutAction } from './../../store/actions/auth.actions';
+import { userSelectors } from './../../store/state/user.state';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private tokenKey = 'token';
   constructor(private router: Router, private store: Store<AppState>) {}
 
   public logIn(model: LoginUserDto, route: string) {
@@ -19,31 +20,23 @@ export class AuthService {
   }
 
   public getToken(): Observable<string> {
-    this.store.select((store) => console.log(store));
-    return this.store.select((store) => {
-      console.log(store);
-      return store.auth.token;
-    });
+    return userSelectors.getToken(this.store);
   }
 
   public isLoggedIn(): Observable<boolean> {
     return this.getToken().pipe(
       map((token) => {
-        if (token) {
-          return true;
-        } else {
-          return false;
-        }
+        return token ? true : false;
       })
     );
   }
 
   public getPlannerId(): Observable<number> {
-    return this.store.select((store) => store.auth.plannerId);
+    return this.store.select((store) => store.user.plannerId);
   }
 
   public logOut(): void {
-    localStorage.removeItem(this.tokenKey);
+    this.store.dispatch(logoutAction());
     this.router.navigate(['auth/login']);
   }
 }

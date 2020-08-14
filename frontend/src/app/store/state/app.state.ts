@@ -1,7 +1,11 @@
-import { AuthState } from './auth.state';
+import { BudgetState } from './budget.state';
 import { GuestState } from './guests.state';
+import { ServiceProvidersState } from './serviceProviders.state';
+import { UserState } from './user.state';
 
 export interface AppState {
-  auth: AuthState;
+  user: UserState;
   guests: GuestState;
+  budget: BudgetState;
+  serviceProviders: ServiceProvidersState;
 }

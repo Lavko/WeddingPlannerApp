@@ -4,7 +4,7 @@ import { NativeScriptRouterModule } from 'nativescript-angular/router';
 import { AuthGuard } from './auth/guards/auth-guard';
 
 const routes: Routes = [
-  { path: '', canActivate: [AuthGuard], redirectTo: '/home', pathMatch: 'full' },
+  { path: '', canActivate: [AuthGuard], redirectTo: '/guests', pathMatch: 'full' },
   {
     path: 'home',
     canActivate: [AuthGuard],

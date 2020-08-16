@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
 import * as app from 'tns-core-modules/application';
+import { ObservableArray } from 'tns-core-modules/data/observable-array';
 import { GuestDto } from '../api/models';
-import { GuestService } from '../api/services';
 import { AuthService } from '../auth/services/auth.service';
+import { AppState } from '../store/state/app.state';
+import { getGuestsAction } from './../store/actions/guests.actions';
+import { guestsSelectors } from './../store/state/guests.state';
 
 @Component({
   selector: 'ns-guests',
@@ -11,21 +15,23 @@ import { AuthService } from '../auth/services/auth.service';
   styleUrls: ['./guests.component.css'],
 })
 export class GuestsComponent implements OnInit {
-  guests: Array<GuestDto>;
-
-  constructor(private guestService: GuestService, private authService: AuthService) {}
+  guests: ObservableArray<GuestDto>;
+  public selectedIndexes = [0, 3];
+  constructor(private store: Store<AppState>, private authService: AuthService) {}
 
   ngOnInit() {
+    this.store.dispatch(getGuestsAction());
     this.retrieveData();
   }
 
   onDrawerButtonTap(): void {
-    const sideDrawer = <RadSideDrawer>app.getRootView();
+    const sideDrawer = app.getRootView() as RadSideDrawer;
     sideDrawer.showDrawer();
   }
 
   private retrieveData(): void {
-    const plannerId = this.authService.getPlannerId();
-    this.guestService.GuestGetAll(+plannerId).subscribe((result) => (this.guests = result));
+    guestsSelectors.getGuests(this.store).subscribe((guests) => {
+      this.guests = new ObservableArray(guests);
+    });
   }
 }

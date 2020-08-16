@@ -4,13 +4,10 @@
   </ActionItem>
   <Label text="Goście"></Label>
 </ActionBar>
-dsadasdasd
-<ScrollView>
-  <StackLayout>
-    <ListView height="150" items="{{ guests | async }}">
-      <ng-template let-guest="item" let-i="index" let-odd="odd" let-even="even">
-        {{ guest.name }}
-      </ng-template>
-    </ListView>
-  </StackLayout>
-</ScrollView>
+<GridLayout>
+  <RadListView [items]="guests">
+    <ng-template let-item="item">
+      <ns-guests-list-item [guest]="item"></ns-guests-list-item>
+    </ng-template>
+  </RadListView>
+</GridLayout>

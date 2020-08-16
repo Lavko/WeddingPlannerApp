@@ -6,6 +6,7 @@ export interface GuestDto {
   id: number;
   isTravelling: boolean;
   name: string;
+  plannerId: number;
   side: GuestSide;
   status: GuestStatus;
 }

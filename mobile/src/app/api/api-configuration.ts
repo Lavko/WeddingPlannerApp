@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ApiConfiguration {
-  rootUrl: string = 'https://wed-plan-app.azurewebsites.net';
+  rootUrl: string = 'http://localhost:63447';
 }
 
 export interface ApiConfigurationInterface {

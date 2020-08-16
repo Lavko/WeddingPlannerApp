@@ -17,6 +17,7 @@ export class LoginPageComponent implements OnInit {
   public onSubmit() {
     console.log('submit');
     const model = { email: this.email, password: this.password };
+    console.log(model);
     this.authService.logIn(model, ['orders', 'newOrder']);
   }
 }

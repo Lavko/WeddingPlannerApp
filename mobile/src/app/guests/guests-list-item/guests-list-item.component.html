@@ -1,0 +1,23 @@
+<CardView class="cardStyle" margin="10" elevation="10" radius="1" ripple="true" (tap)="expanded = !expanded">
+  <StackLayout orientation="horizontal">
+    <StackLayout width="25px" [class]="statusCssClass"></StackLayout>
+    <StackLayout orientation="vertical">
+      <Label class="guest-name" [text]="guest.name"></Label>
+      <ng-container *ngIf="expanded">
+        <Label class="guest-status" [text]="guest.status | guestStatus"></Label>
+        <StackLayout orientation="horizontal" class="expanded-panel">
+          <Label text="Przyjezdny:" class="guest-label"></Label>
+          <Label [text]="guest.isTravelling ? 'tak' : 'nie'"></Label>
+        </StackLayout>
+        <StackLayout orientation="horizontal" class="expanded-panel">
+          <Label text="Strona:" class="guest-label"></Label>
+          <Label [text]="guest.side | guestSide"></Label>
+        </StackLayout>
+        <StackLayout orientation="horizontal" class="expanded-panel">
+          <Label text="Uwagi:" class="guest-label"></Label>
+          <Label textWrap="true" [text]="guest.adnotation"></Label>
+        </StackLayout>
+      </ng-container>
+    </StackLayout>
+  </StackLayout>
+</CardView>

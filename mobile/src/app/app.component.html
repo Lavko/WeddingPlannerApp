@@ -1,9 +1,9 @@
 <RadSideDrawer [drawerTransition]="sideDrawerTransition">
-  <GridLayout tkDrawerContent rows="auto, *" class="nt-drawer__content">
+  <GridLayout tkDrawerContent rows="auto, *" class="nt-drawer__content" *ngIf="isLoggedIn | async">
     <StackLayout row="0" class="nt-drawer__header">
       <Image class="nt-drawer__header-image fas t-36" src="font://&#xf2bd;"></Image>
-      <Label class="nt-drawer__header-brand" text="User Name"></Label>
-      <Label class="nt-drawer__header-footnote" text="username@mail.com"></Label>
+      <Label class="nt-drawer__header-brand" [text]="userName | async"></Label>
+      <Label class="nt-drawer__header-footnote" [text]="userEmail | async"></Label>
     </StackLayout>
 
     <ScrollView row="1" class="nt-drawer__body">
@@ -67,7 +67,7 @@
           (tap)="onNavItemTap('/settings')"
         >
           <Label col="0" text="&#xf013;" class="nt-icon fas"></Label>
-          <Label col="1" text="Settings" class="p-r-10"></Label>
+          <Label col="1" text="Ustawienia" class="p-r-10"></Label>
         </GridLayout>
       </StackLayout>
     </ScrollView>

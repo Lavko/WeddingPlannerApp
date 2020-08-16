@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { getString, remove, setString } from 'tns-core-modules/application-settings';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { LoginUserDto } from '~/app/api/models';
-import { UsersService } from '~/app/api/services';
+import { loginAction, logoutAction } from './../../store/actions/auth.actions';
+import { AppState } from './../../store/state/app.state';
+import { userSelectors } from './../../store/state/user.state';
 
 @Injectable({
   providedIn: 'root',
@@ -11,35 +15,30 @@ import { UsersService } from '~/app/api/services';
 export class AuthService {
   private tokenKey = 'token';
   private helper = new JwtHelperService();
-  constructor(private usersService: UsersService, private router: Router) {}
+  constructor(private store: Store<AppState>, private router: Router) {}
 
   logIn(model: LoginUserDto, route: Array<string>) {
-    this.usersService.UsersAuthenticate(model).subscribe((response) => {
-      if (response) {
-        setString(this.tokenKey, response);
-        this.router.navigate(route);
-      }
-    });
+    this.store.dispatch(loginAction(model));
   }
 
-  getToken(): string {
-    return getString(this.tokenKey);
+  public getToken(): Observable<string> {
+    return userSelectors.getToken(this.store);
   }
 
-  isLoggedIn(): boolean {
-    if (this.getToken()) {
-      return true;
-    }
-    return false;
+  public isLoggedIn(): Observable<boolean> {
+    return this.getToken().pipe(
+      map((token) => {
+        return token ? true : false;
+      })
+    );
   }
 
-  getPlannerId(): string {
-    const tokenDetails = this.helper.decodeToken(this.getToken());
-    return tokenDetails.PlannerId;
+  public getPlannerId(): Observable<number> {
+    return this.store.select((store) => store.user.plannerId);
   }
 
-  logOut(): void {
-    remove(this.tokenKey);
-    this.router.navigate(['auth/login']);
+  public logOut(): void {
+    this.store.dispatch(logoutAction());
+    this.router.navigate(['/auth']);
   }
 }

@@ -1,19 +1,33 @@
-.sidenav-container {
-  height: 100%;
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+.app-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2em;
 }
 
-.page-content {
-  height: 100%;
+.app-title-link {
+  text-decoration: none;
+  color: #f891a0;
 }
 
-.container {
-  height: 100%;
+.mat-toolbar {
+  background: rgba(248, 248, 245, 0.7);
+  backdrop-filter: blur(1px);
+  border-bottom: 2px solid rgba(248, 248, 245, 1);
 }
 
 .menu-item-icon {
   padding-right: 0.5em;
 }
 
-.mat-drawer {
-  width: 10%;
+.spacer {
+  flex: 1 1 auto;
+}
+
+button {
+  background-color: transparent;
+  border-bottom: 2px solid rgba(0, 0, 0, 0);
+}
+button:hover {
+  border-bottom: 2px solid rgba(0, 0, 0, 0.9);
 }

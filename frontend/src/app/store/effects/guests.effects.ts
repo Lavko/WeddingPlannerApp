@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
-import { catchError, concatMapTo, map, mergeMap, withLatestFrom } from 'rxjs/operators';
+import { catchError, concatMapTo, map, mergeMap, tap, withLatestFrom } from 'rxjs/operators';
 import { GuestService } from 'src/app/api/services';
+import { disableLoader, enableLoader } from '../actions/loaders.actions';
 import {
   deleteGuestAction,
   deleteGuestFailureAction,
@@ -30,7 +31,9 @@ export class GuestsEffects {
     ofType(getGuestsAction),
     withLatestFrom(userSelectors.getPlannerId(this.store)),
     mergeMap(([action, plannerId]) => {
+      this.store.dispatch(enableLoader({ loaderName: 'getGuestsLoader' }));
       return this.guestService.GuestGetAll(plannerId).pipe(
+        tap(() => this.store.dispatch(disableLoader({ loaderName: 'getGuestsLoader' }))),
         map((guests) => getGuestsSuccessAction({ guests })),
         catchError((error) => of(getGuestsFailureAction({ error })))
       );

@@ -12,7 +12,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
   mobileQuery: MediaQueryList;
   public isOpened: boolean;
   public menuItems = [
-    { icon: 'event', label: 'Kalendarium', route: 'events' },
+    { icon: 'event', label: 'Kalendarz', route: 'events' },
     { icon: 'people_alt', label: 'Goście', route: 'guests' },
     { icon: 'account_balance', label: 'Finanse', route: 'budget' },
     { icon: 'style', label: 'Wizytówki', route: 'serviceProviders' },
@@ -34,5 +34,9 @@ export class MainMenuComponent implements OnInit, OnDestroy {
 
   public isLoggedIn(): Observable<boolean> {
     return this.authService.isLoggedIn();
+  }
+
+  public logOut(): void {
+    this.authService.logOut();
   }
 }

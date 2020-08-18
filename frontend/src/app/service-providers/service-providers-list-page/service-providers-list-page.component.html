@@ -9,9 +9,9 @@
         <mat-label>Filtr</mat-label>
         <input matInput (keyup)="applyFilter($event)" />
       </mat-form-field>
-      <button mat-raised-button color="accent" (click)="openCreateDialog()">Nowa wizytówka</button>
+      <button mat-raised-button class="primary-btn big-btn" (click)="openCreateDialog()">Nowa wizytówka</button>
     </div>
-    <div class="mat-elevation-z8">
+    <div class="mat-elevation-z2">
       <table mat-table [dataSource]="dataSource" matSort fxFill>
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Nazwa</th>

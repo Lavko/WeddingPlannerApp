@@ -7,6 +7,7 @@ import { GuestDto } from 'src/app/api/models';
 import { getGuestsAction } from 'src/app/store/actions/guests.actions';
 import { AppState } from 'src/app/store/state/app.state';
 import { guestsSelectors } from 'src/app/store/state/guests.state';
+import { loadersSelectors } from './../../store/state/loader.state';
 import { AddGuestDialogComponent } from './../add-guest-dialog/add-guest-dialog.component';
 import { EditGuestDialogComponent } from './../edit-guest-dialog/edit-guest-dialog.component';
 
@@ -18,6 +19,7 @@ import { EditGuestDialogComponent } from './../edit-guest-dialog/edit-guest-dial
 export class GuestsListPageComponent implements OnInit, OnDestroy {
   public displayedColumns: string[] = ['name', 'status', 'side', 'isTravelling', 'adnotation'];
   public dataSource: MatTableDataSource<GuestDto>;
+  public loaders = loadersSelectors.getLoaders(this.store);
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 

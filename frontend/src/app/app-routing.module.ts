@@ -14,26 +14,31 @@ const routes: Routes = [
   {
     path: 'auth',
     loadChildren: './auth/auth.module#AuthModule',
+    data: { animationState: 'auth' },
   },
   {
     path: 'guests',
     canActivate: [AuthGuard],
     loadChildren: './guests/guests.module#GuestsModule',
+    data: { animationState: 'guests' },
   },
   {
     path: 'serviceProviders',
     canActivate: [AuthGuard],
     loadChildren: './service-providers/service-providers.module#ServiceProvidersModule',
+    data: { animationState: 'serviceProviders' },
   },
   {
     path: 'budget',
     canActivate: [AuthGuard],
     loadChildren: './budget/budget.module#BudgetModule',
+    data: { animationState: 'budget' },
   },
   {
     path: 'events',
     canActivate: [AuthGuard],
     loadChildren: './events/events.module#EventsModule',
+    data: { animationState: 'events' },
   },
 ];
 

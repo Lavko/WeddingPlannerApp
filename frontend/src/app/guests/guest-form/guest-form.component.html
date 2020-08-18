@@ -4,10 +4,6 @@
       <mat-label>Imię i nazwisko</mat-label>
       <input matInput placeholder="Jan Kowalski" formControlName="name" />
     </mat-form-field>
-    <mat-form-field>
-      <mat-label>Uwagi</mat-label>
-      <textarea matInput formControlName="adnotation"></textarea>
-    </mat-form-field>
     <mat-checkbox formControlName="isTravelling">Przyjezdny</mat-checkbox>
     <mat-form-field>
       <mat-label>Status gościa</mat-label>
@@ -24,6 +20,10 @@
           {{ option.label }}
         </mat-option>
       </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Uwagi</mat-label>
+      <textarea matInput formControlName="adnotation"></textarea>
     </mat-form-field>
   </div>
 </form>

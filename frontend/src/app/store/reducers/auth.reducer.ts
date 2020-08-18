@@ -44,5 +44,8 @@ export const authReducer = createReducer(
       plannerId: tokenDetails.plannerId,
     };
   }),
-  on(AuthActions.logoutAction, (state) => ({ ...state, auth: initialAuthState }))
+  on(AuthActions.logoutAction, (state) => {
+    localStorage.removeItem(tokenKey);
+    return { ...state, auth: initialAuthState };
+  })
 );

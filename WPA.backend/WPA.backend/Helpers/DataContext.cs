@@ -17,5 +17,6 @@ namespace WPA.backend.Helpers
         public DbSet<Expense> Expenses { get; set; }
         public DbSet<Income> Incomes { get; set; }
         public DbSet<ServiceProvider> ServiceProviders { get; set; }
+        public DbSet<Event> Events { get; set; }
     }
 }

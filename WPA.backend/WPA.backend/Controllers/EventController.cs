@@ -4,78 +4,76 @@ using System.Collections.Generic;
 using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using WPA.backend.DTOs.Guests;
+using WPA.backend.DTOs.Events;
 using WPA.backend.Services;
 
 namespace WPA.backend.Controllers
 {
     [Authorize]
     [ApiController]
-    public class GuestController : ControllerBase
+    public class EventController : ControllerBase
     {
-        private IRestService<GuestDto, CreateGuestDto, UpdateGuestDto> _guestService;
+        private IRestService<EventDto, CreateEventDto, UpdateEventDto> _eventService;
         private IUserService _userService;
 
-        public GuestController(IRestService<GuestDto, CreateGuestDto, UpdateGuestDto> guestService, IUserService userService)
+        public EventController(IRestService<EventDto, CreateEventDto, UpdateEventDto> eventService, IUserService userService)
         {
-            _guestService = guestService;
+            _eventService = eventService;
             _userService = userService;
         }
 
-        [HttpGet("guests")]
-        [ProducesResponseType(typeof(IList<GuestDto>), (int)HttpStatusCode.OK)]
+        [HttpGet("events")]
+        [ProducesResponseType(typeof(IList<EventDto>), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(int plannerId)
         {
-            var user = await _userService.GetById(int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)));
+            var events = await _eventService.GetAll(plannerId);
 
-            var guests = await _guestService.GetAll(user.PlannerId);
-
-            return Ok(guests);
+            return Ok(events);
         }
 
-        [HttpPost("guests")]
+        [HttpPost("events")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> Post([FromBody] CreateGuestDto  createGuestDto)
+        public async Task<IActionResult> Post([FromBody] CreateEventDto createEventDto)
         {
             var user = await _userService.GetById(int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)));
 
-            if (createGuestDto.PlannerId != user.PlannerId)
+            if (createEventDto.PlannerId != user.PlannerId)
             {
                 return BadRequest();
             }
 
-            await _guestService.Create(createGuestDto);
+            await _eventService.Create(createEventDto);
 
             return Ok();
         }
 
-        [HttpPut("guests")]
+        [HttpPut("events")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> Put([FromBody] UpdateGuestDto updateGuestDto)
+        public async Task<IActionResult> Put([FromBody] UpdateEventDto updateEventDto)
         {
             var user = await _userService.GetById(int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)));
 
-            if (updateGuestDto.PlannerId != user.PlannerId)
+            if (updateEventDto.PlannerId != user.PlannerId)
             {
                 return BadRequest();
             }
 
-            await _guestService.Update(updateGuestDto);
-         
+            await _eventService.Update(updateEventDto);
+
             return Ok();
         }
 
-        [HttpDelete("guests/{id}")]
+        [HttpDelete("events/{id}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> Delete(int id)
         {
-            await _guestService.Delete(id);
+            await _eventService.Delete(id);
             return Ok();
-            
+
         }
     }
 }

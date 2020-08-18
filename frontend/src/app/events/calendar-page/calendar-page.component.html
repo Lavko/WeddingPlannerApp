@@ -1,10 +1,21 @@
 <div fxLayout="row" fxLayoutAlign="center">
   <div fxFlex="90%">
     <div>
-      <h2>Goście</h2>
+      <h2>Kalendarz</h2>
     </div>
-    <div>
-      <full-calendar defaultView="dayGridMonth" [plugins]="calendarPlugins"></full-calendar>
+    <div fxLayoutAlign="end center" style="height: 50px;">
+      <button mat-raised-button class="primary-btn big-btn">Nowe wydarzenie</button>
+    </div>
+    <div class="mat-elevation-z2">
+      <mwl-calendar-month-view
+        [viewDate]="viewDate"
+        [events]="events"
+        [activeDayIsOpen]="true"
+        (eventClicked)="eventClicked($event)"
+        [locale]="locale"
+        [weekStartsOn]="weekStartsOn"
+      >
+      </mwl-calendar-month-view>
     </div>
   </div>
 </div>

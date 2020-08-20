@@ -6,7 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -25,7 +25,6 @@ import { TokenInterceptor } from './../auth/interceptors/token.interceptor';
 import { GuestSidePipe } from './pipes/guest-side.pipe';
 import { GuestStatusPipe } from './pipes/guest-status.pipe';
 import { ServiceTypePipe } from './pipes/service-type.pipe';
-
 @NgModule({
   declarations: [GuestStatusPipe, GuestSidePipe, ServiceTypePipe],
   imports: [
@@ -51,6 +50,7 @@ import { ServiceTypePipe } from './pipes/service-type.pipe';
     MatProgressSpinnerModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatRippleModule,
   ],
   exports: [
     FormsModule,
@@ -78,6 +78,7 @@ import { ServiceTypePipe } from './pipes/service-type.pipe';
     MatProgressSpinnerModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatRippleModule,
   ],
   providers: [
     {

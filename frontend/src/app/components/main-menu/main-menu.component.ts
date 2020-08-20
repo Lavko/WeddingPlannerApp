@@ -12,6 +12,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
   mobileQuery: MediaQueryList;
   public isOpened: boolean;
   public menuItems = [
+    { icon: 'reorder', label: 'Podsumowanie', route: 'home' },
     { icon: 'event', label: 'Kalendarz', route: 'events' },
     { icon: 'people_alt', label: 'Goście', route: 'guests' },
     { icon: 'account_balance', label: 'Finanse', route: 'budget' },

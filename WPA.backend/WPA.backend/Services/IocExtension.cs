@@ -18,6 +18,7 @@ namespace WPA.backend.Services
             services.AddTransient<IRestService<IncomeDto, CreateIncomeDto, UpdateIncomeDto>, IncomeService>();
             services.AddTransient<IRestService<ServiceProviderDto, CreateServiceProviderDto, UpdateServiceProviderDto>, ServiceProviderService>();
             services.AddTransient<IRestService<EventDto, CreateEventDto, UpdateEventDto>, EventService>();
+            services.AddTransient<IHomeSummaryService, HomeSummaryService>();
         }
     }
 }

@@ -1,0 +1,35 @@
+<mat-card class="summary-card" matRipple>
+  <ng-container>
+    <mat-card-header>
+      <mat-card-title>Budżet</mat-card-title>
+    </mat-card-header>
+    <mat-card-content fxLayout="row" fxLayoutAlign="center">
+      <ng-container *ngIf="budgetSummary$ | async as summary">
+        <div fxFlex="95%">
+          <div>
+            <ul class="summary-list">
+              <li fxLayout="row" fxLayoutAlign="space-between">
+                <span>Wasz budżet wynosi:</span>
+                <span
+                  ><strong>{{ summary.incomesSum | currency: '':'' }} zł</strong></span
+                >
+              </li>
+              <li fxLayout="row" fxLayoutAlign="space-between">
+                <span>Planowane wydatki:</span>
+                <span
+                  ><strong>{{ summary.expensesSum | currency: '':'' }} zł</strong></span
+                >
+              </li>
+              <li fxLayout="row" fxLayoutAlign="space-between">
+                <span>Suma opłaconych wydatków:</span>
+                <span
+                  ><strong>{{ summary.paidExpensesSum | currency: '':'' }} zł</strong></span
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </ng-container>
+    </mat-card-content>
+  </ng-container>
+</mat-card>

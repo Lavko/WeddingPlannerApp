@@ -6,7 +6,7 @@ using WPA.backend.DTOs.Events;
 
 namespace WPA.backend.DTOs.Home
 {
-    public class CalendarSummary
+    public class CalendarSummaryDto
     {
         public int EventsCount { get; set; }
         public int EventsInFutureCount { get; set; }

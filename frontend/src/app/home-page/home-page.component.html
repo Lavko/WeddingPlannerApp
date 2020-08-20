@@ -1,1 +1,12 @@
-<p>home-page works!</p>
+<div class="home-title-container">
+  <h1 class="home-title">Wedding Planner</h1>
+</div>
+<div fxLayout="row" fxLayoutAlign="center stretch">
+  <div fxFlex="90%">
+    <div fxLayout="row" fxLayoutAlign="space-between">
+      <app-calendar-summary fxFlex="33%" [routerLink]="'/events'"></app-calendar-summary>
+      <app-guests-summary fxFlex="33%" [routerLink]="'/guests'"></app-guests-summary>
+      <app-budget-summary fxFlex="33%" [routerLink]="'/budget'"></app-budget-summary>
+    </div>
+  </div>
+</div>

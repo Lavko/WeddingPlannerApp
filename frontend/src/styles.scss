@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 
 html,
 body {
@@ -70,7 +71,8 @@ h2 {
 }
 
 .mat-dialog-title,
-.mat-card {
+.mat-card,
+.mat-list-item-content {
   font-family: 'Raleway', sans-serif;
   color: #424242;
 }
@@ -100,4 +102,36 @@ h2 {
 .mat-checkbox-checked:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element,
 .mat-checkbox:active:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element {
   background-color: #f9e8ef;
+}
+
+.home-title-container {
+  width: 100%;
+  text-align: center;
+  background: rgba(248, 248, 245, 0.5);
+  backdrop-filter: blur(2px);
+  line-height: 130px;
+}
+
+.home-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: 80px;
+  color: #f891a0;
+}
+
+.list-divider {
+  position: relative !important;
+}
+
+.summary-list {
+  font-size: 18px;
+  list-style-type: none;
+  padding: 0;
+}
+
+.summary-list > li {
+  padding-bottom: 8px;
+}
+
+.summary-card {
+  height: 100%;
 }

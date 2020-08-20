@@ -7,11 +7,11 @@ import { UpdateIncomeDto } from 'src/app/api/models/update-income-dto';
 
 export const getBudgetSummaryAction = createAction('[Budget Page] Get budget summary');
 export const getBudgetSummarySuccessAction = createAction(
-  '[Auth API] Get budget summary success',
+  '[Budget Page] Get budget summary success',
   props<{ budgetSummary: BudgetModel }>()
 );
 export const getBudgetSummaryFailureAction = createAction(
-  '[Auth API] Get budget summary failure',
+  '[Budget Page] Get budget summary failure',
   props<{ error: any }>()
 );
 

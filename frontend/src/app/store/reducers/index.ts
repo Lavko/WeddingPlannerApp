@@ -6,6 +6,7 @@ import { calendarReducer, initialCalendarState } from './calendar.reducer';
 import { guestsReducer, initialGuestState } from './guests.reducer';
 import { initialLoadersState, loadersReducer } from './loaders.reducer';
 import { initialServiceProvidersState, serviceProvidersReducer } from './serviceProviders.reducer';
+import { initialSummaryState, summaryReducer } from './summary.reducer';
 
 export const initialState: AppState = {
   user: initialAuthState,
@@ -14,6 +15,7 @@ export const initialState: AppState = {
   serviceProviders: initialServiceProvidersState,
   loaders: initialLoadersState,
   calendar: initialCalendarState,
+  summary: initialSummaryState,
 };
 
 export const reducers: ActionReducerMap<AppState> = {
@@ -23,4 +25,5 @@ export const reducers: ActionReducerMap<AppState> = {
   serviceProviders: serviceProvidersReducer,
   loaders: loadersReducer,
   calendar: calendarReducer,
+  summary: summaryReducer,
 };

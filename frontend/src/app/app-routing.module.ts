@@ -6,15 +6,20 @@ const routes: Routes = [
   {
     path: '',
     canActivate: [AuthGuard],
-    redirectTo: 'guests',
+    redirectTo: 'home',
     pathMatch: 'full',
-    // loadChildren: '/home-page/home-page.module#HomePageModule',
   },
 
   {
     path: 'auth',
     loadChildren: './auth/auth.module#AuthModule',
     data: { animationState: 'auth' },
+  },
+  {
+    path: 'home',
+    canActivate: [AuthGuard],
+    loadChildren: './home-page/home-page.module#HomePageModule',
+    data: { animationState: 'home' },
   },
   {
     path: 'guests',

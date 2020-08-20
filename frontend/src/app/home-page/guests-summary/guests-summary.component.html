@@ -1,0 +1,35 @@
+<mat-card class="summary-card" matRipple>
+  <ng-container>
+    <mat-card-header>
+      <mat-card-title>Goście</mat-card-title>
+    </mat-card-header>
+    <mat-card-content fxLayout="row" fxLayoutAlign="center">
+      <ng-container *ngIf="guestsSummary$ | async as summary">
+        <div fxFlex="95%">
+          <div>
+            <ul class="summary-list">
+              <li fxLayout="row" fxLayoutAlign="space-between">
+                <span>Ile jest planowanych gości:</span>
+                <span>
+                  <strong>{{ summary.guestsCount }}</strong>
+                </span>
+              </li>
+              <li fxLayout="row" fxLayoutAlign="space-between">
+                <span>Ilu gości zostało już zaproszonych:</span>
+                <span>
+                  <strong>{{ summary.invitedGuestsCount }}</strong>
+                </span>
+              </li>
+              <li fxLayout="row" fxLayoutAlign="space-between">
+                <span>Ilu gości potwierdziło swoje przybycie:</span>
+                <span>
+                  <strong>{{ summary.confirmedGuestsCount }}</strong>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </ng-container>
+    </mat-card-content>
+  </ng-container>
+</mat-card>

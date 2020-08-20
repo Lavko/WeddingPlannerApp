@@ -1,1 +1,44 @@
-<p>calendar-summary works!</p>
+<mat-card class="summary-card" matRipple>
+  <ng-container>
+    <mat-card-header>
+      <mat-card-title>Wydarzenia</mat-card-title>
+    </mat-card-header>
+    <mat-card-content fxLayout="row" fxLayoutAlign="center">
+      <ng-container *ngIf="calendarSummary$ | async as summary">
+        <div fxFlex="95%">
+          <mat-list role="list">
+            <ng-container *ngIf="summary.eventsForNextDays.length > 0">
+              <div *ngFor="let event of summary.eventsForNextDays">
+                <mat-list-item role="listitem"
+                  ><mat-icon mat-list-icon>event</mat-icon>{{ event.date.slice(0, 10) }} -
+                  {{ event.title }}</mat-list-item
+                >
+                <mat-divider class="list-divider"></mat-divider>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="summary.eventsForNextDays.length == 0">
+              Brak wydarzeń na najbliższe 7 dni.
+            </ng-container>
+          </mat-list>
+
+          <div>
+            <ul class="summary-list">
+              <li fxLayout="row" fxLayoutAlign="space-between">
+                <span>Ile wydarzeń masz łącznie w kalendarzu:</span>
+                <span
+                  ><strong>{{ summary.eventsCount }}</strong></span
+                >
+              </li>
+              <li fxLayout="row" fxLayoutAlign="space-between">
+                <span>Ile wydarzeń jeszcze pozostało do ślubu:</span>
+                <span
+                  ><strong>{{ summary.eventsInFutureCount }}</strong></span
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </ng-container>
+    </mat-card-content>
+  </ng-container>
+</mat-card>

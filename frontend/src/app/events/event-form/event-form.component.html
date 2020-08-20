@@ -1,0 +1,21 @@
+<form [formGroup]="form">
+  <div fxLayout="column" fxLayoutAlign="start stretch">
+    <mat-form-field>
+      <mat-label>Nazwa</mat-label>
+      <input matInput placeholder="Spotkanie z fotografem." formControlName="title" />
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Wybierz datę" />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Kolor</mat-label>
+      <mat-select formControlName="color">
+        <mat-option *ngFor="let option of colorOptions" [value]="option.value">
+          {{ option.label }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</form>

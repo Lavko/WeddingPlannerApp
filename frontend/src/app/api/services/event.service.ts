@@ -7,17 +7,17 @@ import { StrictHttpResponse as __StrictHttpResponse } from '../strict-http-respo
 import { Observable as __Observable } from 'rxjs';
 import { map as __map, filter as __filter } from 'rxjs/operators';
 
-import { GuestDto } from '../models/guest-dto';
-import { CreateGuestDto } from '../models/create-guest-dto';
-import { UpdateGuestDto } from '../models/update-guest-dto';
+import { EventDto } from '../models/event-dto';
+import { CreateEventDto } from '../models/create-event-dto';
+import { UpdateEventDto } from '../models/update-event-dto';
 @Injectable({
   providedIn: 'root',
 })
-class GuestService extends __BaseService {
-  static readonly GuestGetAllPath = '/guests';
-  static readonly GuestPostPath = '/guests';
-  static readonly GuestPutPath = '/guests';
-  static readonly GuestDeletePath = '/guests/{id}';
+class EventService extends __BaseService {
+  static readonly EventGetAllPath = '/events';
+  static readonly EventPostPath = '/events';
+  static readonly EventPutPath = '/events';
+  static readonly EventDeletePath = '/events/{id}';
 
   constructor(
     config: __Configuration,
@@ -25,13 +25,18 @@ class GuestService extends __BaseService {
   ) {
     super(config, http);
   }
-  GuestGetAllResponse(): __Observable<__StrictHttpResponse<Array<GuestDto>>> {
+
+  /**
+   * @param plannerId undefined
+   */
+  EventGetAllResponse(plannerId?: number): __Observable<__StrictHttpResponse<Array<EventDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
+    if (plannerId != null) __params = __params.set('plannerId', plannerId.toString());
     let req = new HttpRequest<any>(
       'GET',
-      this.rootUrl + `/guests`,
+      this.rootUrl + `/events`,
       __body,
       {
         headers: __headers,
@@ -42,26 +47,30 @@ class GuestService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<Array<GuestDto>>;
+        return _r as __StrictHttpResponse<Array<EventDto>>;
       })
     );
-  }  GuestGetAll(): __Observable<Array<GuestDto>> {
-    return this.GuestGetAllResponse().pipe(
-      __map(_r => _r.body as Array<GuestDto>)
+  }
+  /**
+   * @param plannerId undefined
+   */
+  EventGetAll(plannerId?: number): __Observable<Array<EventDto>> {
+    return this.EventGetAllResponse(plannerId).pipe(
+      __map(_r => _r.body as Array<EventDto>)
     );
   }
 
   /**
-   * @param createGuestDto undefined
+   * @param createEventDto undefined
    */
-  GuestPostResponse(createGuestDto: CreateGuestDto): __Observable<__StrictHttpResponse<null>> {
+  EventPostResponse(createEventDto: CreateEventDto): __Observable<__StrictHttpResponse<null>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
-    __body = createGuestDto;
+    __body = createEventDto;
     let req = new HttpRequest<any>(
       'POST',
-      this.rootUrl + `/guests`,
+      this.rootUrl + `/events`,
       __body,
       {
         headers: __headers,
@@ -77,25 +86,25 @@ class GuestService extends __BaseService {
     );
   }
   /**
-   * @param createGuestDto undefined
+   * @param createEventDto undefined
    */
-  GuestPost(createGuestDto: CreateGuestDto): __Observable<null> {
-    return this.GuestPostResponse(createGuestDto).pipe(
+  EventPost(createEventDto: CreateEventDto): __Observable<null> {
+    return this.EventPostResponse(createEventDto).pipe(
       __map(_r => _r.body as null)
     );
   }
 
   /**
-   * @param updateGuestDto undefined
+   * @param updateEventDto undefined
    */
-  GuestPutResponse(updateGuestDto: UpdateGuestDto): __Observable<__StrictHttpResponse<null>> {
+  EventPutResponse(updateEventDto: UpdateEventDto): __Observable<__StrictHttpResponse<null>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
-    __body = updateGuestDto;
+    __body = updateEventDto;
     let req = new HttpRequest<any>(
       'PUT',
-      this.rootUrl + `/guests`,
+      this.rootUrl + `/events`,
       __body,
       {
         headers: __headers,
@@ -111,10 +120,10 @@ class GuestService extends __BaseService {
     );
   }
   /**
-   * @param updateGuestDto undefined
+   * @param updateEventDto undefined
    */
-  GuestPut(updateGuestDto: UpdateGuestDto): __Observable<null> {
-    return this.GuestPutResponse(updateGuestDto).pipe(
+  EventPut(updateEventDto: UpdateEventDto): __Observable<null> {
+    return this.EventPutResponse(updateEventDto).pipe(
       __map(_r => _r.body as null)
     );
   }
@@ -122,14 +131,14 @@ class GuestService extends __BaseService {
   /**
    * @param id undefined
    */
-  GuestDeleteResponse(id: number): __Observable<__StrictHttpResponse<null>> {
+  EventDeleteResponse(id: number): __Observable<__StrictHttpResponse<null>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
 
     let req = new HttpRequest<any>(
       'DELETE',
-      this.rootUrl + `/guests/${encodeURIComponent(id)}`,
+      this.rootUrl + `/events/${encodeURIComponent(id)}`,
       __body,
       {
         headers: __headers,
@@ -147,14 +156,14 @@ class GuestService extends __BaseService {
   /**
    * @param id undefined
    */
-  GuestDelete(id: number): __Observable<null> {
-    return this.GuestDeleteResponse(id).pipe(
+  EventDelete(id: number): __Observable<null> {
+    return this.EventDeleteResponse(id).pipe(
       __map(_r => _r.body as null)
     );
   }
 }
 
-module GuestService {
+module EventService {
 }
 
-export { GuestService }
+export { EventService }

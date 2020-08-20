@@ -11,6 +11,7 @@ import { MainMenuComponent } from './components/main-menu/main-menu.component';
 import { SharedModule } from './shared/shared.module';
 import { AuthEffects } from './store/effects/auth.effects';
 import { BudgetEffects } from './store/effects/budget.effects';
+import { CalendarEffects } from './store/effects/calendar.effects';
 import { GuestsEffects } from './store/effects/guests.effects';
 import { ServiceProvidersEffects } from './store/effects/serviceProviders.effects';
 import { reducers } from './store/reducers';
@@ -24,7 +25,7 @@ import { reducers } from './store/reducers';
     SharedModule,
     ToastrModule.forRoot(),
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([AuthEffects, GuestsEffects, BudgetEffects, ServiceProvidersEffects]),
+    EffectsModule.forRoot([AuthEffects, GuestsEffects, BudgetEffects, ServiceProvidersEffects, CalendarEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: false }),
   ],
   providers: [],

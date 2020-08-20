@@ -1,4 +1,5 @@
 import { BudgetState } from './budget.state';
+import { CalendarState } from './calendar.state';
 import { GuestState } from './guests.state';
 import { LoaderState } from './loader.state';
 import { ServiceProvidersState } from './serviceProviders.state';
@@ -10,4 +11,5 @@ export interface AppState {
   budget: BudgetState;
   serviceProviders: ServiceProvidersState;
   loaders: LoaderState;
+  calendar: CalendarState;
 }

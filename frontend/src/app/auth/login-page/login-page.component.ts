@@ -27,4 +27,8 @@ export class LoginPageComponent implements OnInit {
   public goToRegister(): void {
     this.router.navigate(['auth', 'register']);
   }
+
+  public isLoggedIn() {
+    this.authService.isLoggedIn();
+  }
 }

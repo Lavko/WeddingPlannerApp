@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using WPA.backend.DTOs.Events;
 using WPA.backend.DTOs.Expenses;
 using WPA.backend.DTOs.Funds;
 using WPA.backend.DTOs.Guests;
@@ -26,6 +27,10 @@ namespace WPA.backend.DTOs
             CreateMap<ServiceProviderDto, ServiceProvider>().ReverseMap();
             CreateMap<CreateServiceProviderDto, ServiceProvider>().ReverseMap();
             CreateMap<UpdateServiceProviderDto, ServiceProvider>().ReverseMap();
+
+            CreateMap<EventDto, Event>().ReverseMap();
+            CreateMap<CreateEventDto, Event>().ReverseMap();
+            CreateMap<UpdateEventDto, Event>().ReverseMap();
         }
     }
 }

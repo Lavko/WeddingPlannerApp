@@ -1,12 +1,103 @@
-/* You can add global styles to this file, and also import other style files */
-@import '~@fullcalendar/core/main.css';
-@import '~@fullcalendar/daygrid/main.css';
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
 
 html,
 body {
   height: 100%;
 }
+
 body {
   margin: 0;
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  font-family: 'Raleway', sans-serif;
+  font-size: 20px;
+  background-image: url(assets/ornament.png), url(assets/ornament-1.png);
+  background-position: left bottom, right top;
+  background-repeat: no-repeat, no-repeat;
+  background-color: #f9e8ef;
+  color: #424242;
+}
+
+.mat-table {
+  font-family: 'Raleway', sans-serif;
+}
+
+.mat-cell {
+  color: #424242;
+  font-size: 16px;
+}
+
+.mat-header-cell {
+  font-size: 16px;
+}
+
+.basic-container {
+  height: 100%;
+}
+
+.mat-button-base {
+  font-family: 'Raleway', sans-serif;
+  color: #424242;
+  font-size: 16px;
+}
+
+.primary-btn {
+  background-color: #39dff3;
+  color: #fff;
+}
+
+.big-btn {
+  font-size: 1em;
+  line-height: 2em !important;
+  padding: 0 1em !important;
+}
+
+h2 {
+  font-family: 'Raleway', sans-serif;
+  font-size: 2.5em;
+  color: #39dff3;
+  text-shadow: 1px 1px 3px #757575;
+  margin-block-start: 0.5em;
+  margin-block-end: 0.2em;
+}
+
+.mat-form-field-infix {
+  border-top: 0;
+}
+
+.mat-table,
+.mat-card {
+  background: rgba(248, 248, 245, 0.8);
+  backdrop-filter: blur(1px);
+}
+
+.mat-dialog-title,
+.mat-card {
+  font-family: 'Raleway', sans-serif;
+  color: #424242;
+}
+
+.mat-card {
+  font-size: 1.2em;
+}
+
+.mat-card-title {
+  font-size: 1.4em !important;
+}
+
+.mat-form-field,
+.mat-checkbox {
+  font-size: 16px;
+}
+
+.mat-checkbox {
+  padding-bottom: 1.25em;
+}
+
+.mat-checkbox-checked.mat-accent .mat-checkbox-background,
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: #f891a0;
+}
+
+.mat-checkbox-checked:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element,
+.mat-checkbox:active:not(.mat-checkbox-disabled).mat-accent .mat-ripple-element {
+  background-color: #f9e8ef;
 }

@@ -1,0 +1,13 @@
+<ActionBar>
+  <NavigationButton ios:visibility="collapsed" icon="res://menu" (tap)="onDrawerButtonTap()"></NavigationButton>
+  <ActionItem icon="res://menu" android:visibility="collapsed" (tap)="onDrawerButtonTap()" ios.position="left">
+  </ActionItem>
+  <Label text="Goście"></Label>
+</ActionBar>
+<GridLayout>
+  <RadListView [items]="guests">
+    <ng-template let-item="item">
+      <ns-guests-list-item [guest]="item"></ns-guests-list-item>
+    </ng-template>
+  </RadListView>
+</GridLayout>

@@ -1,8 +1,10 @@
-<h1 mat-dialog-title>Nowy wydatek</h1>
-<div mat-dialog-content>
-  <app-expense-form [form]="form" [serviceProviderOptions]="serviceProvidersOptions"></app-expense-form>
-</div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onCancelClick()">Anuluj</button>
-  <button mat-button [mat-dialog-close]="retrieve()" cdkFocusInitial>Ok</button>
-</div>
+<ng-container *ngIf="plannerId$ | async as plannerId"
+  ><h1 mat-dialog-title>Nowy wydatek</h1>
+  <div mat-dialog-content>
+    <app-expense-form [form]="form" [serviceProviderOptions]="serviceProvidersOptions"></app-expense-form>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onCancelClick()">Anuluj</button>
+    <button mat-button class="primary-btn" (click)="onAddClick(plannerId)" cdkFocusInitial>Dodaj</button>
+  </div>
+</ng-container>

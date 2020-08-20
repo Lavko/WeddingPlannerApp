@@ -30,6 +30,7 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
       password: this.form.get('password').value,
     };
 
+    
     this.usersService
       .UsersRegister(model)
       .pipe(untilDestroyed(this))

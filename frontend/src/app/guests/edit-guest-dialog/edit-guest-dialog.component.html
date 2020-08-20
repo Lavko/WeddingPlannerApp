@@ -4,6 +4,6 @@
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onCancelClick()">Anuluj</button>
-  <button mat-button [mat-dialog-close]="retrieve()" cdkFocusInitial>Ok</button>
-  <button mat-button [mat-dialog-close]="remove()">Usuń</button>
+  <button mat-flat-button class="primary-btn" (click)="onSaveClick()" cdkFocusInitial>Zapisz</button>
+  <button mat-flat-button color="warn" (click)="onRemoveClick()">Usuń</button>
 </div>

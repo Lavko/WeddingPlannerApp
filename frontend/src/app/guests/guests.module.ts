@@ -6,16 +6,9 @@ import { EditGuestDialogComponent } from './edit-guest-dialog/edit-guest-dialog.
 import { GuestFormComponent } from './guest-form/guest-form.component';
 import { GuestsListPageComponent } from './guests-list-page/guests-list-page.component';
 import { GuestsRoutingModule } from './guests-routing.module';
-import { GuestsComponent } from './guests.component';
 
 @NgModule({
-  declarations: [
-    GuestsComponent,
-    GuestFormComponent,
-    AddGuestDialogComponent,
-    EditGuestDialogComponent,
-    GuestsListPageComponent,
-  ],
+  declarations: [GuestFormComponent, AddGuestDialogComponent, EditGuestDialogComponent, GuestsListPageComponent],
   imports: [CommonModule, GuestsRoutingModule, SharedModule],
   entryComponents: [AddGuestDialogComponent, EditGuestDialogComponent],
 })

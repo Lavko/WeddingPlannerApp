@@ -30,5 +30,8 @@ namespace WPA.backend.DTOs.Expenses
 
         [Required]
         public ExpenseStatus ExpenseStatus { get; set; }
+
+        [Required]
+        public int PlannerId { get; set; }
     }
 }

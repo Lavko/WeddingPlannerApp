@@ -1,14 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using NUnit.Framework;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using WPA.backend.DTOs.Guests;
-using WPA.backend.Entities;
 using WPA.backend.Services;
 
 namespace WPA.backend.Controllers
@@ -26,40 +22,53 @@ namespace WPA.backend.Controllers
             _userService = userService;
         }
 
-        [HttpGet("planner/{plannerId}/guests")]
+        [HttpGet("guests")]
         [ProducesResponseType(typeof(IList<GuestDto>), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetAll(int plannerId)
+        public async Task<IActionResult> GetAll()
         {
-            var guests = await _guestService.GetAll(plannerId);
+            var user = await _userService.GetById(int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)));
+
+            var guests = await _guestService.GetAll(user.PlannerId);
 
             return Ok(guests);
         }
 
-        [HttpPost("planner/{plannerId}/guests")]
+        [HttpPost("guests")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> Post([FromBody] CreateGuestDto createGuestDto)
+        public async Task<IActionResult> Post([FromBody] CreateGuestDto  createGuestDto)
         {
             var user = await _userService.GetById(int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)));
+
+            if (createGuestDto.PlannerId != user.PlannerId)
+            {
+                return BadRequest();
+            }
 
             await _guestService.Create(createGuestDto);
 
             return Ok();
         }
 
-        [HttpPut("planner/{plannerId}/guests")]
+        [HttpPut("guests")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> Put([FromBody] UpdateGuestDto updateGuestDto)
         {
             var user = await _userService.GetById(int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)));
-                await _guestService.Update(updateGuestDto);
+
+            if (updateGuestDto.PlannerId != user.PlannerId)
+            {
+                return BadRequest();
+            }
+
+            await _guestService.Update(updateGuestDto);
          
             return Ok();
         }
 
-        [HttpDelete("planner/{plannerId}/guests/{id}")]
+        [HttpDelete("guests/{id}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> Delete(int id)

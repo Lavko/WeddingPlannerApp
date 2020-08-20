@@ -14,10 +14,10 @@ import { UpdateGuestDto } from '../models/update-guest-dto';
   providedIn: 'root',
 })
 class GuestService extends __BaseService {
-  static readonly GuestGetAllPath = '/planner/{plannerId}/guests';
-  static readonly GuestPostPath = '/planner/{plannerId}/guests';
-  static readonly GuestPutPath = '/planner/{plannerId}/guests';
-  static readonly GuestDeletePath = '/planner/{plannerId}/guests/{id}';
+  static readonly GuestGetAllPath = '/guests';
+  static readonly GuestPostPath = '/guests';
+  static readonly GuestPutPath = '/guests';
+  static readonly GuestDeletePath = '/guests/{id}';
 
   constructor(
     config: __Configuration,
@@ -25,18 +25,13 @@ class GuestService extends __BaseService {
   ) {
     super(config, http);
   }
-
-  /**
-   * @param plannerId undefined
-   */
-  GuestGetAllResponse(plannerId: number): __Observable<__StrictHttpResponse<Array<GuestDto>>> {
+  GuestGetAllResponse(): __Observable<__StrictHttpResponse<Array<GuestDto>>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
-
     let req = new HttpRequest<any>(
       'GET',
-      this.rootUrl + `/planner/${encodeURIComponent(plannerId)}/guests`,
+      this.rootUrl + `/guests`,
       __body,
       {
         headers: __headers,
@@ -50,32 +45,23 @@ class GuestService extends __BaseService {
         return _r as __StrictHttpResponse<Array<GuestDto>>;
       })
     );
-  }
-  /**
-   * @param plannerId undefined
-   */
-  GuestGetAll(plannerId: number): __Observable<Array<GuestDto>> {
-    return this.GuestGetAllResponse(plannerId).pipe(
+  }  GuestGetAll(): __Observable<Array<GuestDto>> {
+    return this.GuestGetAllResponse().pipe(
       __map(_r => _r.body as Array<GuestDto>)
     );
   }
 
   /**
-   * @param params The `GuestService.GuestPostParams` containing the following parameters:
-   *
-   * - `plannerId`:
-   *
-   * - `createGuestDto`:
+   * @param createGuestDto undefined
    */
-  GuestPostResponse(params: GuestService.GuestPostParams): __Observable<__StrictHttpResponse<null>> {
+  GuestPostResponse(createGuestDto: CreateGuestDto): __Observable<__StrictHttpResponse<null>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
-
-    __body = params.createGuestDto;
+    __body = createGuestDto;
     let req = new HttpRequest<any>(
       'POST',
-      this.rootUrl + `/planner/${encodeURIComponent(params.plannerId)}/guests`,
+      this.rootUrl + `/guests`,
       __body,
       {
         headers: __headers,
@@ -91,34 +77,25 @@ class GuestService extends __BaseService {
     );
   }
   /**
-   * @param params The `GuestService.GuestPostParams` containing the following parameters:
-   *
-   * - `plannerId`:
-   *
-   * - `createGuestDto`:
+   * @param createGuestDto undefined
    */
-  GuestPost(params: GuestService.GuestPostParams): __Observable<null> {
-    return this.GuestPostResponse(params).pipe(
+  GuestPost(createGuestDto: CreateGuestDto): __Observable<null> {
+    return this.GuestPostResponse(createGuestDto).pipe(
       __map(_r => _r.body as null)
     );
   }
 
   /**
-   * @param params The `GuestService.GuestPutParams` containing the following parameters:
-   *
-   * - `updateGuestDto`:
-   *
-   * - `plannerId`:
+   * @param updateGuestDto undefined
    */
-  GuestPutResponse(params: GuestService.GuestPutParams): __Observable<__StrictHttpResponse<null>> {
+  GuestPutResponse(updateGuestDto: UpdateGuestDto): __Observable<__StrictHttpResponse<null>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
-    __body = params.updateGuestDto;
-
+    __body = updateGuestDto;
     let req = new HttpRequest<any>(
       'PUT',
-      this.rootUrl + `/planner/${encodeURIComponent(params.plannerId)}/guests`,
+      this.rootUrl + `/guests`,
       __body,
       {
         headers: __headers,
@@ -134,34 +111,25 @@ class GuestService extends __BaseService {
     );
   }
   /**
-   * @param params The `GuestService.GuestPutParams` containing the following parameters:
-   *
-   * - `updateGuestDto`:
-   *
-   * - `plannerId`:
+   * @param updateGuestDto undefined
    */
-  GuestPut(params: GuestService.GuestPutParams): __Observable<null> {
-    return this.GuestPutResponse(params).pipe(
+  GuestPut(updateGuestDto: UpdateGuestDto): __Observable<null> {
+    return this.GuestPutResponse(updateGuestDto).pipe(
       __map(_r => _r.body as null)
     );
   }
 
   /**
-   * @param params The `GuestService.GuestDeleteParams` containing the following parameters:
-   *
-   * - `plannerId`:
-   *
-   * - `id`:
+   * @param id undefined
    */
-  GuestDeleteResponse(params: GuestService.GuestDeleteParams): __Observable<__StrictHttpResponse<null>> {
+  GuestDeleteResponse(id: number): __Observable<__StrictHttpResponse<null>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
-
 
     let req = new HttpRequest<any>(
       'DELETE',
-      this.rootUrl + `/planner/${encodeURIComponent(params.plannerId)}/guests/${encodeURIComponent(params.id)}`,
+      this.rootUrl + `/guests/${encodeURIComponent(id)}`,
       __body,
       {
         headers: __headers,
@@ -177,44 +145,16 @@ class GuestService extends __BaseService {
     );
   }
   /**
-   * @param params The `GuestService.GuestDeleteParams` containing the following parameters:
-   *
-   * - `plannerId`:
-   *
-   * - `id`:
+   * @param id undefined
    */
-  GuestDelete(params: GuestService.GuestDeleteParams): __Observable<null> {
-    return this.GuestDeleteResponse(params).pipe(
+  GuestDelete(id: number): __Observable<null> {
+    return this.GuestDeleteResponse(id).pipe(
       __map(_r => _r.body as null)
     );
   }
 }
 
 module GuestService {
-
-  /**
-   * Parameters for GuestPost
-   */
-  export interface GuestPostParams {
-    plannerId: string;
-    createGuestDto: CreateGuestDto;
-  }
-
-  /**
-   * Parameters for GuestPut
-   */
-  export interface GuestPutParams {
-    updateGuestDto: UpdateGuestDto;
-    plannerId: string;
-  }
-
-  /**
-   * Parameters for GuestDelete
-   */
-  export interface GuestDeleteParams {
-    plannerId: string;
-    id: number;
-  }
 }
 
 export { GuestService }

@@ -1,0 +1,28 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd">
+  <StackLayout class="p-20">
+    <Label text="E-mail" textWrap="true"></Label>
+    <TextField
+      hint="Wpisz e-mail"
+      [(ngModel)]="email"
+      secure="false"
+      keyboardType="email"
+      returnKeyType="next"
+      autocorrect="false"
+      name="email"
+    >
+    </TextField>
+    <Label text="Hasło" style="padding-top: 40px;"></Label>
+    <TextField
+      hint="Wpisz hasło"
+      [(ngModel)]="password"
+      secure="true"
+      returnKeyType="done"
+      autocorrect="false"
+      maxLength="10"
+      name="password"
+    >
+    </TextField>
+    <Button text="Zaloguj się" class="-primary" (tap)="onSubmit()"></Button>
+    <Button text="Rejestracja" [nsRouterLink]="['/auth/register']" pageTransition="slide" clearHistory="true"></Button>
+  </StackLayout>
+</Page>

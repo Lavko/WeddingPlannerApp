@@ -1,5 +1,6 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
@@ -11,7 +12,7 @@ export class MainMenuComponent implements OnInit, OnDestroy {
   mobileQuery: MediaQueryList;
   public isOpened: boolean;
   public menuItems = [
-    { icon: 'event', label: 'Kalendarium', route: 'events' },
+    { icon: 'event', label: 'Kalendarz', route: 'events' },
     { icon: 'people_alt', label: 'Goście', route: 'guests' },
     { icon: 'account_balance', label: 'Finanse', route: 'budget' },
     { icon: 'style', label: 'Wizytówki', route: 'serviceProviders' },
@@ -31,7 +32,11 @@ export class MainMenuComponent implements OnInit, OnDestroy {
 
   ngOnInit() {}
 
-  public isLoggedIn(): boolean {
+  public isLoggedIn(): Observable<boolean> {
     return this.authService.isLoggedIn();
+  }
+
+  public logOut(): void {
+    this.authService.logOut();
   }
 }

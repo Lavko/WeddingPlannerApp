@@ -1,18 +1,44 @@
-import { NgModule } from "@angular/core";
-import { Routes } from "@angular/router";
-import { NativeScriptRouterModule } from "nativescript-angular/router";
+import { NgModule } from '@angular/core';
+import { Routes } from '@angular/router';
+import { NativeScriptRouterModule } from 'nativescript-angular/router';
+import { AuthGuard } from './auth/guards/auth-guard';
 
 const routes: Routes = [
-    { path: "", redirectTo: "/home", pathMatch: "full" },
-    { path: "home", loadChildren: () => import("~/app/home/home.module").then((m) => m.HomeModule) },
-    { path: "browse", loadChildren: () => import("~/app/browse/browse.module").then((m) => m.BrowseModule) },
-    { path: "search", loadChildren: () => import("~/app/search/search.module").then((m) => m.SearchModule) },
-    { path: "featured", loadChildren: () => import("~/app/featured/featured.module").then((m) => m.FeaturedModule) },
-    { path: "settings", loadChildren: () => import("~/app/settings/settings.module").then((m) => m.SettingsModule) }
+  { path: '', canActivate: [AuthGuard], redirectTo: '/guests', pathMatch: 'full' },
+  {
+    path: 'home',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('~/app/home/home.module').then((m) => m.HomeModule),
+  },
+  {
+    path: 'events',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('~/app/events/events.module').then((m) => m.EventsModule),
+  },
+  {
+    path: 'guests',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('~/app/guests/guests.module').then((m) => m.GuestsModule),
+  },
+  {
+    path: 'budget',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('~/app/budget/budget.module').then((m) => m.BudgetModule),
+  },
+  {
+    path: 'service-providers',
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('~/app/service-providers/service-providers.module').then((m) => m.ServiceProvidersModule),
+  },
+  {
+    path: 'auth',
+    loadChildren: () => import('~/app/auth/auth.module').then((m) => m.AuthModule),
+  },
 ];
 
 @NgModule({
-    imports: [NativeScriptRouterModule.forRoot(routes)],
-    exports: [NativeScriptRouterModule]
+  imports: [NativeScriptRouterModule.forRoot(routes)],
+  exports: [NativeScriptRouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

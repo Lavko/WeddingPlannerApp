@@ -1,5 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { BudgetModel } from 'src/app/api/models';
+import { AppState } from 'src/app/store/state/app.state';
+import { budgetSelectors } from 'src/app/store/state/budget.state';
 
 @Component({
   selector: 'app-budget-summary-panel',
@@ -7,7 +12,7 @@ import { BudgetModel } from 'src/app/api/models';
   styleUrls: ['./budget-summary-panel.component.scss'],
 })
 export class BudgetSummaryPanelComponent implements OnInit {
-  @Input() public budget: BudgetModel;
+  public budget$: Observable<BudgetModel>;
 
   public allIncomes: number;
   public allExpenses: number;
@@ -18,24 +23,30 @@ export class BudgetSummaryPanelComponent implements OnInit {
   public prepaid: number;
   public paid: number;
 
-  constructor() {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
-    this.allIncomes = this.sum(this.budget.incomes);
-    this.allExpenses = this.sum(this.budget.expenses);
-    this.balance = this.allIncomes - this.allExpenses;
+    this.budget$ = budgetSelectors.getBudgetSummary(this.store).pipe(
+      tap((budget) => {
+        if (budget) {
+          this.allIncomes = this.sum(budget.incomes);
+          this.allExpenses = this.sum(budget.expenses);
+          this.balance = this.allIncomes - this.allExpenses;
 
-    this.estimated = this.sumByExpenseType(1);
-    this.signed = this.sumByExpenseType(2);
-    this.prepaid = this.sumByExpenseType(3);
-    this.paid = this.sumByExpenseType(4);
+          this.estimated = this.sumByExpenseType(1, budget);
+          this.signed = this.sumByExpenseType(2, budget);
+          this.prepaid = this.sumByExpenseType(3, budget);
+          this.paid = this.sumByExpenseType(4, budget);
+        }
+      })
+    );
   }
 
   private sum(amounts: any[]): number {
     return amounts.map((t) => t.amount).reduce((acc, value) => acc + value, 0);
   }
 
-  private sumByExpenseType(expenseType: number): number {
-    return this.sum(this.budget.expenses.filter((e) => e.expenseStatus === expenseType));
+  private sumByExpenseType(expenseType: number, budget: BudgetModel): number {
+    return this.sum(budget.expenses.filter((e) => e.expenseStatus === expenseType));
   }
 }

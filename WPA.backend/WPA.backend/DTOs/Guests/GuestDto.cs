@@ -21,5 +21,8 @@ namespace WPA.backend.DTOs.Guests
 
         [Required]
         public GuestSide Side { get; set; }
+
+        [Required]
+        public int PlannerId { get; set; }
     }
 }

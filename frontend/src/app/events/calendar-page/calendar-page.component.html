@@ -1,10 +1,29 @@
 <div fxLayout="row" fxLayoutAlign="center">
   <div fxFlex="90%">
     <div>
-      <h2>Goście</h2>
+      <h2>Kalendarz</h2>
     </div>
-    <div>
-      <full-calendar defaultView="dayGridMonth" [plugins]="calendarPlugins"></full-calendar>
+    <div fxLayoutAlign="end center" style="height: 50px;">
+      <button mat-raised-button class="primary-btn big-btn" (click)="openCreateDialog()">Nowe wydarzenie</button>
+    </div>
+    <div class="mat-elevation-z2" *ngIf="events$ | async; else loading; let events">
+      <mwl-calendar-month-view
+        [viewDate]="viewDate"
+        [events]="events"
+        [activeDayIsOpen]="activeDayIsOpen"
+        (dayClicked)="dayClicked($event.day)"
+        (eventClicked)="eventClicked($event)"
+        [locale]="locale"
+        [weekStartsOn]="weekStartsOn"
+      >
+      </mwl-calendar-month-view>
     </div>
   </div>
 </div>
+
+<ng-template #loading>
+  <div class="text-center">
+    <i class="fas fa-spin fa-spinner fa-5x"></i> <br />
+    Loading events...
+  </div>
+</ng-template>

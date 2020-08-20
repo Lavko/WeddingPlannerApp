@@ -12,7 +12,8 @@
   "license": "SEE LICENSE IN <your-license-filename>",
   "repository": "<fill-your-repository-here>",
   "scripts": {
-    "lint": "tslint \"src/**/*.ts\""
+    "lint": "tslint \"src/**/*.ts\"",
+    "swagger_generate": "node_modules/.bin/ng-swagger-gen -i http://localhost:63447/swagger/v1/swagger.json -o src/app/api"
   },
   "dependencies": {
     "@angular/animations": "~8.2.0",
@@ -23,19 +24,30 @@
     "@angular/platform-browser": "~8.2.0",
     "@angular/platform-browser-dynamic": "~8.2.0",
     "@angular/router": "~8.2.0",
-    "@nativescript/theme": "~2.3.0",
+    "@auth0/angular-jwt": "^4.1.2",
+    "@nativescript/schematics": "^10.0.2",
+    "@nativescript/theme": "~2.3.3",
+    "@ngrx/effects": "^8.6.0",
+    "@ngrx/store": "^8.6.0",
+    "@nstudio/nativescript-cardview": "^1.0.0",
+    "nativescript-accordion": "^6.0.0-beta.2",
     "nativescript-angular": "~8.21.0",
-    "nativescript-ui-sidedrawer": "~8.0.0",
+    "nativescript-toast": "^2.0.0",
+    "nativescript-ui-listview": "^8.2.0",
+    "nativescript-ui-sidedrawer": "~8.0.1",
+    "ng-swagger-gen": "^2.3.0",
+    "ngx-take-until-destroy": "^5.4.0",
     "reflect-metadata": "~0.1.12",
-    "rxjs": "^6.4.0",
-    "tns-core-modules": "~6.5.0",
+    "rxjs": "^6.6.2",
+    "tns-core-modules": "^6.5.15",
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
+    "@angular/cli": "^8.3.29",
     "@angular/compiler-cli": "~8.2.0",
     "@ngtools/webpack": "~8.2.0",
     "codelyzer": "~4.5.0",
-    "nativescript-dev-webpack": "~1.5.0",
+    "nativescript-dev-webpack": "~1.5.1",
     "node-sass": "^4.7.1",
     "tslint": "~5.19.0",
     "typescript": "~3.5.3"

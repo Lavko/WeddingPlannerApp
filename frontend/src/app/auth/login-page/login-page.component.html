@@ -1,34 +1,34 @@
-<div id="login-card-wrapper" fxLayout fxLayout.xs="column" fxFill fxLayoutAlign="center center">
+<div id="login-card-wrapper" fxLayout fxLayout.xs="column" fxFill fxLayoutAlign="center start">
   <mat-card fxFlex.lg="30%" fxFlex.md="50%" fxFlex.sm="70%" fxFlex.xs="100%" *ngIf="!(isLoggedIn() | async)">
-    <mat-card-header class="text-center">
+    <mat-card-header>
       <div fxLayout fxFill fxLayoutAlign="center center">
         <div mat-card-avatar><mat-icon aria-hidden="false" aria-label="Example home icon">login</mat-icon></div>
-        <mat-card-title>Zaloguj się</mat-card-title>
+        <mat-card-title>Logowanie</mat-card-title>
       </div>
     </mat-card-header>
     <mat-card-content [formGroup]="form" fxLayout="column" fxFill>
-      <mat-form-field appearance="standard" fxFill>
+      <mat-form-field fxFill>
         <mat-label>E-mail</mat-label>
-        <input matInput formControlName="email" required />
-        <ng-container *ngIf="form.get('email') as ctrl">
-          <mat-error *ngIf="ctrl.touched && ctrl.invalid">{{ 'Ble' }}</mat-error>
-        </ng-container>
+        <input matInput formControlName="email" />
+        <mat-error *ngIf="form.get('email').hasError('required')">
+          Pole nie może pozostać puste.
+        </mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="standard" fxFill>
+      <mat-form-field fxFill>
         <mat-label>Hasło</mat-label>
-        <input matInput type="password" formControlName="password" required />
-        <ng-container *ngIf="form.get('password') as ctrl">
-          <mat-error *ngIf="ctrl.touched && ctrl.invalid">{{ 'Bla' }}</mat-error>
-        </ng-container>
+        <input matInput type="password" formControlName="password" />
+        <mat-error *ngIf="form.get('password').hasError('required')">
+          Pole nie może pozostać puste.
+        </mat-error>
       </mat-form-field>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button [disabled]="!form.valid" (click)="onSubmit()">Zaloguj się</button>
-      <button mat-button routerLink="/auth/register">Zarejestruj się</button>
+      <button mat-button class="primary-btn" [disabled]="!form.valid" (click)="onSubmit()">Zaloguj się</button>
+      <button mat-button routerLink="/auth/register">Przejdź do rejestracji</button>
     </mat-card-actions>
   </mat-card>
-  <mat-card>
-    <mat-card-content *ngIf="isLoggedIn() | async">Jesteś już zalogowany!</mat-card-content>
+  <mat-card *ngIf="isLoggedIn() | async">
+    <mat-card-content>Jesteś już zalogowany!</mat-card-content>
   </mat-card>
 </div>

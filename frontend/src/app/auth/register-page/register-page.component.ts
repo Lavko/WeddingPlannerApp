@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { UsersService } from 'src/app/api/services';
 import { AuthService } from '../services/auth.service';
+import { ValidateForm } from './../../shared/helpers/form.helpers';
 
 @Component({
   selector: 'app-register-page',
@@ -19,18 +20,21 @@ export class RegisterPageComponent implements OnInit, OnDestroy {
     this.form = new FormGroup({
       firstName: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', Validators.required),
+      password: new FormControl('', [Validators.required, Validators.min(6)]),
     });
   }
 
   public onSubmit() {
+    ValidateForm.validateAllFormFields(this.form);
+    if (!this.form.valid) {
+      return;
+    }
     const model = {
       firstName: this.form.get('firstName').value,
       email: this.form.get('email').value,
       password: this.form.get('password').value,
     };
 
-    
     this.usersService
       .UsersRegister(model)
       .pipe(untilDestroyed(this))

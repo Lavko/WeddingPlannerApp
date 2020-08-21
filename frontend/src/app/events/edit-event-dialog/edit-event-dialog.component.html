@@ -3,7 +3,9 @@
   <app-event-form [form]="form"></app-event-form>
 </div>
 <div mat-dialog-actions>
+  <button mat-flat-button class="primary-btn" (click)="onSaveClick()">
+    Zapisz
+  </button>
   <button mat-button (click)="onCancelClick()">Anuluj</button>
-  <button mat-flat-button class="primary-btn" (click)="onSaveClick()" cdkFocusInitial>Zapisz</button>
   <button mat-flat-button color="warn" (click)="onRemoveClick()">Usuń</button>
 </div>

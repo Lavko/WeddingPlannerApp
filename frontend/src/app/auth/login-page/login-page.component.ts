@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { ValidateForm } from './../../shared/helpers/form.helpers';
 
 @Component({
   selector: 'app-login-page',
@@ -20,6 +21,10 @@ export class LoginPageComponent implements OnInit {
   }
 
   public onSubmit() {
+    ValidateForm.validateAllFormFields(this.form);
+    if (!this.form.valid) {
+      return;
+    }
     const model = { email: this.form.get('email').value, password: this.form.get('password').value };
     this.authService.logIn(model, 'guests');
   }

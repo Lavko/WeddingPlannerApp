@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
@@ -8,6 +8,7 @@ import { ExpenseStatus } from 'src/app/api/models/expense-status';
 import { deleteExpenseAction, saveEditedExpenseAction } from 'src/app/store/actions/budget.actions';
 import { AppState } from 'src/app/store/state/app.state';
 import { serviceProvidersSelectors } from 'src/app/store/state/serviceProviders.state';
+import { ValidateForm } from './../../../shared/helpers/form.helpers';
 
 @Component({
   selector: 'app-edit-expense-dialog',
@@ -35,6 +36,10 @@ export class EditExpenseDialogComponent implements OnInit {
   }
 
   public onSaveClick(): void {
+    ValidateForm.validateAllFormFields(this.form);
+    if (!this.form.valid) {
+      return;
+    }
     const expenseDto = {
       id: this.data.id,
       plannerId: this.data.plannerId,
@@ -65,11 +70,11 @@ export class EditExpenseDialogComponent implements OnInit {
 
   private registerFormControls(): void {
     this.form = this.fb.group({
-      name: [this.data.name],
-      amount: [this.data.amount],
+      name: [this.data.name, Validators.required],
+      amount: [this.data.amount, [Validators.required, Validators.min(1)]],
       adnotation: [this.data.adnotation],
       deposit: [this.data.deposit],
-      expenseStatus: [this.data.expenseStatus],
+      expenseStatus: [this.data.expenseStatus, Validators.required],
       serviceProviderId: [this.data.serviceProvider.id],
     });
   }

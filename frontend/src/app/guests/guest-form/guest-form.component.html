@@ -1,29 +1,39 @@
-<form [formGroup]="form">
-  <div fxLayout="column" fxLayoutAlign="start stretch">
-    <mat-form-field>
-      <mat-label>Imię i nazwisko</mat-label>
-      <input matInput placeholder="Jan Kowalski" formControlName="name" />
-    </mat-form-field>
-    <mat-checkbox formControlName="isTravelling">Przyjezdny</mat-checkbox>
-    <mat-form-field>
-      <mat-label>Status gościa</mat-label>
-      <mat-select formControlName="status">
-        <mat-option *ngFor="let option of guestStatusOptions" [value]="option.value">
-          {{ option.label }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Ze strony</mat-label>
-      <mat-select formControlName="side">
-        <mat-option *ngFor="let option of guestSideOptions" [value]="option.value">
-          {{ option.label }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Uwagi</mat-label>
-      <textarea matInput formControlName="adnotation"></textarea>
-    </mat-form-field>
-  </div>
-</form>
+<div fxLayout="column" fxLayoutAlign="start stretch" [formGroup]="form">
+  <mat-form-field>
+    <mat-label>Imię i nazwisko</mat-label>
+    <input matInput placeholder="Jan Kowalski" formControlName="name" />
+    <mat-error *ngIf="form.get('name').hasError('required')">
+      Pole nie może pozostać puste.
+    </mat-error>
+  </mat-form-field>
+  <mat-checkbox formControlName="isTravelling">Przyjezdny</mat-checkbox>
+  <mat-form-field>
+    <mat-label>Status gościa</mat-label>
+    <mat-select formControlName="status">
+      <mat-option *ngFor="let option of guestStatusOptions" [value]="option.value">
+        {{ option.label }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="form.get('status').hasError('required')">
+      Pole nie może pozostać puste.
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Ze strony</mat-label>
+    <mat-select formControlName="side">
+      <mat-option *ngFor="let option of guestSideOptions" [value]="option.value">
+        {{ option.label }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="form.get('side').hasError('required')">
+      Pole nie może pozostać puste.
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Uwagi</mat-label>
+    <textarea matInput formControlName="adnotation"></textarea>
+    <mat-error *ngIf="form.get('name').hasError('maxLength')">
+      Pole nie może zawierać więcej niż 200 znaków.
+    </mat-error>
+  </mat-form-field>
+</div>

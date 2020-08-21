@@ -3,10 +3,19 @@
     <mat-form-field>
       <mat-label>Źródło</mat-label>
       <input matInput placeholder="Oszczędności" formControlName="source" />
+      <mat-error *ngIf="form.get('source').hasError('required')">
+        Pole nie może pozostać puste.
+      </mat-error>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Kwota</mat-label>
       <input type="number" matInput formControlName="amount" />
+      <mat-error *ngIf="form.get('amount').hasError('required')">
+        Pole nie może pozostać puste.
+      </mat-error>
+      <mat-error *ngIf="form.get('amount').hasError('min') && !form.get('amount').hasError('required')">
+        Wartość musi być większa od 0.
+      </mat-error>
     </mat-form-field>
   </div>
 </form>

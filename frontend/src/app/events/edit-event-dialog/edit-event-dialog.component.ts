@@ -1,9 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { EventDto } from './../../api/models/event-dto';
 import { convertDateToUTC } from './../../shared/helpers/date.helpers';
+import { ValidateForm } from './../../shared/helpers/form.helpers';
 import { deleteEventAction, saveEditedEventAction } from './../../store/actions/calendar.actions';
 import { AppState } from './../../store/state/app.state';
 
@@ -31,6 +32,10 @@ export class EditEventDialogComponent implements OnInit {
   }
 
   public onSaveClick(): void {
+    ValidateForm.validateAllFormFields(this.form);
+    if (!this.form.valid) {
+      return;
+    }
     const eventDto = {
       id: this.data.id,
       plannerId: this.data.plannerId,
@@ -50,9 +55,9 @@ export class EditEventDialogComponent implements OnInit {
 
   private registerFormControls(): void {
     this.form = this.fb.group({
-      title: [this.data.title],
-      date: [this.data.date],
-      color: [this.data.color],
+      title: [this.data.title, Validators.required],
+      date: [this.data.date, Validators.required],
+      color: [this.data.color, Validators.required],
     });
   }
 }

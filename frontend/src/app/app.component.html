@@ -1,6 +1,6 @@
 <div class="basic-container">
   <app-main-menu>loading</app-main-menu>
-  <div [@triggerName]="prepareRoute(outlet)">
+  <div [@triggerName]="prepareRoute(outlet)" style="height: 100%;">
     <router-outlet #outlet="outlet"></router-outlet>
   </div>
 </div>

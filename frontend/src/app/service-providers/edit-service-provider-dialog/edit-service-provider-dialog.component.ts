@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { UpdateServiceProviderDto } from 'src/app/api/models';
@@ -8,6 +8,7 @@ import {
   saveEditedServiceProviderAction,
 } from 'src/app/store/actions/serviceProviders.actions';
 import { AppState } from 'src/app/store/state/app.state';
+import { ValidateForm } from './../../shared/helpers/form.helpers';
 
 @Component({
   selector: 'app-edit-service-provider-dialog',
@@ -33,6 +34,10 @@ export class EditServiceProviderDialogComponent implements OnInit {
   }
 
   public onSaveClick(): void {
+    ValidateForm.validateAllFormFields(this.form);
+    if (!this.form.valid) {
+      return;
+    }
     const serviceProviderDto = {
       id: this.data.id,
       name: this.form.get('name').value,
@@ -53,9 +58,9 @@ export class EditServiceProviderDialogComponent implements OnInit {
 
   private registerFormControls(): void {
     this.form = this.fb.group({
-      name: [this.data.name],
-      serviceType: [this.data.serviceType],
-      phoneNumber: [this.data.phoneNumber],
+      name: [this.data.name, Validators.required],
+      serviceType: [this.data.serviceType, Validators.required],
+      phoneNumber: [this.data.phoneNumber, Validators.required],
       email: [this.data.email],
       address: [this.data.address],
     });

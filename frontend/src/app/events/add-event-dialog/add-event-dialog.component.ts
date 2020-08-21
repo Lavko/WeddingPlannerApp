@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { convertDateToUTC } from './../../shared/helpers/date.helpers';
+import { ValidateForm } from './../../shared/helpers/form.helpers';
 import { saveNewEventAction } from './../../store/actions/calendar.actions';
 import { AppState } from './../../store/state/app.state';
 import { userSelectors } from './../../store/state/user.state';
@@ -28,6 +29,10 @@ export class AddEventDialogComponent implements OnInit {
   }
 
   public onAddClick(plannerId: number): void {
+    ValidateForm.validateAllFormFields(this.form);
+    if (!this.form.valid) {
+      return;
+    }
     const eventDto = {
       plannerId,
       title: this.form.get('title').value,
@@ -40,9 +45,9 @@ export class AddEventDialogComponent implements OnInit {
 
   private registerFormControls(): void {
     this.form = this.fb.group({
-      title: [''],
-      date: [''],
-      color: [],
+      title: ['', Validators.required],
+      date: ['', Validators.required],
+      color: ['', Validators.required],
     });
   }
 

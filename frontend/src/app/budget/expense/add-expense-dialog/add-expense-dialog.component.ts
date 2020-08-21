@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
@@ -7,6 +7,7 @@ import { ExpenseStatus } from 'src/app/api/models/expense-status';
 import { saveNewExpenseAction } from 'src/app/store/actions/budget.actions';
 import { AppState } from 'src/app/store/state/app.state';
 import { serviceProvidersSelectors } from 'src/app/store/state/serviceProviders.state';
+import { ValidateForm } from './../../../shared/helpers/form.helpers';
 import { userSelectors } from './../../../store/state/user.state';
 
 @Component({
@@ -30,6 +31,10 @@ export class AddExpenseDialogComponent implements OnInit {
   }
 
   public onAddClick(plannerId: number): void {
+    ValidateForm.validateAllFormFields(this.form);
+    if (!this.form.valid) {
+      return;
+    }
     const expenseDto = {
       plannerId,
       name: this.getControlValue('name'),
@@ -54,11 +59,11 @@ export class AddExpenseDialogComponent implements OnInit {
 
   private registerFormControls(): void {
     this.form = this.fb.group({
-      name: [''],
-      amount: [0],
+      name: ['', Validators.required],
+      amount: [0, [Validators.required, Validators.min(1)]],
       adnotation: [''],
       deposit: [0],
-      expenseStatus: [''],
+      expenseStatus: [null, Validators.required],
       serviceProviderId: [null],
     });
   }

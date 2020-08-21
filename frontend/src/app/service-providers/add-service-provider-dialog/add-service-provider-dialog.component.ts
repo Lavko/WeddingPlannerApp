@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { saveNewServiceProviderAction } from 'src/app/store/actions/serviceProviders.actions';
 import { AppState } from 'src/app/store/state/app.state';
+import { ValidateForm } from './../../shared/helpers/form.helpers';
 
 @Component({
   selector: 'app-add-service-provider-dialog',
@@ -24,6 +25,10 @@ export class AddServiceProviderDialogComponent implements OnInit {
   }
 
   public onAddClick(): void {
+    ValidateForm.validateAllFormFields(this.form);
+    if (!this.form.valid) {
+      return;
+    }
     const serviceProviderDto = {
       name: this.form.get('name').value,
       serviceType: this.form.get('serviceType').value,
@@ -38,9 +43,9 @@ export class AddServiceProviderDialogComponent implements OnInit {
 
   private registerFormControls(): void {
     this.form = this.fb.group({
-      name: [''],
-      serviceType: [0],
-      phoneNumber: [''],
+      name: ['', Validators.required],
+      serviceType: [null, Validators.required],
+      phoneNumber: ['', Validators.required],
       email: [''],
       address: [''],
     });

@@ -1,10 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { GuestDto } from 'src/app/api/models';
 import { deleteGuestAction, saveEditedGuestAction } from 'src/app/store/actions/guests.actions';
 import { AppState } from 'src/app/store/state/app.state';
+import { ValidateForm } from './../../shared/helpers/form.helpers';
 
 @Component({
   selector: 'app-edit-guest-dialog',
@@ -30,6 +31,10 @@ export class EditGuestDialogComponent implements OnInit {
   }
 
   public onSaveClick(): void {
+    ValidateForm.validateAllFormFields(this.form);
+    if (!this.form.valid) {
+      return;
+    }
     const guestDto = {
       id: this.data.id,
       plannerId: this.data.plannerId,
@@ -51,11 +56,11 @@ export class EditGuestDialogComponent implements OnInit {
 
   private registerFormControls(): void {
     this.form = this.fb.group({
-      name: [this.data.name],
-      adnotation: [this.data.adnotation],
+      name: [this.data.name, Validators.required],
+      adnotation: [this.data.adnotation, Validators.maxLength(200)],
       isTravelling: [this.data.isTravelling],
-      status: [this.data.status],
-      side: [this.data.side],
+      status: [this.data.status, Validators.required],
+      side: [this.data.side, Validators.required],
     });
   }
 }

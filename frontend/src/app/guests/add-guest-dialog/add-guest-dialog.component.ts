@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { saveNewGuestAction } from 'src/app/store/actions/guests.actions';
 import { AppState } from 'src/app/store/state/app.state';
 import { userSelectors } from 'src/app/store/state/user.state';
+import { ValidateForm } from './../../shared/helpers/form.helpers';
 
 @Component({
   selector: 'app-add-guest-dialog',
@@ -27,6 +28,10 @@ export class AddGuestDialogComponent implements OnInit {
   }
 
   public onAddClick(plannerId: number): void {
+    ValidateForm.validateAllFormFields(this.form);
+    if (!this.form.valid) {
+      return;
+    }
     const guestDto = {
       plannerId,
       name: this.form.get('name').value,
@@ -41,11 +46,11 @@ export class AddGuestDialogComponent implements OnInit {
 
   private registerFormControls(): void {
     this.form = this.fb.group({
-      name: [''],
-      adnotation: [''],
+      name: ['', Validators.required],
+      adnotation: ['', Validators.maxLength(200)],
       isTravelling: [false],
-      status: [0],
-      side: [0],
+      status: [null, Validators.required],
+      side: [null, Validators.required],
     });
   }
 

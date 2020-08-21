@@ -4,7 +4,7 @@
     <app-income-form [form]="form"></app-income-form>
   </div>
   <div mat-dialog-actions>
+    <button mat-button class="primary-btn" (click)="onAddClick(plannerId)">Dodaj</button>
     <button mat-button (click)="onCancelClick()">Anuluj</button>
-    <button mat-button class="primary-btn" (click)="onAddClick(plannerId)" cdkFocusInitial>Dodaj</button>
   </div>
 </ng-container>

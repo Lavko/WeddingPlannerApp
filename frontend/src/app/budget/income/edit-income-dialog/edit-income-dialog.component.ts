@@ -1,10 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { IncomeDto } from 'src/app/api/models/income-dto';
 import { deleteIncomeAction, saveEditedIncomeAction } from 'src/app/store/actions/budget.actions';
 import { AppState } from 'src/app/store/state/app.state';
+import { ValidateForm } from './../../../shared/helpers/form.helpers';
 
 @Component({
   selector: 'app-edit-income-dialog',
@@ -30,6 +31,10 @@ export class EditIncomeDialogComponent implements OnInit {
   }
 
   public onSaveClick(): void {
+    ValidateForm.validateAllFormFields(this.form);
+    if (!this.form.valid) {
+      return;
+    }
     const incomeDto = {
       id: this.data.id,
       plannerId: this.data.plannerId,
@@ -48,8 +53,8 @@ export class EditIncomeDialogComponent implements OnInit {
 
   private registerFormControls(): void {
     this.form = this.fb.group({
-      source: [this.data.source],
-      amount: [this.data.amount],
+      source: [this.data.source, Validators.required],
+      amount: [this.data.amount, [Validators.required, Validators.min(1)]],
     });
   }
 }

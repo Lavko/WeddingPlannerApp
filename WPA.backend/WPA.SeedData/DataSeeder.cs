@@ -108,9 +108,9 @@ namespace WPA.SeedData
         {
             var incomes = new List<CreateIncomeDto> 
             {
-                new CreateIncomeDto { Source = "Rodzice", Amount = 30000.00, PlannerId = plannerId},
-                new CreateIncomeDto { Source = "Oszczędności", Amount = 10000, PlannerId = plannerId},
-                new CreateIncomeDto { Source = "Przekręty", Amount = 15000.50, PlannerId = plannerId},
+                new CreateIncomeDto { Source = "Rodzice", Amount = 30000.00m, PlannerId = plannerId},
+                new CreateIncomeDto { Source = "Oszczędności", Amount = 10000m, PlannerId = plannerId},
+                new CreateIncomeDto { Source = "Przekręty", Amount = 15000.50m, PlannerId = plannerId},
             };
 
             foreach(var income in incomes)

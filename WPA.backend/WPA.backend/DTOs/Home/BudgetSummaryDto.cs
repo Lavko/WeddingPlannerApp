@@ -7,8 +7,8 @@ namespace WPA.backend.DTOs.Home
 {
     public class BudgetSummaryDto
     {
-        public double IncomesSum { get; set; }
-        public double ExpensesSum { get; set; }
-        public double PaidExpensesSum { get; set; }
+        public decimal IncomesSum { get; set; }
+        public decimal ExpensesSum { get; set; }
+        public decimal PaidExpensesSum { get; set; }
     }
 }

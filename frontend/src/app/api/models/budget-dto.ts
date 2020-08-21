@@ -1,7 +1,7 @@
 /* tslint:disable */
 import { ExpenseDto } from './expense-dto';
 import { IncomeDto } from './income-dto';
-export interface BudgetModel {
+export interface BudgetDto {
   expenses?: Array<ExpenseDto>;
   incomes?: Array<IncomeDto>;
 }

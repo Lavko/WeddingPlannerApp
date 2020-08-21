@@ -7,7 +7,6 @@ import { BudgetService } from './services/budget.service';
 import { EventService } from './services/event.service';
 import { GuestService } from './services/guest.service';
 import { HomeService } from './services/home.service';
-import { PlannerService } from './services/planner.service';
 import { ServiceProviderService } from './services/service-provider.service';
 import { UsersService } from './services/users.service';
 
@@ -28,7 +27,6 @@ import { UsersService } from './services/users.service';
     EventService,
     GuestService,
     HomeService,
-    PlannerService,
     ServiceProviderService,
     UsersService
   ],

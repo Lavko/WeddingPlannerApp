@@ -1,4 +1,4 @@
-export { BudgetModel } from './models/budget-model';
+export { BudgetDto } from './models/budget-dto';
 export { IncomeDto } from './models/income-dto';
 export { ExpenseDto } from './models/expense-dto';
 export { ServiceProvider } from './models/service-provider';
@@ -21,10 +21,6 @@ export { HomeSummaryDto } from './models/home-summary-dto';
 export { GuestSummaryDto } from './models/guest-summary-dto';
 export { BudgetSummaryDto } from './models/budget-summary-dto';
 export { CalendarSummaryDto } from './models/calendar-summary-dto';
-export { Planner } from './models/planner';
-export { Guest } from './models/guest';
-export { Expense } from './models/expense';
-export { Income } from './models/income';
 export { ServiceProviderDto } from './models/service-provider-dto';
 export { CreateServiceProviderDto } from './models/create-service-provider-dto';
 export { UpdateServiceProviderDto } from './models/update-service-provider-dto';

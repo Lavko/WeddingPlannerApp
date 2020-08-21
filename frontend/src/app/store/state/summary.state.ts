@@ -5,6 +5,7 @@ import { CalendarSummaryDto } from '../../api/models/calendar-summary-dto';
 import { GuestSummaryDto } from '../../api/models/guest-summary-dto';
 
 export interface SummaryState {
+  partnerName: string;
   ceremonyPlace: string;
   ceremonyDate: string;
   weddingPlace: string;
@@ -14,6 +15,7 @@ export interface SummaryState {
   calendarSummary: CalendarSummaryDto;
 }
 
+const getPartnerName = (store: Store<AppState>) => store.select((state) => state.summary.partnerName);
 const getCeremonyPlace = (store: Store<AppState>) => store.select((state) => state.summary.ceremonyPlace);
 const getCeremonyDate = (store: Store<AppState>) => store.select((state) => state.summary.ceremonyDate);
 const getWeddingPlace = (store: Store<AppState>) => store.select((state) => state.summary.weddingPlace);
@@ -23,6 +25,7 @@ const getBudgetSummary = (store: Store<AppState>) => store.select((state) => sta
 const getCalendarSummary = (store: Store<AppState>) => store.select((state) => state.summary.calendarSummary);
 
 export const summarySelectors = {
+  getPartnerName,
   getCeremonyPlace,
   getCeremonyDate,
   getWeddingPlace,

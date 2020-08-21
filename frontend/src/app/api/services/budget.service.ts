@@ -7,7 +7,7 @@ import { StrictHttpResponse as __StrictHttpResponse } from '../strict-http-respo
 import { Observable as __Observable } from 'rxjs';
 import { map as __map, filter as __filter } from 'rxjs/operators';
 
-import { BudgetModel } from '../models/budget-model';
+import { BudgetDto } from '../models/budget-dto';
 import { CreateIncomeDto } from '../models/create-income-dto';
 import { UpdateIncomeDto } from '../models/update-income-dto';
 import { CreateExpenseDto } from '../models/create-expense-dto';
@@ -30,7 +30,7 @@ class BudgetService extends __BaseService {
   ) {
     super(config, http);
   }
-  BudgetGetSummaryResponse(): __Observable<__StrictHttpResponse<BudgetModel>> {
+  BudgetGetSummaryResponse(): __Observable<__StrictHttpResponse<BudgetDto>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
@@ -47,12 +47,12 @@ class BudgetService extends __BaseService {
     return this.http.request<any>(req).pipe(
       __filter(_r => _r instanceof HttpResponse),
       __map((_r) => {
-        return _r as __StrictHttpResponse<BudgetModel>;
+        return _r as __StrictHttpResponse<BudgetDto>;
       })
     );
-  }  BudgetGetSummary(): __Observable<BudgetModel> {
+  }  BudgetGetSummary(): __Observable<BudgetDto> {
     return this.BudgetGetSummaryResponse().pipe(
-      __map(_r => _r.body as BudgetModel)
+      __map(_r => _r.body as BudgetDto)
     );
   }
 

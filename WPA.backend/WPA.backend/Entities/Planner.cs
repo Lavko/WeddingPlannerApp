@@ -8,6 +8,7 @@ namespace WPA.backend.Entities
     public class Planner
     {
         public int Id { get; set; }
+        public string PartnerName { get; set; }
         public DateTime WeddingDate { get; set; }
         public string WeddingPlace { get; set; }
         public DateTime CeremonyDate { get; set; }

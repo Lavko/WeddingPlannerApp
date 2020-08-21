@@ -8,6 +8,8 @@ export interface HomeSummaryDto {
   ceremonyDate: string;
   ceremonyPlace?: string;
   guestSummary?: GuestSummaryDto;
+  partnerName?: string;
+  userName?: string;
   weddingDate: string;
   weddingPlace?: string;
 }

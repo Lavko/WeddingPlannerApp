@@ -7,6 +7,8 @@ namespace WPA.backend.DTOs.Home
 {
     public class HomeSummaryDto
     {
+        public string UserName { get; set; }
+        public string PartnerName { get; set; }
         public DateTime WeddingDate { get; set; }
         public string WeddingPlace { get; set; }
         public DateTime CeremonyDate { get; set; }

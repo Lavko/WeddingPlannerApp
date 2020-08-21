@@ -10,6 +10,6 @@ namespace WPA.backend.Entities
         public int Id { get; set; }
         public int PlannerId { get; set; }
         public string Source { get; set; }
-        public double Amount { get; set; }
+        public decimal Amount { get; set; }
     }
 }

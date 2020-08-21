@@ -110,12 +110,14 @@ h2 {
   background: rgba(248, 248, 245, 0.5);
   backdrop-filter: blur(2px);
   line-height: 130px;
+  margin-bottom: 53px;
 }
 
 .home-title {
   font-family: 'Great Vibes', cursive;
   font-size: 80px;
   color: #f891a0;
+  margin-bottom: 20px;
 }
 
 .list-divider {
@@ -134,4 +136,20 @@ h2 {
 
 .summary-card {
   height: 100%;
+}
+
+.partners-names {
+  font-family: 'Great Vibes', cursive;
+  font-size: 50px;
+  margin: 0;
+  line-height: 30px;
+  margin-bottom: 20px;
+}
+
+.wedding-date {
+  font-family: 'Great Vibes', cursive;
+  font-size: 35px;
+  margin: 0;
+  line-height: 30px;
+  padding-bottom: 20px;
 }

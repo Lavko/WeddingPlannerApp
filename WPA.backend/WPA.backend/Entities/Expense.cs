@@ -12,9 +12,9 @@ namespace WPA.backend.Entities
         public int? ServiceProviderId { get; set; }
         public ServiceProvider? ServiceProvider { get; set; }
         public string Name { get; set; }
-        public double Amount { get; set; }
+        public decimal Amount { get; set; }
         public string Adnotation { get; set; }
-        public double Deposit { get; set; }
+        public decimal Deposit { get; set; }
         public ExpenseStatus ExpenseStatus { get; set; }
     }
 }

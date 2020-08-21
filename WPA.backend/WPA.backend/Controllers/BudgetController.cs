@@ -6,10 +6,10 @@ using System.Linq;
 using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using WPA.backend.DTOs.Budget;
 using WPA.backend.DTOs.Expenses;
 using WPA.backend.DTOs.Funds;
 using WPA.backend.Entities;
-using WPA.backend.Models;
 using WPA.backend.Services;
 
 namespace WPA.backend.Controllers
@@ -31,12 +31,12 @@ namespace WPA.backend.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(BudgetModel), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(BudgetDto), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetSummary()
         {
             var user = await _userService.GetById(int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)));
-            var budget = new BudgetModel
+            var budget = new BudgetDto
             {
                 Incomes = await _incomeService.GetAll(user.PlannerId),
                 Expenses = await _expenseService.GetAll(user.PlannerId)

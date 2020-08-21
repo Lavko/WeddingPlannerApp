@@ -1,5 +1,7 @@
 <div class="home-title-container">
   <h1 class="home-title">Wedding Planner</h1>
+  <p class="partners-names">{{ userName | async }} <mat-icon>favorite_border</mat-icon> {{ partnerName | async }}</p>
+  <p class="wedding-date">{{ weddingDate | async }}</p>
 </div>
 <div fxLayout="row" fxLayoutAlign="center stretch">
   <div fxFlex="90%">

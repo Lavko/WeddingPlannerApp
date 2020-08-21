@@ -5,7 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { BudgetModel } from 'src/app/api/models';
+import { BudgetDto } from 'src/app/api/models';
 import { IncomeDto } from 'src/app/api/models/income-dto';
 import { AppState } from 'src/app/store/state/app.state';
 import { budgetSelectors } from 'src/app/store/state/budget.state';
@@ -18,7 +18,7 @@ import { EditIncomeDialogComponent } from '../edit-income-dialog/edit-income-dia
   styleUrls: ['./income-list.component.scss'],
 })
 export class IncomeListComponent implements OnInit, OnDestroy {
-  public budget$: Observable<BudgetModel>;
+  public budget$: Observable<BudgetDto>;
   public totalAmount: number;
 
   public displayedColumns: string[] = ['source', 'amount'];

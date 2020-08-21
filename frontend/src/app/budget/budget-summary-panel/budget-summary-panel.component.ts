@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { BudgetModel } from 'src/app/api/models';
+import { BudgetDto } from 'src/app/api/models';
 import { AppState } from 'src/app/store/state/app.state';
 import { budgetSelectors } from 'src/app/store/state/budget.state';
 
@@ -12,7 +12,7 @@ import { budgetSelectors } from 'src/app/store/state/budget.state';
   styleUrls: ['./budget-summary-panel.component.scss'],
 })
 export class BudgetSummaryPanelComponent implements OnInit {
-  public budget$: Observable<BudgetModel>;
+  public budget$: Observable<BudgetDto>;
 
   public allIncomes: number;
   public allExpenses: number;
@@ -46,7 +46,7 @@ export class BudgetSummaryPanelComponent implements OnInit {
     return amounts.map((t) => t.amount).reduce((acc, value) => acc + value, 0);
   }
 
-  private sumByExpenseType(expenseType: number, budget: BudgetModel): number {
+  private sumByExpenseType(expenseType: number, budget: BudgetDto): number {
     return this.sum(budget.expenses.filter((e) => e.expenseStatus === expenseType));
   }
 }

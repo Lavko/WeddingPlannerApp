@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { ExpenseDto } from 'src/app/api/models';
-import { BudgetModel } from 'src/app/api/models/budget-model';
+import { BudgetDto } from 'src/app/api/models/budget-dto';
 import { AppState } from 'src/app/store/state/app.state';
 import { budgetSelectors } from 'src/app/store/state/budget.state';
 import { AddExpenseDialogComponent } from './../add-expense-dialog/add-expense-dialog.component';
@@ -18,7 +18,7 @@ import { EditExpenseDialogComponent } from './../edit-expense-dialog/edit-expens
   styleUrls: ['./expense-list.component.scss'],
 })
 export class ExpenseListComponent implements OnInit, OnDestroy {
-  public budget$: Observable<BudgetModel>;
+  public budget$: Observable<BudgetDto>;
   public totalAmount: number;
 
   public displayedColumns: string[] = ['name', 'amount'];

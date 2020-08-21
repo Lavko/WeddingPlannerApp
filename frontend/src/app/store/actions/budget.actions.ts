@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { BudgetModel } from 'src/app/api/models';
+import { BudgetDto } from 'src/app/api/models';
 import { CreateExpenseDto } from 'src/app/api/models/create-expense-dto';
 import { CreateIncomeDto } from 'src/app/api/models/create-income-dto';
 import { UpdateExpenseDto } from 'src/app/api/models/update-expense-dto';
@@ -8,7 +8,7 @@ import { UpdateIncomeDto } from 'src/app/api/models/update-income-dto';
 export const getBudgetSummaryAction = createAction('[Budget Page] Get budget summary');
 export const getBudgetSummarySuccessAction = createAction(
   '[Budget Page] Get budget summary success',
-  props<{ budgetSummary: BudgetModel }>()
+  props<{ budgetSummary: BudgetDto }>()
 );
 export const getBudgetSummaryFailureAction = createAction(
   '[Budget Page] Get budget summary failure',

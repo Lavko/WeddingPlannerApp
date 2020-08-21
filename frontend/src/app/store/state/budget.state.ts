@@ -1,10 +1,10 @@
 import { Store } from '@ngrx/store';
-import { BudgetModel, ExpenseDto } from 'src/app/api/models';
+import { BudgetDto, ExpenseDto } from 'src/app/api/models';
 import { IncomeDto } from 'src/app/api/models/income-dto';
 import { AppState } from 'src/app/store/state/app.state';
 
 export interface BudgetState {
-  budgetSummary: BudgetModel;
+  budgetSummary: BudgetDto;
   incomes: IncomeDto[];
   expenses: ExpenseDto[];
 }

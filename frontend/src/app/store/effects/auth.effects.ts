@@ -17,7 +17,7 @@ export class AuthEffects {
       exhaustMap((action) =>
         this.usersService.UsersAuthenticate(action as LoginUserDto).pipe(
           map((token) => {
-            this.router.navigate(['/guests']);
+            this.router.navigate(['/home']);
             return loginSuccessAction({ token });
           }),
           catchError((error) => of(loginFailureAction({ error })))

@@ -22,23 +22,34 @@ namespace WPA.backend.Services
             _mapper = mapper;
         }
 
-        public async Task<HomeSummaryDto> GetSummary(int plannerId)
+        public async Task<HomeSummaryDto> GetSummary(User user)
         {
-            var planner = await _context.Planners.FindAsync(plannerId);
-            var guestsSummary = await GetGuestsSummary(plannerId);
-            var budgetSummary = await GetBudgetSummary(plannerId);
-            var calendarSummary = await GetCalendarSummary(plannerId);
+            var planner = await _context.Planners.FindAsync(user.PlannerId);
+            var guestsSummary = await GetGuestsSummary(user.PlannerId);
+            var budgetSummary = await GetBudgetSummary(user.PlannerId);
+            var calendarSummary = await GetCalendarSummary(user.PlannerId);
 
             return new HomeSummaryDto
             {
+                UserName = user.FirstName,
+                PartnerName = _context.Planners.Where(p => p.Id == user.PlannerId).Select(p => p.PartnerName).First(),
                 CeremonyDate = planner.CeremonyDate,
                 CeremonyPlace = planner.CeremonyPlace,
                 WeddingDate = planner.WeddingDate,
                 WeddingPlace = planner.WeddingPlace,
+                IsWeddingDetailsSaved = planner.IsWeddingDetailsSaved,
                 GuestSummary = guestsSummary,
                 BudgetSummary = budgetSummary,
                 CalendarSummary = calendarSummary
             };
+        }
+
+        public async Task UpdateWeddingDetails(UpdateWeddingDetailsDto updateWeddingDetailsDto)
+        {
+            var planner = _mapper.Map<Planner>(updateWeddingDetailsDto);
+
+            _context.Planners.Update(planner);
+            await _context.SaveChangesAsync();
         }
 
         private async Task<GuestSummaryDto> GetGuestsSummary(int plannerId)

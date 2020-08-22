@@ -3,6 +3,7 @@ using WPA.backend.DTOs.Events;
 using WPA.backend.DTOs.Expenses;
 using WPA.backend.DTOs.Funds;
 using WPA.backend.DTOs.Guests;
+using WPA.backend.DTOs.Home;
 using WPA.backend.DTOs.ServiceProviders;
 using WPA.backend.Entities;
 
@@ -31,6 +32,10 @@ namespace WPA.backend.DTOs
             CreateMap<EventDto, Event>().ReverseMap();
             CreateMap<CreateEventDto, Event>().ReverseMap();
             CreateMap<UpdateEventDto, Event>().ReverseMap();
+
+            CreateMap<UpdateWeddingDetailsDto, Planner>()
+                .ForMember(dest => dest.IsWeddingDetailsSaved, opt => opt.MapFrom(src => true))
+                .ReverseMap();
         }
     }
 }

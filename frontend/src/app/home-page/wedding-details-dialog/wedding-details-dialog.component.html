@@ -1,0 +1,29 @@
+<ng-container *ngIf="plannerId$ | async as plannerId">
+  <h1 mat-dialog-title>Nowa wizytówka</h1>
+  <div mat-dialog-content>
+    <form [formGroup]="form">
+      <div fxLayout="column" fxLayoutAlign="start stretch">
+        <mat-form-field>
+          <mat-label>Imię drugiej połówki</mat-label>
+          <input matInput formControlName="partnerName" />
+          <mat-error *ngIf="form.get('partnerName').hasError('required')">
+            Pole nie może pozostać puste.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Data ślubu</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="weddingDate" placeholder="Wybierz datę" />
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="form.get('weddingDate').hasError('required')">
+            Pole nie może pozostać puste.
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button class="primary-btn" (click)="onSaveClick(plannerId)">Zapisz</button>
+    <button mat-button (click)="onCancelClick()">Anuluj</button>
+  </div>
+</ng-container>

@@ -32,9 +32,20 @@ namespace WPA.backend.Controllers
         {
             var user = await _userService.GetById(int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)));
 
-            var summary = await _homeSummaryService.GetSummary(user.PlannerId);
+            var summary = await _homeSummaryService.GetSummary(user);
 
             return Ok(summary);
+        }
+
+        [HttpPut("summary")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.Forbidden)]
+        public async Task<IActionResult> Put([FromBody] UpdateWeddingDetailsDto updateWeddingDetailsDto)
+        {
+            await _homeSummaryService.UpdateWeddingDetails(updateWeddingDetailsDto);
+
+            return Ok();
         }
     }
 }

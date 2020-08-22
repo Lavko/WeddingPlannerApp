@@ -8,6 +8,7 @@ export interface HomeSummaryDto {
   ceremonyDate: string;
   ceremonyPlace?: string;
   guestSummary?: GuestSummaryDto;
+  isWeddingDetailsSaved: boolean;
   partnerName?: string;
   userName?: string;
   weddingDate: string;

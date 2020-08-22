@@ -21,6 +21,7 @@ export { HomeSummaryDto } from './models/home-summary-dto';
 export { GuestSummaryDto } from './models/guest-summary-dto';
 export { BudgetSummaryDto } from './models/budget-summary-dto';
 export { CalendarSummaryDto } from './models/calendar-summary-dto';
+export { UpdateWeddingDetailsDto } from './models/update-wedding-details-dto';
 export { ServiceProviderDto } from './models/service-provider-dto';
 export { CreateServiceProviderDto } from './models/create-service-provider-dto';
 export { UpdateServiceProviderDto } from './models/update-service-provider-dto';

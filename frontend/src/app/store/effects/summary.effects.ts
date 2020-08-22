@@ -2,10 +2,17 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
-import { catchError, map, mergeMap } from 'rxjs/operators';
+import { catchError, concatMapTo, map, mergeMap } from 'rxjs/operators';
 import { HomeService } from 'src/app/api/services';
 import { AppState } from 'src/app/store/state/app.state';
-import { getSummaryAction, getSummaryFailureAction, getSummarySuccessAction } from './../actions/summaryActions';
+import {
+  getSummaryAction,
+  getSummaryFailureAction,
+  getSummarySuccessAction,
+  saveWeddingDetailsAction,
+  saveWeddingDetailsFailureAction,
+  saveWeddingDetailsSuccessAction,
+} from './../actions/summaryActions';
 
 @Injectable()
 export class SummaryEffects {
@@ -18,6 +25,17 @@ export class SummaryEffects {
       return this.summaryService.HomeGet().pipe(
         map((summary) => getSummarySuccessAction({ summary })),
         catchError((error) => of(getSummaryFailureAction({ error })))
+      );
+    })
+  );
+
+  @Effect()
+  saveWeddingDetails$ = this.actions$.pipe(
+    ofType(saveWeddingDetailsAction),
+    mergeMap((action) => {
+      return this.summaryService.HomePut(action.updateWeddingDetailsDto).pipe(
+        concatMapTo([saveWeddingDetailsSuccessAction(), getSummaryAction()]),
+        catchError((error) => of(saveWeddingDetailsFailureAction({ error })))
       );
     })
   );

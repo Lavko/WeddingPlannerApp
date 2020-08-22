@@ -1,7 +1,8 @@
 /* tslint:disable */
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { ModuleWithProviders, NgModule } from '@angular/core';
 import { ApiConfiguration, ApiConfigurationInterface } from './api-configuration';
+
 import { BudgetService } from './services/budget.service';
 import { EventService } from './services/event.service';
 import { GuestService } from './services/guest.service';
@@ -13,8 +14,12 @@ import { UsersService } from './services/users.service';
  * Provider for all Api services, plus ApiConfiguration
  */
 @NgModule({
-  imports: [HttpClientModule],
-  exports: [HttpClientModule],
+  imports: [
+    HttpClientModule
+  ],
+  exports: [
+    HttpClientModule
+  ],
   declarations: [],
   providers: [
     ApiConfiguration,
@@ -23,7 +28,7 @@ import { UsersService } from './services/users.service';
     GuestService,
     HomeService,
     ServiceProviderService,
-    UsersService,
+    UsersService
   ],
 })
 export class ApiModule {
@@ -33,9 +38,9 @@ export class ApiModule {
       providers: [
         {
           provide: ApiConfiguration,
-          useValue: { rootUrl: customParams.rootUrl },
-        },
-      ],
-    };
+          useValue: {rootUrl: customParams.rootUrl}
+        }
+      ]
+    }
   }
 }

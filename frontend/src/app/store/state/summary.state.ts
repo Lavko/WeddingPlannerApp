@@ -5,6 +5,7 @@ import { CalendarSummaryDto } from '../../api/models/calendar-summary-dto';
 import { GuestSummaryDto } from '../../api/models/guest-summary-dto';
 
 export interface SummaryState {
+  userName: string;
   partnerName: string;
   ceremonyPlace: string;
   ceremonyDate: string;
@@ -13,8 +14,10 @@ export interface SummaryState {
   guestsSummary: GuestSummaryDto;
   budgetSummary: BudgetSummaryDto;
   calendarSummary: CalendarSummaryDto;
+  isWeddingDetailsSaved: boolean;
 }
 
+const getUserName = (store: Store<AppState>) => store.select((state) => state.summary.userName);
 const getPartnerName = (store: Store<AppState>) => store.select((state) => state.summary.partnerName);
 const getCeremonyPlace = (store: Store<AppState>) => store.select((state) => state.summary.ceremonyPlace);
 const getCeremonyDate = (store: Store<AppState>) => store.select((state) => state.summary.ceremonyDate);
@@ -23,8 +26,10 @@ const getWeddingDate = (store: Store<AppState>) => store.select((state) => state
 const getGuestSummary = (store: Store<AppState>) => store.select((state) => state.summary.guestsSummary);
 const getBudgetSummary = (store: Store<AppState>) => store.select((state) => state.summary.budgetSummary);
 const getCalendarSummary = (store: Store<AppState>) => store.select((state) => state.summary.calendarSummary);
+const isWeddingDetailsSaved = (store: Store<AppState>) => store.select((state) => state.summary.isWeddingDetailsSaved);
 
 export const summarySelectors = {
+  getUserName,
   getPartnerName,
   getCeremonyPlace,
   getCeremonyDate,
@@ -33,4 +38,5 @@ export const summarySelectors = {
   getGuestSummary,
   getBudgetSummary,
   getCalendarSummary,
+  isWeddingDetailsSaved,
 };

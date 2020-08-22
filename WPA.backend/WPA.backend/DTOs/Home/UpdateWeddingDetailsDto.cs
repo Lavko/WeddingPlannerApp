@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WPA.backend.Entities
+namespace WPA.backend.DTOs.Home
 {
-    public class Planner
+    public class UpdateWeddingDetailsDto
     {
         public int Id { get; set; }
         public string PartnerName { get; set; }
@@ -13,9 +13,5 @@ namespace WPA.backend.Entities
         public string WeddingPlace { get; set; }
         public DateTime CeremonyDate { get; set; }
         public string CeremonyPlace { get; set; }
-        public bool IsWeddingDetailsSaved { get; set; }
-        public virtual IList<Guest> Guests { get; set; }
-        public virtual IList<Expense> Expenses { get; set; }
-        public virtual IList<Income> Incomes { get; set; }
     }
 }

@@ -1,5 +1,5 @@
+import { CreateGuestDto, GuestDto, UpdateGuestDto } from '@core/api/models';
 import { createAction, props } from '@ngrx/store';
-import { CreateGuestDto, GuestDto, UpdateGuestDto } from 'src/app/core/api/models';
 
 export const getGuestsAction = createAction('[Guests List Page] Get guests');
 export const getGuestsSuccessAction = createAction(

@@ -1,5 +1,5 @@
+import { LoginUserDto } from '@core/api/models';
 import { createAction, props } from '@ngrx/store';
-import { LoginUserDto } from 'src/app/core/api/models';
 
 export const loginAction = createAction('[Login Page] Login', props<LoginUserDto>());
 export const loginSuccessAction = createAction('[Auth API] Login success', props<{ token: string }>());

@@ -1,7 +1,7 @@
+import { CreateEventDto } from '@core/api/models/create-event-dto';
+import { UpdateEventDto } from '@core/api/models/update-event-dto';
 import { createAction, props } from '@ngrx/store';
 import { CalendarEvent } from 'angular-calendar';
-import { CreateEventDto } from 'src/app/core/api/models/create-event-dto';
-import { UpdateEventDto } from 'src/app/core/api/models/update-event-dto';
 
 export const getEventsAction = createAction('[Calendar Page] Get events');
 export const getEventsSuccessAction = createAction(

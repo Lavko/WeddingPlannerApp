@@ -1,7 +1,7 @@
 import { JwtHelperService } from '@auth0/angular-jwt';
+import * as AuthActions from '@core/store/actions/auth.actions';
+import { UserState } from '@core/store/state/user.state';
 import { createReducer, on } from '@ngrx/store';
-import * as AuthActions from '../actions/auth.actions';
-import { UserState } from '../state/user.state';
 
 const tokenKey = 'token';
 

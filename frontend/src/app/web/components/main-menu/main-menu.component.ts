@@ -1,7 +1,7 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AuthService } from 'src/app/web/auth/services/auth.service';
+import { AuthService } from 'src/app/core/auth/services/auth.service';
 
 @Component({
   selector: 'app-main-menu',

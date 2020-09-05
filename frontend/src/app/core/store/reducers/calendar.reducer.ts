@@ -1,6 +1,6 @@
+import * as CalendarActions from '@core/store/actions/calendar.actions';
+import { CalendarState } from '@core/store/state/calendar.state';
 import { createReducer, on } from '@ngrx/store';
-import * as CalendarActions from './../actions/calendar.actions';
-import { CalendarState } from './../state/calendar.state';
 
 export const initialCalendarState: CalendarState = {
   events: [],

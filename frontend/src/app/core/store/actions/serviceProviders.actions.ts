@@ -1,6 +1,6 @@
+import { ServiceProviderDto, UpdateServiceProviderDto } from '@core/api/models';
+import { CreateServiceProviderDto } from '@core/api/models/create-service-provider-dto';
 import { createAction, props } from '@ngrx/store';
-import { ServiceProviderDto, UpdateServiceProviderDto } from 'src/app/core/api/models';
-import { CreateServiceProviderDto } from 'src/app/core/api/models/create-service-provider-dto';
 
 export const getServiceProvidersAction = createAction('[Service Providers List Page] Get service providers');
 export const getServiceProvidersSuccessAction = createAction(

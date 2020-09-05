@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
-import { of } from 'rxjs';
-import { catchError, concatMapTo, map, mergeMap } from 'rxjs/operators';
-import { ServiceProviderService } from 'src/app/core/api/services';
+import { ServiceProviderService } from '@core/api/services';
 import {
   deleteServiceProviderAction,
   deleteServiceProviderFailureAction,
@@ -16,7 +13,10 @@ import {
   saveNewServiceProviderAction,
   saveNewServiceProviderFailureAction,
   saveNewServiceProviderSuccessAction,
-} from 'src/app/core/store/actions/serviceProviders.actions';
+} from '@core/store/actions/serviceProviders.actions';
+import { Actions, Effect, ofType } from '@ngrx/effects';
+import { of } from 'rxjs';
+import { catchError, concatMapTo, map, mergeMap } from 'rxjs/operators';
 
 @Injectable()
 export class ServiceProvidersEffects {

@@ -1,6 +1,6 @@
+import * as GuestsActions from '@core/store/actions/guests.actions';
+import { GuestState } from '@core/store/state/guests.state';
 import { createReducer, on } from '@ngrx/store';
-import * as GuestsActions from '../actions/guests.actions';
-import { GuestState } from './../state/guests.state';
 
 export const initialGuestState: GuestState = {
   guests: [],

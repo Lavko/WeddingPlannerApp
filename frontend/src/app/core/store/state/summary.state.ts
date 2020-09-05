@@ -1,8 +1,8 @@
+import { BudgetSummaryDto } from '@core/api/models/budget-summary-dto';
+import { CalendarSummaryDto } from '@core/api/models/calendar-summary-dto';
+import { GuestSummaryDto } from '@core/api/models/guest-summary-dto';
+import { AppState } from '@core/store/state/app.state';
 import { Store } from '@ngrx/store';
-import { BudgetSummaryDto } from 'src/app/core/api/models/budget-summary-dto';
-import { CalendarSummaryDto } from 'src/app/core/api/models/calendar-summary-dto';
-import { GuestSummaryDto } from 'src/app/core/api/models/guest-summary-dto';
-import { AppState } from 'src/app/core/store/state/app.state';
 
 export interface SummaryState {
   userName: string;

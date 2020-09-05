@@ -1,7 +1,10 @@
 {
   "name": "front",
   "nativescript": {
-    "id": "org.nativescript.front"
+    "id": "org.nativescript.front",
+    "tns-android": {
+      "version": "6.5.3"
+    }
   },
   "version": "0.0.0",
   "scripts": {
@@ -35,6 +38,7 @@
     "@auth0/angular-jwt": "^5.0.1",
     "@nativescript/angular": "~10.0.0",
     "@nativescript/core": "rc",
+    "@nativescript/schematics": "^10.0.2",
     "@nativescript/theme": "~2.2.1",
     "@ngrx/effects": "^10.0.0",
     "@ngrx/store": "^10.0.0",
@@ -44,6 +48,8 @@
     "date-fns": "^2.15.0",
     "hammerjs": "^2.0.8",
     "moment": "^2.27.0",
+    "nativescript-ngx-fonticon": "^7.0.0",
+    "nativescript-ripple": "^2.2.1",
     "ng-swagger-gen": "^2.3.0",
     "ngx-take-until-destroy": "^5.4.0",
     "reflect-metadata": "~0.1.12",

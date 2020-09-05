@@ -1,6 +1,6 @@
+import { GuestDto } from '@core/api/models';
+import { AppState } from '@core/store/state/app.state';
 import { Store } from '@ngrx/store';
-import { GuestDto } from 'src/app/core/api/models';
-import { AppState } from 'src/app/core/store/state/app.state';
 
 export interface GuestState {
   guests: GuestDto[];

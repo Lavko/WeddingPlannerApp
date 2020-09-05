@@ -20,13 +20,10 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { GuestSidePipe } from 'src/app/core/shared/pipes/guest-side.pipe';
-import { GuestStatusPipe } from 'src/app/core/shared/pipes/guest-status.pipe';
-import { ServiceTypePipe } from 'src/app/core/shared/pipes/service-type.pipe';
-import { AuthGuard } from './../auth/guards/auth-guard';
-import { TokenInterceptor } from './../auth/interceptors/token.interceptor';
+import { AuthGuard } from 'src/app/core/auth/guards/auth-guard';
+import { TokenInterceptor } from 'src/app/core/auth/interceptors/token.interceptor';
+import { CommonLibsModule } from './../../core/shared/common-libs.module';
 @NgModule({
-  declarations: [GuestStatusPipe, GuestSidePipe, ServiceTypePipe],
   imports: [
     FormsModule,
     ReactiveFormsModule,
@@ -51,6 +48,7 @@ import { TokenInterceptor } from './../auth/interceptors/token.interceptor';
     MatDatepickerModule,
     MatNativeDateModule,
     MatRippleModule,
+    CommonLibsModule,
   ],
   exports: [
     FormsModule,
@@ -64,8 +62,6 @@ import { TokenInterceptor } from './../auth/interceptors/token.interceptor';
     FlexLayoutModule,
     MatButtonModule,
     MatTableModule,
-    GuestSidePipe,
-    GuestStatusPipe,
     MatCheckboxModule,
     MatSelectModule,
     MatDialogModule,
@@ -73,12 +69,12 @@ import { TokenInterceptor } from './../auth/interceptors/token.interceptor';
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
-    ServiceTypePipe,
     MatMenuModule,
     MatProgressSpinnerModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatRippleModule,
+    CommonLibsModule,
   ],
   providers: [
     {

@@ -112,7 +112,6 @@ namespace WPA.backend
                 app.UseHsts();
                 app.UseHttpsRedirection();
             }
-
             app.UseCors(x => x
                 .AllowAnyOrigin()
                 .AllowAnyMethod()

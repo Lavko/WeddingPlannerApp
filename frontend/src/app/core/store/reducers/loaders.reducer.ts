@@ -1,6 +1,6 @@
+import * as LoadersActions from '@core/store/actions/loaders.actions';
+import { LoaderState } from '@core/store/state/loader.state';
 import { createReducer, on } from '@ngrx/store';
-import * as LoadersActions from './../actions/loaders.actions';
-import { LoaderState } from './../state/loader.state';
 
 export const initialLoadersState: LoaderState = {
   loaders: {},

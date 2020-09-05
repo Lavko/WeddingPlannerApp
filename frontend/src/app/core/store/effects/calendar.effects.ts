@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
+import { EventService } from '@core/api/services';
+import * as CalendarActions from '@core/store/actions/calendar.actions';
+import { mapEventsToCalendarEvents } from '@core/store/mappers/event.mapper';
+import { AppState } from '@core/store/state/app.state';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { catchError, concatMapTo, map, mergeMap } from 'rxjs/operators';
-import { EventService } from 'src/app/core/api/services';
-import { AppState } from 'src/app/core/store/state/app.state';
-import * as CalendarActions from './../actions/calendar.actions';
-import { mapEventsToCalendarEvents } from './../mappers/event.mapper';
 
 @Injectable()
 export class CalendarEffects {

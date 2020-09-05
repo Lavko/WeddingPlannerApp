@@ -1,6 +1,6 @@
+import * as ServiceProvidersActions from '@core/store/actions/serviceProviders.actions';
+import { ServiceProvidersState } from '@core/store/state/serviceProviders.state';
 import { createReducer, on } from '@ngrx/store';
-import * as ServiceProvidersActions from '../actions/serviceProviders.actions';
-import { ServiceProvidersState } from './../state/serviceProviders.state';
 
 export const initialServiceProvidersState: ServiceProvidersState = {
   serviceProviders: [],

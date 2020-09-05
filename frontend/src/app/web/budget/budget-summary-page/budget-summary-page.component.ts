@@ -5,7 +5,6 @@ import { BudgetDto } from 'src/app/core/api/models';
 import { getBudgetSummaryAction } from 'src/app/core/store/actions/budget.actions';
 import { getServiceProvidersAction } from 'src/app/core/store/actions/serviceProviders.actions';
 import { AppState } from 'src/app/core/store/state/app.state';
-import { budgetSelectors } from 'src/app/core/store/state/budget.state';
 
 @Component({
   selector: 'app-budget-summary-page',
@@ -20,6 +19,5 @@ export class BudgetSummaryPageComponent implements OnInit {
   ngOnInit() {
     this.store.dispatch(getBudgetSummaryAction());
     this.store.dispatch(getServiceProvidersAction());
-    this.budget = budgetSelectors.getBudgetSummary(this.store);
   }
 }

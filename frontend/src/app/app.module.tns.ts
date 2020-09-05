@@ -1,16 +1,39 @@
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
-import { NativeScriptModule } from '@nativescript/angular';
-import { AppRoutingModule } from '@src/app/web/app-routing.module';
-import { AppComponent } from '@src/app/web/app.component';
-
-// Uncomment and add to NgModule imports if you need to use two-way binding and/or HTTP wrapper
-// import { NativeScriptFormsModule, NativeScriptHttpClientModule } from '@nativescript/angular';
+import { AuthEffects } from '@core/store/effects/auth.effects';
+import { BudgetEffects } from '@core/store/effects/budget.effects';
+import { CalendarEffects } from '@core/store/effects/calendar.effects';
+import { GuestsEffects } from '@core/store/effects/guests.effects';
+import { ServiceProvidersEffects } from '@core/store/effects/serviceProviders.effects';
+import { SummaryEffects } from '@core/store/effects/summary.effects';
+import { reducers } from '@core/store/reducers';
+import { NativeScriptHttpClientModule, NativeScriptModule } from '@nativescript/angular';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { AppRoutingModule } from './app-routing.module.tns';
+import { AppComponent } from './app.component.tns';
+import { SharedModule } from './mobile/shared/shared.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [NativeScriptModule, AppRoutingModule],
+  imports: [
+    NativeScriptModule,
+    NativeScriptHttpClientModule,
+    AppRoutingModule,
+    SharedModule,
+    StoreModule.forRoot(reducers),
+    EffectsModule.forRoot([
+      AuthEffects,
+      GuestsEffects,
+      BudgetEffects,
+      ServiceProvidersEffects,
+      CalendarEffects,
+      SummaryEffects,
+    ]),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: false }),
+  ],
   providers: [],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA],
 })
-export class AppModule {}
+export class AppMobileModule {}

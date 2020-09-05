@@ -1,0 +1,42 @@
+<app-action-bar></app-action-bar>
+
+<StackLayout orientation="vertical" width="100%" height="100%">
+  <StackLayout orientation="vertical" width="100%" height="20%">
+    <FlexboxLayout flexDirection="column" alignItems="center" justifyContent="center" height="100%">
+      <Label text="10.10.2020 16:15" class="wedding-title"></Label>
+      <Label text="Mariola i Michał" class="wedding-subtitle"></Label>
+    </FlexboxLayout>
+  </StackLayout>
+  <StackLayout orientation="vertical" width="100%" height="20%">
+    <Button
+      [text]="iconService.getIcon(IconsEnum.Calendar)"
+      class="ico tile_ico tile-button tile-button-odd"
+      [nsRouterLink]="['/calendar']"
+      pageTransition="fade"
+    ></Button
+  ></StackLayout>
+  <StackLayout orientation="vertical" width="100%" height="20%">
+    <Button
+      [text]="iconService.getIcon(IconsEnum.Guests)"
+      class="ico tile_ico tile-button tile-button-even"
+      [nsRouterLink]="['/guests']"
+      pageTransition="fade"
+    ></Button
+  ></StackLayout>
+  <StackLayout orientation="vertical" width="100%" height="20%">
+    <Button
+      [text]="iconService.getIcon(IconsEnum.Budget)"
+      class="ico tile_ico tile-button tile-button-odd"
+      [nsRouterLink]="['/budget']"
+      pageTransition="fade"
+    ></Button
+  ></StackLayout>
+  <StackLayout orientation="vertical" width="100%" height="20%">
+    <Button
+      [text]="iconService.getIcon(IconsEnum.Providers)"
+      class="ico tile_ico tile-button tile-button-even"
+      [nsRouterLink]="['/providers']"
+      pageTransition="fade"
+    ></Button
+  ></StackLayout>
+</StackLayout>

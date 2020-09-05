@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoginUserDto } from '@core/api/models';
+import { loginAction, logoutAction } from '@core/store/actions/auth.actions';
+import { AppState } from '@core/store/state/app.state';
+import { userSelectors } from '@core/store/state/user.state';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { LoginUserDto } from 'src/app/core/api/models';
-import { loginAction, logoutAction } from 'src/app/core/store/actions/auth.actions';
-import { AppState } from 'src/app/core/store/state/app.state';
-import { userSelectors } from 'src/app/core/store/state/user.state';
 
 @Injectable({
   providedIn: 'root',

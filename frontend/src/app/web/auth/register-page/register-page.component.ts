@@ -3,8 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { UsersService } from 'src/app/core/api/services';
+import { AuthService } from 'src/app/core/auth/services/auth.service';
 import { ValidateForm } from 'src/app/core/shared/helpers/form.helpers';
-import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-register-page',

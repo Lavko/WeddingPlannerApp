@@ -1,6 +1,6 @@
+import { HomeSummaryDto } from '@core/api/models/home-summary-dto';
+import { UpdateWeddingDetailsDto } from '@core/api/models/update-wedding-details-dto';
 import { createAction, props } from '@ngrx/store';
-import { HomeSummaryDto } from 'src/app/core/api/models/home-summary-dto';
-import { UpdateWeddingDetailsDto } from 'src/app/core/api/models/update-wedding-details-dto';
 
 export const getSummaryAction = createAction('[Home Page] Get summary');
 export const getSummarySuccessAction = createAction(

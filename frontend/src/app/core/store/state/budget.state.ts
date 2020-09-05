@@ -1,7 +1,7 @@
+import { BudgetDto, ExpenseDto } from '@core/api/models';
+import { IncomeDto } from '@core/api/models/income-dto';
+import { AppState } from '@core/store/state/app.state';
 import { Store } from '@ngrx/store';
-import { BudgetDto, ExpenseDto } from 'src/app/core/api/models';
-import { IncomeDto } from 'src/app/core/api/models/income-dto';
-import { AppState } from 'src/app/core/store/state/app.state';
 
 export interface BudgetState {
   budgetSummary: BudgetDto;

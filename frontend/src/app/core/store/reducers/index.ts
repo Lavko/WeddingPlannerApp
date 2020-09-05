@@ -1,5 +1,5 @@
+import { AppState } from '@core/store//state/app.state';
 import { ActionReducerMap } from '@ngrx/store';
-import { AppState } from '../state/app.state';
 import { authReducer, initialAuthState } from './auth.reducer';
 import { budgetReducer, initialBudgetState } from './budget.reducer';
 import { calendarReducer, initialCalendarState } from './calendar.reducer';

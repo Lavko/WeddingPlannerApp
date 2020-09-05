@@ -1,6 +1,6 @@
+import { EventColor } from '@core/api/models/event-color';
+import { EventDto } from '@core/api/models/event-dto';
 import { CalendarEvent } from 'angular-calendar';
-import { EventColor } from 'src/app/core/api/models/event-color';
-import { EventDto } from 'src/app/core/api/models/event-dto';
 
 export const mapEventsToCalendarEvents = (events: EventDto[]): CalendarEvent<{ event: EventDto }>[] => {
   return events.map((event) => {

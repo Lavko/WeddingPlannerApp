@@ -1,16 +1,6 @@
+import * as SummaryActions from '@core/store/actions/summaryActions';
+import { SummaryState } from '@core/store/state/summary.state';
 import { createReducer, on } from '@ngrx/store';
-import * as SummaryActions from './../actions/summaryActions';
-import { SummaryState } from './../state/summary.state';
-
-const isWeddingDetailsSavedKey = 'isWeddingDetailsSaved';
-
-const checkWeddingDetailsFromCookies = (): boolean => {
-  const isWeddingDetailsSaved = localStorage.getItem(isWeddingDetailsSavedKey);
-  if (isWeddingDetailsSaved) {
-    return JSON.parse(isWeddingDetailsSaved);
-  }
-  return false;
-};
 
 export const initialSummaryState: SummaryState = {
   userName: '',

@@ -13,8 +13,7 @@
     "skipLibCheck": true,
     "lib": ["es2017", "dom", "es6"],
     "baseUrl": ".",
-    "paths": {
-      "@src/*": ["src/*.android.ts", "src/*.ios.ts", "src/*.tns.ts", "src/*.web.ts", "src/*.ts"]
-    }
-  }
+    "paths": { "@core/*": ["src/app/core/*"], "@web/*": ["src/app/web/*"], "@mobile/*": ["src/app/mobile/*"] }
+  },
+  "include": ["src/**/*.ts", "src/*"]
 }

@@ -1,6 +1,6 @@
+import * as BudgetActions from '@core/store/actions/budget.actions';
+import { BudgetState } from '@core/store/state/budget.state';
 import { createReducer, on } from '@ngrx/store';
-import * as BudgetActions from '../actions/budget.actions';
-import { BudgetState } from './../state/budget.state';
 
 export const initialBudgetState: BudgetState = {
   budgetSummary: null,

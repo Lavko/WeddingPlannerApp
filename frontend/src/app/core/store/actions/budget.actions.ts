@@ -1,9 +1,9 @@
+import { BudgetDto } from '@core/api/models';
+import { CreateExpenseDto } from '@core/api/models/create-expense-dto';
+import { CreateIncomeDto } from '@core/api/models/create-income-dto';
+import { UpdateExpenseDto } from '@core/api/models/update-expense-dto';
+import { UpdateIncomeDto } from '@core/api/models/update-income-dto';
 import { createAction, props } from '@ngrx/store';
-import { BudgetDto } from 'src/app/core/api/models';
-import { CreateExpenseDto } from 'src/app/core/api/models/create-expense-dto';
-import { CreateIncomeDto } from 'src/app/core/api/models/create-income-dto';
-import { UpdateExpenseDto } from 'src/app/core/api/models/update-expense-dto';
-import { UpdateIncomeDto } from 'src/app/core/api/models/update-income-dto';
 
 export const getBudgetSummaryAction = createAction('[Budget Page] Get budget summary');
 export const getBudgetSummarySuccessAction = createAction(

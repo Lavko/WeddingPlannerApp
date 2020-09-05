@@ -5,15 +5,8 @@
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "skipLibCheck": true,
-    "baseUrl": ".",
-    "paths": {
-      "@src/*": [
-        "src/*.tns.ts",
-        "src/*.ts"
-      ]
-    }
+    "baseUrl": "."
   },
-  "files": [
-    "src/main.tns.ts"
-  ]
+  "include": ["src/**/*.ts", "src/app/mobile/*.ts"],
+  "exclude": ["src/app/web/*"]
 }

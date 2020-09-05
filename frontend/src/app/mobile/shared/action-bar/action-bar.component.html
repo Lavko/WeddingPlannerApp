@@ -1,0 +1,9 @@
+<ActionBar class="action-bar" backgroundColor="#a4e6f4">
+  <NavigationButton
+    *ngIf="canGoBack"
+    text="Wstecz"
+    icon="res://baseline_arrow_back_ios_white_24"
+    (tap)="goBack()"
+  ></NavigationButton>
+  <label text="Wedding Planner" class="action-bar-title"></label>
+</ActionBar>

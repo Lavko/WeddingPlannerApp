@@ -1,5 +1,5 @@
+import { AppState } from '@core/store/state/app.state';
 import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/core/store/state/app.state';
 
 export interface LoaderState {
   loaders: {};

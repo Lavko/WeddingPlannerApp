@@ -1,7 +1,7 @@
+import { EventDto } from '@core/api/models/event-dto';
+import { AppState } from '@core/store/state/app.state';
 import { Store } from '@ngrx/store';
 import { CalendarEvent } from 'angular-calendar';
-import { EventDto } from 'src/app/core/api/models/event-dto';
-import { AppState } from 'src/app/core/store/state/app.state';
 
 export interface CalendarState {
   events: CalendarEvent<{ event: EventDto }>[];
